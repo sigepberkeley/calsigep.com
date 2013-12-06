@@ -47,12 +47,34 @@
 		"autoDoc": true,
 		"autoDocUrl": "help"
 	},
-	"email":{
-		"from": "Admin <admin@sigep.com>",
-		"transport":{
-			"sendmail":{
-			}
+	"test_coverage":{
+		"jasmine_node":{
+			"failTask": true,
+			"branches": 40,
+			"functions": 60,
+			"statements": 60,
+			"lines": 60
+		},
+		"angular_karma":{
+			"branches": 10,
+			"functions": 30,
+			"statements": 30,
+			"lines": 30
 		}
+	},
+	"ci":{
+		"server": {
+			"port": 3009,
+			"portCiServer": 3010
+		},
+		"emails_failed":[
+		]
+	},
+	"email":{
+		"from": "admin@sigep.com",
+		"from_name": "Admin",
+		"mandrillApiKey": "8X-1bNRWtA4rbneppkqahw",
+		"mandrillApiKeyComment":"Make sure to CHANGE this!"
 	},
 	"sms":{
 	},
