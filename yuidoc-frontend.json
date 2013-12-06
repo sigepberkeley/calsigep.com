@@ -1,0 +1,11 @@
+{
+	"name": "sigep",
+    "description": "SigEp UC Berkeley",
+    "version": "0.0.0",
+    "url": "https://github.com/sigepberkeley/sigep",
+    "options": {
+        "paths": "./app/src/",
+        "outdir": "yuidocs/frontend",
+        "exclude": "bower_components,build,deploys,test"
+    }
+}

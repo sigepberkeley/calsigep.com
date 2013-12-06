@@ -1,0 +1,11 @@
+{
+    "name": "sigep",
+    "description": "SigEp UC Berkeley",
+    "version": "0.0.0",
+    "url": "https://github.com/sigepberkeley/sigep",
+    "options": {
+        "paths": ".",
+        "outdir": "yuidocs/backend",
+        "exclude": "node_modules,public,src"
+    }
+}
