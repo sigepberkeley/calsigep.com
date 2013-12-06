@@ -42,6 +42,66 @@
 			"facebook":{
 				"token":"{String}"
 			}
+		},
+		"challenge_goal": [
+			{
+				"_id":"{String} sdfeaf234d",
+				"challenge_goal_id":"{String}",
+				"date_started":"{String} YYYY-MM-DD HH:mm:ssZ",
+				"date_deadline":"{String} YYYY-MM-DD HH:mm:ssZ",
+				"date_completed":"{String} YYYY-MM-DD HH:mm:ssZ",
+				"completed_approved_user_id":"{String} The user id of the user who approved that this challenge goal is complete.",
+				"milestone":[
+					{
+						"date":"{String} YYYY-MM-DD HH:mm:ssZ",
+						"value":"{Mixed} Current value / progress for this goal - value depends on the type of goal",
+						"description":"{String} The details/proof of completion of this milestone"
+					}
+				]
+			}
+		],
+		"challenge":[
+			{
+				"_id":"{String} sdfeaf234d",
+				"name":"{String} One of: 'sigma', 'phi', 'epsilon', 'brother_mentor', 'fellow', etc.",
+				"date_started":"{String} YYYY-MM-DD HH:mm:ssZ",
+				"date_deadline":"{String} YYYY-MM-DD HH:mm:ssZ",
+				"date_completed":"{String} YYYY-MM-DD HH:mm:ssZ"
+			}
+		]
+	},
+	"challenge_goal":{
+		"_id":"{ObjectId} ObjectId('123l4k234l')",
+		"challenge_name":[
+			{
+				"_id":"{String} sdfeaf234d",
+				"name":"{String} Should/must match what is set in the user.challenges.name field. A challenge_goal can potentially be part of multiple challenges - this allows for hybrid / modified challenges if need be. i.e. 'sigma'",
+				"date_last_active":"{String} YYYY-MM-DD HH:mm:ssZ OR undefined / not-exists for the current version. This is so can raise the standards with time but still see a copy of older 'versions' of the same challenge. I.e. the 'current' Epsilon goals will have this field blank and to 'retire' the current Epsilon goals to change them, the current ones would be cloned and the existing ones would get the current/last active date filled in.",
+				"group":"{String} OPTIONAL. Used to group goals together for setting minimum points per group to ensure balance when earning points. I.e. 'leg_strength'",
+				"goal_value":"{Number} DEFAULT 1. The target value to earn for this goal, i.e. 15",
+				"min_value":"{Number} OPTIONAL. DEFAULT 0. The minimum value required to earn for this goal; this value is where points starts at 0 (we do not need a min_points key since we assume min_points is always 0). i.e. 10",
+				"max_value":"{Number} OPTIONAL. The maximum value that will be counted toward points (will be awarded max_points if set). Points will be awarded on a linear scale between goal_value and max_value for the difference of max_points minus points. For example, achieving a 3.8 GPA with a goal_value of 3.1, max_value of 4.0, points of 10 and max_points of 20 would earn (20-10)/(4.0-3.1)*(3.9-3.1) =7.78 extra points, (10+7.78) = 17.78 total points for this goal. I.e. 20",
+				"max_points":"{Number} OPTIONAL. DEFAULT to the (max_value/goal_value * points). The maximum points that can be earned for this goal if achieve the max_value, i.e. 10"
+			}
+		],
+		"title":"{String} i.e. 'Epsilon Interviews'",
+		"points":"{Number} The number of points awarded for completing this goal (achieving the goal_value). Partial points could theoretically be supported/awarded if the goal is partially complete.",
+		"description":"{String} OPTIONAL. i.e. 'Interview/meet with at least 90% of Epsilons. Ask them: 1. why they joined SigEp, 2. favorite SigEp experience/memory, 3. 1 thing they would like to see from the Sigma class / chapter this semester. Note, can be up to 4 people per meeting (i.e. 2 sigmas & 2 epsilons), does not all have to be individual meetings (though those are preferred)'",
+		"tags":"{Array} OPTIONAL. i.e. ['brotherhood', 'sound_body']"
+	},
+	"challenge":[
+		{
+			"_id":"{String} sdfeaf234d",
+			"name":"{String} One of: 'sigma', 'phi', 'epsilon', 'brother_mentor', 'fellow', etc.",
+			"max_duration":"{Number} Number of days from start date after which user fails the challenge / is kicked out",
+			"group":[
+				{
+					"_id":"{String} sdfeaf234d",
+					"name":"{String} Should match challenge_goal.challenge_name.group",
+					"min_points":"{Number} The minimum number of points that must be earned in this group. I.e. 5"
+				}
+			],
+			"min_points":"{Number} The minimum number of points required to complete this challenge"
 		}
-	}
+	]
 }

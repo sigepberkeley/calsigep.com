@@ -37,6 +37,7 @@ var AuthApi = require(pathPart+'auth/auth.api.js');
 var UserApi = require(pathPart+'user/user.api.js');
 var FollowApi = require(pathPart+'follow/follow.api.js');
 //site-specific - require other api files here
+var ChallengeGoalApi = require(pathPart+'challengeGoal/challengeGoal.api.js');
 
 
 
@@ -63,6 +64,9 @@ module.exports = function(cfg, server, db){
 		db: db
 	});
 	//site-specific - load other api's here
+	var challengeGoalApi = new ChallengeGoalApi({
+		db: db
+	});
 
 	
 	// set up auth middleware
@@ -99,8 +103,14 @@ module.exports = function(cfg, server, db){
 				follow: followApi
 			},
 			middleware: []
-		}
+		},
 		//site-specific - setup other controllers/api's here
+		challengeGoal: {
+			modules: {
+				user: challengeGoalApi
+			},
+			middleware: []
+		}
 	};
 
 	

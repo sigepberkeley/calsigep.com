@@ -1,0 +1,926 @@
+[
+	{
+		"challenge_name":[
+			{
+				"name":"sigma"
+			}
+		],
+		"title":"Brotherhood events",
+		"description":"Run your share of the (Monday Meeting) 8-12 weekly fun events/competitions with your Sigma class",
+		"tags":["brotherhood","leadership"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"sigma"
+			}
+		],
+		"title":"Epsilon Interviews",
+		"description":"Interview/meet with at least 90% of Epsilons. Ask them: 1. why they joined SigEp, 2. favorite SigEp experience/memory, 3. 1 thing they would like to see from the Sigma class / chapter this semester. Note, can be up to 4 people per meeting (i.e. 2 sigmas & 2 epsilons), does not all have to be individual meetings (though those are preferred)",
+		"tags":["brotherhood"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"sigma"
+			}
+		],
+		"title":"10 PNMs",
+		"description":"Meet & introduce at least 10 new (male) friends/PNMs to other Sigmas/Phis (i.e. bring to study hours, lunches)",
+		"tags":["recruitment"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"sigma"
+			}
+		],
+		"title":">=66% event attendance",
+		"description":"Event participation - attend 2/3 SB, 2/3 SM, 2/3 service, 2/3 social events",
+		"tags":["brotherhood","involvement"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"sigma"
+			}
+		],
+		"title":"Sigma Sorority Serenades",
+		"description":"Sing to sororities with your Sigma Brothers",
+		"tags":["social"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"sigma"
+			}
+		],
+		"title":"3.1 semester GPA",
+		"description":"",
+		"tags":["sound_mind","academics"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"sigma"
+			}
+		],
+		"title":"Meet a professor",
+		"description":"Introduce yourself to at least one professor, discuss your performance in the class, establish a relationship",
+		"tags":["sound_mind","academics","social"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"sigma"
+			}
+		],
+		"title":"10+ Sigma homeworks",
+		"description":"Complete at least 10 Sigma homework assignments across 2 modules"
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"sigma"
+			}
+		],
+		"title":"10+ Sigma attendance",
+		"description":"Attend at least 10 Sigma module classes"
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"sigma"
+			}
+		],
+		"title":"6+ Sigma punctuality",
+		"description":"Be on time/early to at least 6 Sigma module classes"
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"sigma"
+			}
+		],
+		"title":"Pass Sigma Quiz",
+		"description":""
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"sigma"
+			}
+		],
+		"title":"Values 'caught'",
+		"description":"Earn 1 positive and receive no more than 2 negative 'values catchings' (2 negatives = automatic fail and potentially kicked out of chapter)",
+		"tags":["values"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"Dinner captain",
+		"description":"Do your share of the 12ish Monday meeting dinners per semester that are split among the Phi class",
+		"tags":["leadership"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"2 PNM Intros",
+		"description":"Introduce 2+ PNMs to other Phis/Sigmas",
+		"tags":["recruitment"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"8 PNM Meetings",
+		"description":"Meet with 8+ PNMs (that the Sigmas/other brothers introduce to you - basically just hang out with Sigmas and their PNMs)",
+		"tags":["recruitment"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":">=50% event attendance",
+		"description":"Event participation - attend 1/2 SB, 1/2 SM, 1/2 Com. Service, 1/2 social events",
+		"tags":["involvement","social"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"Lead (development) events",
+		"description":"Do your share of successfully leading/throwing 8-16 Phi events led each semester (2-4 each of Sound Body, Sound Mind, Service, Social). Phis are broken into teams of 3 and for each event, 1 person each is in charge of: 1. logistics/planning, 2. attendance, 3. feedback/follow up (values + fun ratings). A 'successful event' must have at least 50% attendance and earn at least a 7 on values and 7 on fun based on ratings by at least 33% of the attendees.",
+		"tags":["leadership","values"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"Bench press",
+		"group":"phi_chest_strength",
+		"group_minimum":1,
+		"description":"Bench press your body weight",
+		"tags":["sound_body"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"Push-ups",
+		"group":"phi_chest_strength",
+		"group_minimum":1,
+		"description":"Do 25 consecutive 3 second push-ups (3 seconds down, 1 second up)",
+		"tags":["sound_body"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"Leg press",
+		"group":"phi_leg_strength",
+		"group_minimum":1,
+		"description":"Leg press 1.5x your body weight",
+		"tags":["sound_body"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"Pistol squats",
+		"group":"phi_leg_strength",
+		"group_minimum":1,
+		"description":"Do 5 consecutive 'half pistol squats' - one legged squats to 90 degrees (parallel to the ground)",
+		"tags":["sound_body"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"8:00 mile",
+		"description":"",
+		"tags":["sound_body"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"2 Group X classes",
+		"group":"phi_fitness_exploration",
+		"group_minimum":1,
+		"description":"Take 2 different classes (i.e. Group X classes at the RSF) on new forms of fitness / body movement - i.e. yoga, pilates, crossfit, parkour, gymnastics",
+		"tags":["sound_body"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"Physical exam",
+		"group":"phi_fitness_exploration",
+		"group_minimum":1,
+		"description":"Get measured on your blood pressure, body fat, heart rate, cholesterol, blood trackers, etc. (i.e. http://insidetracker.com )",
+		"tags":["sound_body"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"$100 Philanthropy",
+		"description":"Raise $100 for philanthropy (raising for SigEp group philanthropy events such as Pedal for Life counts toward this total)",
+		"tags":["service"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"Sober / values brother",
+		"description":"Be a sober / upholder of high values standards at a SigEp event (typically social events such as parties or exchanges where values can be more easily compromised by brothers OR guests)",
+		"tags":["values"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"3.15 semester GPA",
+		"description":"",
+		"tags":["sound_mind","academics"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"Pass Epsilon Interview",
+		"description":""
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"10+ Phi homeworks",
+		"description":"Complete at least 10 Phi homework assignments across 2 modules"
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"10+ Phi attendance",
+		"description":"Attend at least 10 Phi module classes"
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"6+ Phi punctuality",
+		"description":"Be on time/early to at least 6 Phi module classes"
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"Sigma performance review",
+		"description":"Hold Sigma values performance review with the Phi class",
+		"tags":["leadership","values"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"Vision/values chapter presentation",
+		"description":"Do presentation on chapter vision and values with your Phi class",
+		"tags":["leadership","social","values"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"Sigma Mentoring",
+		"description":"mentoring - ensure your mentee(s) completes Sigma (mid-way review to see if you're both on track and final review to debrief) OR mentor/lead a development module (numbers wise there may be more Phis than Sigmas, in which case Phis who do not have Sigma mentees will mentor the Sigma Challenge itself as a group/leaders)",
+		"tags":["mentoring","leadership","brotherhood"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"phi"
+			}
+		],
+		"title":"Values 'caught'",
+		"description":"Earn 2 positives and receive no more than 2 negative 'values catchings' (2 negatives = automatic fail and potentially kicked out of chapter)",
+		"tags":["values"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Student club",
+		"description":"Be an active member in at least 1 other Cal student organization/group",
+		"tags":["social"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"5 handstand pushups",
+		"description":"",
+		"tags":["sound_body"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"5 pull ups",
+		"description":"Do 5 dead hang (no kipping or momentum) pull-ups",
+		"tags":["sound_body"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"5 pistol squats",
+		"description":"Do 5 one-legged, full (to 1 inch from the ground but NOT touching the ground) pistol squats",
+		"tags":["sound_body"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"7:00 mile",
+		"description":"",
+		"tags":["sound_body"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Date night",
+		"description":"Work with other Epsilons to cook and host an etiquette dinner with dates",
+		"tags":["social"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Recruit faculty member",
+		"group":"epsilon_optional",
+		"group_minimum":4,
+		"description":"recruit a professor or faculty member to help with a SigEp event or program (or be a mentor)",
+		"tags":["social","chapter_vision"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"IM sports",
+		"group":"epsilon_optional",
+		"group_minimum":4,
+		"description":"particpate on at least 1 SigEp IM team",
+		"tags":["sound_body","involvement","brotherhood"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Committee or exec position",
+		"group":"epsilon_optional",
+		"group_minimum":4,
+		"description":"",
+		"tags":["leadership"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Personal fear / weakness",
+		"group":"epsilon_optional",
+		"group_minimum":4,
+		"description":"face personal fear / weakness (personally set self-development goal)",
+		"tags":[]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"New skill",
+		"group":"epsilon_optional",
+		"group_minimum":4,
+		"description":"learn new (SM or SB) skill, i.e. martial ats, cooking, salsa dancing, public speaking",
+		"tags":[]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Network with 3 professional contacts",
+		"group":"epsilon_optional",
+		"group_minimum":4,
+		"description":"networking - reach out to 3 professional contacts & set up meetings / talks with them or shadow them",
+		"tags":[]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"3 famous people",
+		"group":"epsilon_optional",
+		"group_minimum":4,
+		"description":"make a list of 3 (living) people you would most like to talk to in the world, develop a plan to contact each and attempt it",
+		"tags":[]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Get STD tested",
+		"group":"epsilon_optional",
+		"group_minimum":4,
+		"description":"",
+		"tags":[]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Dance lessons",
+		"group":"epsilon_optional",
+		"group_minimum":4,
+		"description":"go to a dance lesson or host a dance instructor at the house for brothers + dates/sorority",
+		"tags":[]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"thank you notes",
+		"group":"epsilon_optional",
+		"group_minimum":4,
+		"description":"write 5 thank you notes to people who have helped you over the past year as well as your parents/family",
+		"tags":[]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"politics",
+		"group":"epsilon_optional",
+		"group_minimum":4,
+		"description":"research a topic then vote on it OR attend a local city or college poltical mtg",
+		"tags":[]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"SM & SB Olympics",
+		"group":"epsilon_events_project",
+		"group_minimum":2,
+		"description":"Work with a group of 3-6 Epsilons. Goal / vision: Turn SM & SB Olympics into a 'values weekend' where all the core values are celebrated and members are recognized who excel and/or have shown improvement in more or more of them",
+		"tags":["sound_body","sound_mind","values","leadership"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Pedal for Life",
+		"group":"epsilon_events_project",
+		"group_minimum":2,
+		"description":"Work with a group of 3-6 Epsilons. Goal / vision: Turn Pedal for Life into an annual alumni (and community) event that draws (a) hundred(s) (of) people",
+		"tags":["sound_body","philanthropy","values","leadership"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"House project / cleaning CULTURE",
+		"group":"epsilon_events_project",
+		"group_minimum":2,
+		"description":"Work with a group of 4-10 Epsilons. Goal / vision: Make the SigEp house a place that any mom would be proud of and that is a shining example of our values and the Balanced Man Ideal - clean, great study/academic environment, and fun - THE place any SigEp (or any person on campus) wants to be/hang out",
+		"tags":["values","leadership"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Philanthropy events",
+		"group":"epsilon_events_project",
+		"group_minimum":2,
+		"description":"Work with a group of 2-5 Epsilons to run 1+ Philanthropy events to raise $1000+ (i.e. Halloween Pumpkin Tabling or Valentine's Roses Tabling)",
+		"tags":["philanthropy","leadership"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Alumni events",
+		"group":"epsilon_events_project",
+		"group_minimum":2,
+		"description":"Work with a group of 2-6 Epsilons to run 1-3 alumni events that get 15+ total alumni (typically better in Fall since they can be paired with Football tailgates and in the Spring we already have SM & SB Olympics and PFL which are our 2 biggest alumni events).",
+		"tags":["chapter_vision","leadership"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Alumni contact/relations",
+		"description":"reach out to 3+ alums to get updates on their life (& then ask to put them in the newsletter) and start to get to know them, invite them to SigEp events, and start to build a relationship. Ideally contact people in your career field who you'd like to stay in contact with",
+		"tags":["chapter_vision","career","mentoring"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Self 10-80-10",
+		"description":"Move yourself out of the bottom 10% or into the top 10% for one of the core SigEp values (i.e. take 1 piece of the 'Ideal SigEp' Balanced Man & set & achieve a SMART goal for moving yourself closer to the Balanced Man Ideal)",
+		"tags":["values"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Mentee 10-80-10",
+		"description":"Help move your mentee out of the bottom 10% or into the top 10% for one of the core SigEp values",
+		"tags":["values","mentoring"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"5+ PNMs to SigEp",
+		"description":"introduce at least 5 PNMs to SigEp (that Sigmas/Phis introduce to you - basically hang out with Sigmas/Phis and their PNMs and invite 5 tops ones to SigEp events - Monday meetings, Sound Body events, etc.)",
+		"tags":["recruitment"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Sigma/Phi Mentoring",
+		"description":"mentor a younger member (Sigma or Phi) and ensure he succeeds in his Challenge (mid-way review to see if you're both on track and final review to debrief) OR mentor/lead a development module (numbers wise there may be more mentors than Phis and Sigmas, in which case Epsilons who do not have mentees will mentor the Sigma/Phi Challenges themselves as a group/leaders)",
+		"tags":["mentoring"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"take 1 (elective) module",
+		"description":"Epsilon begins the branching out to specific interests; you take the last required module and now transition into taking custom modules",
+		"tags":[]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":">=33% event attendance",
+		"description":"Event participation - attend 1/3 SB, 1/3 SM, 1/3 service, 1/3 social events",
+		"tags":["brotherhood","involvement"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"3.2 semester GPA",
+		"description":"",
+		"tags":["sound_mind","academics"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Apply to Ruck, Greece",
+		"description":"",
+		"tags":["leadership"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"PFL, raise $150",
+		"description":"Participate (bike) in Pedal for Life and raise $150 for the cause",
+		"tags":["sound_body","philanthropy","brotherhood"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Community Mentor Recruitment Prep",
+		"description":"form 'specific ask' for SigEp alumni/community mentor, make a list of and reach out to at least 3 potential candidates to start building a relationship. You'll choose and formally ask/recruit 1 of them at the start of the Brother Mentor Challenge",
+		"tags":["mentoring"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"epsilon"
+			}
+		],
+		"title":"Values catching",
+		"description":"'I caught ya' game - catch 4 poeple (Sigmas or Phis) positively exemplifying our values. Catch 1 person (Sigma or Phi) who is NOT exemplifying (or going against) our values. For BOTH the positive and negatives, confront (either praise or give constructive criticism) the person and communicate it as such. Transparency, openness, honesty, and immediate feedback are paramount here and this feedback is what ensures we always uphold the values of our organization and push it forward.",
+		"tags":["values"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"Recruit community mentor",
+		"description":"",
+		"tags":["mentoring"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"Alumni involvement",
+		"description":"reach out to 3+ alumni and discuss ways they could get involved with the chapter and/or invite them out to an alumni event. If there are no upcoming alumni events, host one.",
+		"tags":["chapter_vision","social","mentoring"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"AVC Board / Senior Checklist",
+		"description":"attend an AVC mtg and talk to them about staying involved after graduation OR update the senior checklist and ensure 3+ seniors do all items on it prior to graduation",
+		"tags":["chapter_vision"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"SigEp Bucket List",
+		"description":"compile / add to the 'SigEp bucket list' / 'events bank' of all things a student/SigEp should do before graduation",
+		"tags":[]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"Volunteer Recruitment",
+		"group":"brother_mentor_optional",
+		"group_minimum":2,
+		"description":"recruit a volunteer to help the chapter (alumni, faculty, community member)",
+		"tags":["chapter_vision"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"Vision/Values Implementation",
+		"group":"brother_mentor_optional",
+		"group_minimum":2,
+		"description":"take 1 piece of the 5 year vision and set & achieve a SMART goal for making progress toward it",
+		"tags":["chapter_vision"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"Attend Life After College",
+		"group":"brother_mentor_optional",
+		"group_minimum":2,
+		"description":"",
+		"tags":["career"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"Travel for a community service project",
+		"group":"brother_mentor_optional",
+		"group_minimum":2,
+		"description":"",
+		"tags":["service"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"1 SMART goal",
+		"group":"brother_mentor_optional",
+		"group_minimum":2,
+		"description":"Set and achieve 1 (SM or SB) SMART Goal",
+		"tags":[]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"Take a development module",
+		"description":"Take at least one (elective) development module",
+		"tags":[]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"Lead a development module",
+		"description":"create & run a new development module OR lead an existing development module",
+		"tags":["leadership","chapter_vision"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"Epsilon Mentoring",
+		"description":"Mentor an Epsilon",
+		"tags":["mentoring"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":">=33% event attendance",
+		"description":"Event participation - attend 1/3 SB, 1/3 SM, 1/3 service, 1/3 social events",
+		"tags":["brotherhood","involvement"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"3.25 semester GPA",
+		"description":"",
+		"tags":["sound_mind","academics"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"Complete a Triathlon",
+		"group":"brother_mentor_sound_body",
+		"group_minimum":1,
+		"description":"",
+		"tags":["sound_body"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"2 muscle-ups + 15 second flag + 6:30 mile",
+		"group":"brother_mentor_sound_body",
+		"group_minimum":1,
+		"description":"Complete 2 muscle-ups, hold a 'human/ab flag' for 15 seconds, and run a sub 6:30 mile",
+		"tags":["sound_body"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"10 pull-ups + 45 push-ups + 60 squats + 6:00 mile",
+		"group":"brother_mentor_sound_body",
+		"group_minimum":1,
+		"description":"Complete 10 consecutive dead-hang (no kipping) pull-ups, 45 consecutive push-ups, 60 consecutive 90-degree air squats, and run a sub 6:00 mile",
+		"tags":["sound_body"]
+	},
+	{
+		"challenge_name":[
+			{
+				"name":"brother_mentor"
+			}
+		],
+		"title":"50 burpees + 6:00 mile",
+		"group":"brother_mentor_sound_body",
+		"group_minimum":1,
+		"description":"Complete 50 conseutive burpees and run a sub 6:00 mile",
+		"tags":["sound_body"]
+	}
+]

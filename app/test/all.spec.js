@@ -34,6 +34,7 @@ var MongoDBMod =require(pathParts.services+'mongodb/mongodb.js');
 var AuthTests = require(pathParts.modules+'/controllers/auth/auth.test.js');
 var UserTests = require(pathParts.modules+'/controllers/user/user.test.js');
 var FollowTests = require(pathParts.modules+'/controllers/follow/follow.test.js');
+var ChallengeGoalTests = require(pathParts.modules+'/controllers/challengeGoal/challengeGoal.test.js');
 
 //run the server in the TEST environment (this also is required for coverage to work / run on all the files)
 process.argv.push('config=test');		//add test command line argument
@@ -126,6 +127,7 @@ describe('all tests', function() {
 			AuthTests =new AuthTests({db: db, api:api});
 			UserTests =new UserTests({db: db, api:api});
 			FollowTests =new FollowTests({db: db, api:api});
+			ChallengeGoalTests =new ChallengeGoalTests({db: db, api:api});
 		};
 
 		/**
@@ -150,6 +152,7 @@ describe('all tests', function() {
 					var promiseAuth =AuthTests.run({})
 					.then(UserTests.run({}))
 					.then(FollowTests.run({}))
+					.then(ChallengeGoalTests.run({}))
 					.then(function(retFin) {
 						console.log('all tests done!');
 					}, function(err) {
