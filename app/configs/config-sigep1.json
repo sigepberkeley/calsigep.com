@@ -1,0 +1,75 @@
+{
+	"versions":{
+		"cfg": "0.0.0",
+		"pkg": "0.0.0"
+	},
+	"env": "development",
+	"operatingSystem":"linux",
+	"operatingSystemComment":"One of: 'windows', 'mac', 'linux'",
+	"forever": 1,
+	"app": {
+		"name": "sigep",
+		"title": "SigEp Berkeley"
+	},
+	"platform":"",
+	"server": {
+		"domain": "198.199.108.200",
+		"port": 3000,
+		"httpsPort": 443,
+		"socketPort": 3001,
+		"serverPath": "/",
+		"appPath": "/",
+		"staticFilePath": "/src/",
+		"staticPath": "/src/"
+	},
+	"cors": {
+		"domains": ["localhost"],
+		"frontendUseCors": 0
+	},
+	"db": {
+		"fullURI": "",
+		"host": "localhost",
+		"port": 27017,
+		"database": "sigep",
+		"username": false,
+		"password": false
+	},
+	"logKey": "dev",
+	"cookie": {
+		"secret": "o@:&M<ZN PF(s.T)3?*;^1~TDjNE}=3xy$SpB7dE%dA-}fAn.b[RRU{cg+P#[):/"
+	},
+	"ssl": {
+		"enabled": false,
+		"key": "/etc/apache2/conf.d/ssl.key",
+		"cert": "/etc/apache2/conf.d/ssl.crt"
+	},
+	"rpc": {
+		"autoDoc": true,
+		"autoDocUrl": "help"
+	},
+	"email":{
+		"from": "Admin <admin@sigep.com>",
+		"transport":{
+			"sendmail":{
+			}
+		}
+	},
+	"sms":{
+	},
+	"facebook":{
+		"appId": "195380783916970",
+		"appIdComment":"Make sure to CHANGE this!"
+	},
+	"less":{
+		"dirPathRootPrefix": ""
+	},
+	"google":{
+		"clientId": "486630891328.apps.googleusercontent.com",
+		"clientIdComment":"Make sure to CHANGE this!",
+		"clientSecret": ""
+	},
+	"sauceLabs":{
+		"user": "sigepberk",
+		"key": "0744d969-b3a2-4944-aff5-8d885565e0fc"
+	}
+}
