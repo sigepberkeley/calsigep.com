@@ -25,7 +25,9 @@ angular.module('jrg', [
 		'jackrabbitsgroup.angular-facebook-auth',
 		'jackrabbitsgroup.angular-google-auth',
 		//directives
-		'jackrabbitsgroup.angular-forminput'
+		'jackrabbitsgroup.angular-forminput',
+		'jackrabbitsgroup.angular-multiselect',
+		'jackrabbitsgroup.angular-datetimepicker'
 	]
 );
 
@@ -157,7 +159,14 @@ config(['$routeProvider', '$locationProvider', 'appConfigProvider', '$compilePro
 	*/
 	
 	//yeoman generated routes here - DO NOT DELETE THIS COMMENT AS IT IS USED BY YEOMAN TO GENERATE A NEW ROUTE!
-	//end: yeoman generated routes here - DO NOT DELETE THIS COMMENT AS IT IS USED BY YEOMAN TO GENERATE A NEW ROUTE!
+	$routeProvider.when(appPathRoute+'dev-goals-goals', {templateUrl: pagesPath+'dev-goals/dev-goals-goals/dev-goals-goals.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
+//end: yeoman generated routes here - DO NOT DELETE THIS COMMENT AS IT IS USED BY YEOMAN TO GENERATE A NEW ROUTE!
 	
 
 	/**

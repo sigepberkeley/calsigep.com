@@ -69,6 +69,17 @@
 									"forminput.less"
 								]
 							}
+						},
+						{
+							"name": "angular-multiselect",
+							"files": {
+								"js": [
+									"multiselect.min.js"
+								],
+								"less": [
+									"multiselect.less"
+								]
+							}
 						}
 					]
 				},
@@ -84,7 +95,24 @@
 						"testUnit": [
 							"angular-socket-io/mock/socket-io.js"
 						]
-					}
+					},
+					"dirs": [
+						{
+							"name": "angular-datetimepicker",
+							"files": {
+								"js": [
+									"pikaday/pikaday-edit.js",
+									"datetimepicker.js"
+								],
+								"less": [
+									"datetimepicker.less"
+								],
+								"css": [
+									"pikaday/pikaday.css"
+								]
+							}
+						}
+					]
 				}
 			]
 		},
@@ -355,6 +383,25 @@
 									"layout.spec.js"
 								]
 							}
+						},
+						{
+							"name": "challenge-goal",
+							"dirs": [
+								{
+									"name": "challenge-goal-save",
+									"files": {
+										"js": [
+											"challenge-goal-save.js"
+										],
+										"testUnit": [
+											"challenge-goal-save.spec.js"
+										],
+										"less": [
+											"challenge-goal-save.less"
+										]
+									}
+								}
+							]
 						}
 					]
 				},
@@ -547,6 +594,28 @@
 										],
 										"less": [
 											"socketio.less"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "dev-goals",
+							"dirs": [
+								{
+									"name": "dev-goals-goals",
+									"files": {
+										"html": [
+											"dev-goals-goals.html"
+										],
+										"js": [
+											"DevGoalsGoalsCtrl.js"
+										],
+										"testUnit": [
+											"DevGoalsGoalsCtrl.spec.js"
+										],
+										"less": [
+											"dev-goals-goals.less"
 										]
 									}
 								}
