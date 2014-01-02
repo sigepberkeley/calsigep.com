@@ -13,10 +13,12 @@ function($scope, appHttp) {
 		addGoal: false
 	};
 	
+	$scope.challengeGoal ={};
+	
 	$scope.challengeTags =[];
-	appHttp.go({}, {url:'challengegoal/search', data:{} }, {})
+	appHttp.go({}, {url:'challengeGoal/searchTag', data:{} }, {})
 	.then(function(response) {
-		$scope.challengeTags =response.results;
+		$scope.challengeTags =response.result.results;
 	});
 	
 }]);

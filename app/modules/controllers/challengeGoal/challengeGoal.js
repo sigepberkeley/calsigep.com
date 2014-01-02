@@ -282,7 +282,7 @@ ChallengeGoal.prototype.delete1 = function(db, data, params)
 };
 
 /**
-Makes a current challenge's challenge goals obsolete by setting the challenge_name.date_last_active for THIS challenge and makes a copy of the original for the NEW ones
+Makes a current challenge's challenge goals obsolete by setting the challenge.date_last_active for THIS challenge and makes a copy of the original for the NEW ones
 @toc 5.
 @method obsoleteChallenge
 @param {Object} data
@@ -305,13 +305,13 @@ ChallengeGoal.prototype.obsoleteChallenge = function(db, data, params)
 	var ii, index1;
 	var obsoleteGoals =[];
 	//find all challenge goals for this challenge
-	db.challenge_goal.find({'challenge_name.name': data.challenge_name}).toArray(function(err, records) {
+	db.challenge_goal.find({'challenge.name': data.challenge_name}).toArray(function(err, records) {
 		for(ii =0; ii<records.length; ii++) {
-			index1 =ArrayMod.findArrayIndex(records[ii].challenge_name, 'name', data.challenge_name, {});
+			index1 =ArrayMod.findArrayIndex(records[ii].challenge, 'name', data.challenge_name, {});
 			if(index1 >-1) {
 				//set the date_last_active for the existing (to be obsolete) goal for this challenge
 				obsoleteGoals[ii] =ArrayMod.copy(records[ii], {});
-				obsoleteGoals[ii].challenge_name[index1].date_last_active =data.date_last_active;
+				obsoleteGoals[ii].challenge[index1].date_last_active =data.date_last_active;
 				delete obsoleteGoals[ii]._id;		//MUST delete this otherwise it will just do an UPDATE and overwrite the existing ones!
 			}
 		}

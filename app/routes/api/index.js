@@ -107,7 +107,7 @@ module.exports = function(cfg, server, db){
 		//site-specific - setup other controllers/api's here
 		challengeGoal: {
 			modules: {
-				user: challengeGoalApi
+				challengeGoal: challengeGoalApi
 			},
 			middleware: []
 		}

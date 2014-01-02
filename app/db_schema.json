@@ -72,7 +72,7 @@
 	},
 	"challenge_goal":{
 		"_id":"{ObjectId} ObjectId('123l4k234l')",
-		"challenge_name":[
+		"challenge":[
 			{
 				"_id":"{String} sdfeaf234d",
 				"name":"{String} Should/must match what is set in the user.challenges.name field. A challenge_goal can potentially be part of multiple challenges - this allows for hybrid / modified challenges if need be. i.e. 'sigma'",
@@ -80,7 +80,7 @@
 				"group":"{String} OPTIONAL. Used to group goals together for setting minimum points per group to ensure balance when earning points. I.e. 'leg_strength'",
 				"points":"{Number} The number of points awarded for completing this goal (achieving the target_value). Partial points could theoretically be supported/awarded if the goal is partially complete.",
 				"target_value":"{Number} DEFAULT 1. The target value to earn for this goal, i.e. 15",
-				"min_value":"{Number} OPTIONAL. DEFAULT 0. The minimum value required to earn for this goal; this value is where points starts at 0 (we do not need a min_points key since we assume min_points is always 0). i.e. 10",
+				"min_value":"{Number} OPTIONAL. DEFAULT 0. The minimum value required to earn for this goal; this value is where points starts at 0 (we do not need a min_points key since we assume min_points is always 0). For example, achieving a 3.0 GPA with a target_value of 3.1, min_value of 2.9 and points of 10 would earn (3.0-2.9)/(3.1-2.9)*10 = 5 points. i.e. 10",
 				"max_value":"{Number} OPTIONAL. The maximum value that will be counted toward points (will be awarded max_points if set). Points will be awarded on a linear scale between target_value and max_value for the difference of max_points minus points. For example, achieving a 3.8 GPA with a target_value of 3.1, max_value of 4.0, points of 10 and max_points of 20 would earn (20-10)/(4.0-3.1)*(3.9-3.1) =7.78 extra points, (10+7.78) = 17.78 total points for this goal. I.e. 20",
 				"max_points":"{Number} OPTIONAL. DEFAULT to the (max_value/target_value * points). The maximum points that can be earned for this goal if achieve the max_value, i.e. 10"
 			}
@@ -97,7 +97,7 @@
 			"group":[
 				{
 					"_id":"{String} sdfeaf234d",
-					"name":"{String} Should match challenge_goal.challenge_name.group",
+					"name":"{String} Should match challenge_goal.challenge.group",
 					"min_points":"{Number} The minimum number of points that must be earned in this group. I.e. 5"
 				}
 			],

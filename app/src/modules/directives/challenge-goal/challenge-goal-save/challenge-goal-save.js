@@ -7,7 +7,7 @@
 	@param {String} title
 	@param {String} [description]
 	@param {Array} [tags]
-	@param {Array} challenge_name
+	@param {Array} challenge
 		@param {String} _id
 		@param {String} name
 		@param {String} date_last_active
@@ -37,7 +37,7 @@ $scope.goal ={
 	title: 'goal title',
 	description: 'goal description',
 	tags: ['tag1', 'tag2'],
-	challenge_name: [
+	challenge: [
 	]
 };
 
@@ -73,19 +73,34 @@ angular.module('app').directive('appChallengeGoalSave', [ function () {
 			
 			var html ="<div>"+
 				"<form class='jrg-forminput-form' name='challengeGoalForm' ng-submit='submitForm()'>"+
-					"<div jrg-forminput placeholder='Title' ng-model='goal.title' opts='' required ng-minlength='2'></div>"+
-					"<div jrg-forminput type='textarea' placeholder='Description' ng-model='goal.description' opts=''></div>"+
-					"<div jrg-multiselect select-opts='selectOptsTags' ng-model='selectValsTags' config='configTags'></div>"+
+					"<div jrg-forminput label='Title' placeholder='GPA' ng-model='goal.title' opts='' required ng-minlength='2'></div>"+
+					"<div jrg-forminput type='textarea' label='Description' placeholder='Description' ng-model='goal.description' opts=''></div>"+
+					"<div jrg-forminput type='multi-select' label='Tags' placeholder='sound_mind' select-opts='selectOptsTags' ng-model='selectValsTags' opts='configTags'></div>"+
 					
-					"<div ng-repeat='challenge in goal.challenge_name'>"+
-						"<div jrg-forminput placeholder='Challenge' ng-model='challenge.name' opts='' required></div>"+
-						"<div jrg-forminput placeholder='Goals Group' ng-model='challenge.group' opts=''></div>"+
-						"<div jrg-forminput placeholder='Points' ng-model='challenge.points' opts='' required></div>"+
-						"<div jrg-forminput placeholder='Target Value' ng-model='challenge.target_value' opts='' required></div>"+
-						"<div jrg-forminput placeholder='Min. Value' ng-model='challenge.min_value' opts=''></div>"+
-						"<div jrg-forminput placeholder='Max. Value' ng-model='challenge.max_value' opts=''></div>"+
-						"<div jrg-forminput placeholder='Max. Points' ng-model='challenge.max_points' opts=''></div>"+
+					"<h4>Challenges</h4>"+
+					"<div>Each challenge goal can be part of multiple challenges with different requirements for each (i.e. all challenges should have some sort of GPA/grades goals but the values and points will likely be different for each challenge)</div>"+
+					"<div class='margin-l' ng-repeat='challenge in goal.challenge'>"+
+						"<div jrg-forminput label='Challenge Name' placeholder='sigma' ng-model='challenge.name' opts='' required></div>"+
+						
+						"<div>Goals can be grouped together for setting minimum points per group to ensure balance when earning points (i.e. bench press, pushups, leg press, and pullups are just a few different ways to display muscle strength but we don't need ALL of these necessarily so we can just set a minimum of 10 points for a 'muscle_strength' group and allow them to achieve it in many different ways)</div>"+
+						"<div jrg-forminput label='Challenge Goal Group' placeholder='academics' ng-model='challenge.group' opts=''></div>"+
+						
+						"<div>The number points awarded for earning the 'Target Value'</div>"+
+						"<div jrg-forminput type='number' label='Points' placeholder='10' ng-model='challenge.points' opts='' required></div>"+
+						
+						"<div jrg-forminput type='number' label='Target Value' placeholder='3.1' ng-model='challenge.target_value' opts='' required></div>"+
+						
+						"<div>A minimum value allows partial points; the minimum value is where the points starts at 0. For example, earning a 3.0 GPA with a min value of 2.9 and a target value of 3.1 and points of 10 would earn (3.0-2.9)/(3.1-2.9)*10 = 5 points</div>"+
+						"<div jrg-forminput type='number' label='Min. Value' placeholder='2.9' ng-model='challenge.min_value' opts=''></div>"+
+						
+						"<div>A maximum value allows extra points to reward people who went above the target value. For example, achieving a 3.8 GPA with a target value of 3.1, max value of 4.0, points of 10 and max points of 20 would earn (20-10)/(4.0-3.1)*(3.9-3.1) =7.78 extra points, (10+7.78) = 17.78 total points for this goal</div>"+
+						"<div jrg-forminput type='number' label='Max. Value' placeholder='4.0' ng-model='challenge.max_value' opts=''></div>"+
+						
+						"<div>Max points is the maximum that will be awarded for this goal if the max value (or above) is achieved. This prevents 'runaway points' for any individual goal to keep balance in development</div>"+
+						"<div jrg-forminput type='number' label='Max. Points' placeholder='20' ng-model='challenge.max_points' opts=''></div>"+
+						
 					"</div>"+
+					"<div class='btn' ng-click='addChallenge({})'>Add Challenge</div>"+
 					
 					"<button class='btn btn-primary jrg-forminput-submit' type='submit' >Save</button>"+
 				"</form>"+
@@ -99,6 +114,9 @@ angular.module('app').directive('appChallengeGoalSave', [ function () {
 		controller: function($scope, $element, $attrs) {
 			function init(params) {
 				initSelectTags({});
+				if($scope.goal.challenge ===undefined || $scope.goal.challenge.length <1) {
+					$scope.addChallenge({});
+				}
 			}
 			
 			function initSelectTags(params) {
@@ -114,6 +132,19 @@ angular.module('app').directive('appChallengeGoalSave', [ function () {
 				}
 				$scope.selectOptsTags =selectOptsTags;
 			}
+			
+			$scope.addChallenge =function(params) {
+				//only allow adding if none yet OR if last one has a name filled out
+				if($scope.goal.challenge ===undefined || $scope.goal.challenge.length <1 || $scope.goal.challenge[$scope.goal.challenge.length-1].name) {
+					if($scope.goal.challenge ===undefined) {
+						$scope.goal.challenge =[];
+					}
+					var defaultChallenge ={
+						name: ''
+					};
+					$scope.goal.challenge.push(defaultChallenge);
+				}
+			};
 			
 			init({});
 		}

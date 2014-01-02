@@ -60,13 +60,10 @@ var ChallengeGoalMod = require(pathParts.controllers+'challengeGoal/challengeGoa
 
 var sampleChallengeGoalReturn = {
 	_id: "objectid",
-	challenge_name: "array",
+	challenge: "array",
 	title: "string",
-	group: "string",
-	group_minimum: "number",
-	priority: "number",
 	description: "string",
-	area: "string"
+	tags: "string"
 };
 
 var defaults = {
