@@ -39,7 +39,7 @@ var self, db, api;
 //NOTE: make sure to namespace all values to ensure no conflicts with other modules that run asynchronously and may be altering the same challenge goals / data otherwise - leading to odd and very hard to debug errors..
 var TEST_CHALLENGEGOALS =[
 	{
-		challenge_name: [
+		challenge: [
 			{
 				name: 'challenge_goal_sigma'
 			}
@@ -48,7 +48,7 @@ var TEST_CHALLENGEGOALS =[
 		description: 'challenge_goal Interview/meet with at least 90% of Epsilons. Ask them: 1. why they joined SigEp, 2. favorite SigEp experience/memory, 3. 1 thing they would like to see from the Sigma class / chapter this semester. Note, can be up to 4 people per meeting (i.e. 2 sigmas & 2 epsilons), does not all have to be individual meetings (though those are preferred)'
 	},
 	{
-		challenge_name: [
+		challenge: [
 			{
 				name: 'challenge_goal_sigma'
 			}
@@ -56,7 +56,7 @@ var TEST_CHALLENGEGOALS =[
 		title: 'challenge_goal 3.1 semester GPA'
 	},
 	{
-		challenge_name: [
+		challenge: [
 			{
 				name: 'challenge_goal_phi'
 			}
@@ -64,7 +64,7 @@ var TEST_CHALLENGEGOALS =[
 		title: 'challenge_goal 3.15 semester GPA'
 	},
 	{
-		challenge_name: [
+		challenge: [
 			{
 				name: 'challenge_goal_epsilon'
 			},
@@ -75,7 +75,7 @@ var TEST_CHALLENGEGOALS =[
 		title: 'challenge_goal 3.2 semester GPA'
 	},
 	{
-		challenge_name: [
+		challenge: [
 			{
 				name: 'challenge_goal_brother_mentor'
 			}
@@ -378,7 +378,7 @@ function go(params) {
 				
 				var params ={
 					searchString: 'epsilon',
-					searchFields: ['challenge_name.name']
+					searchFields: ['challenge.name']
 				};
 				api.expectRequest({method:'ChallengeGoal.search'}, {data:params}, {}, {})
 				.then(function(res) {
