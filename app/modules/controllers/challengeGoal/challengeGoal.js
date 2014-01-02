@@ -11,6 +11,8 @@ ChallengeGoal module representing the challenge goals
 3.5. saveActual (private function)
 4. delete1
 5. obsoleteChallenge
+6. saveTag
+7. searchTag
 */
 
 'use strict';
@@ -62,7 +64,10 @@ function ChallengeGoal(options){
 	@param {Number} [limit =20] How many to return
 @param {Object} params
 @return {Promise}
-	@param {Object} challenge_goal
+	@param {Object} ret
+		@param {Number} code
+		@param {String} msg
+		@param {Array} results
 **/
 ChallengeGoal.prototype.search = function(db, data, params) {
 	var deferred = Q.defer();
@@ -319,6 +324,113 @@ ChallengeGoal.prototype.obsoleteChallenge = function(db, data, params)
 		}, function(err) {
 			deferred.reject(err);
 		});
+	});
+
+	return deferred.promise;
+};
+
+/**
+Saves (create if new, edit if _id already exists) one or more tags
+@toc 6.
+@method saveTag
+@param {Object} data
+	@param {Array} [tags] One or more arrays of EXISTING tags to save/update. One of tags or new_tags is required.
+		@param {String} _id
+		@param {String} name
+	@param {Array} [new_tags] Array of one or more NEW tags to create. Each item should have at least a name field. One of tags or new_tags is required.
+		@param {String} name
+@param {Object} params
+@return {Promise}
+	@param {Array} tags The final tags (now all joined into an object and all have _id fields, even new tags)
+**/
+ChallengeGoal.prototype.saveTag = function(db, data, params)
+{
+	var deferred = Q.defer();
+	var ret ={code:0, msg:'ChallengeGoal.saveTag ', tags:[] };
+	
+	//create
+	if(data.new_tags !==undefined) {
+		CrudMod.createBulk(db, {'docs':data.new_tags}, {collection: 'challenge_tag'}, function(code, ret1) {
+			if(ret1.results) {
+				ret.tags.concatenate(ret1.results);
+			}
+		});
+	}
+	
+	//update
+	if(data.tags !==undefined) {
+		CrudMod.updateBulk(db, {'docs':data.tags}, {collection: 'challenge_tag'}, function(code, ret1) {
+			if(ret1.results) {
+				ret.tags.concatenate(ret1.results);
+			}
+		});
+	}
+	
+	/*
+	var setObj ={};
+	if(data.tags !==undefined) {
+		setObj =data.tags;
+	}
+	
+	var ii, objId;
+	if(data.new_tags !==undefined) {
+		for(ii =0; ii<data.new_tags.length; ii++) {
+			objId =MongoDBMod.objectId({string:true});
+			setObj[objId] ={
+				name: data.new_tags[ii].name
+			}
+		}
+	}
+	*/
+	
+
+	return deferred.promise;
+};
+
+/**
+@toc 7.
+@method search
+@param {Object} data
+	@param {String} [searchString] Text to search for
+	@param {Array} [searchFields =['title']] Fields to search searchString within
+		@example ['title', 'description']
+	@param {Array} [skipIds] _id fields to skip (will be added to query AFTER they are converted to mongo ids (if necessary))
+		@example ['324234', '328sakd23', '23lkjafl83']
+	@param {Object} [fields ={_id:1, title:1}] Fields to return
+		@example {_id:1, title:1, priority:1}
+	@param {Number} [skip =0] Where to start returning from (like a cursor)
+	@param {Number} [limit =20] How many to return
+@param {Object} params
+@return {Promise}
+	@param {Object} ret
+		@param {Number} code
+		@param {String} msg
+		@param {Array} results
+**/
+ChallengeGoal.prototype.searchTag = function(db, data, params) {
+	var deferred = Q.defer();
+	var ret ={code:0, msg:'ChallengeGoal.searchTag '};
+
+	var defaults ={
+		'limit':20,
+		'fields':{'_id':1, 'name':1},
+		'searchFields':['name']
+	};
+	if(data.fields ===undefined) {
+		data.fields = defaults.fields;
+	}
+	if(data.limit ===undefined) {
+		data.limit = defaults.limit;
+	}
+	if(data.searchFields ===undefined) {
+		data.searchFields = defaults.searchFields;
+	}
+
+	var query ={};
+	var ppSend =CrudMod.setSearchParams(data, query, {});
+	
+	LookupMod.search(db, 'challenge_tag', ppSend, function(err, retArray1) {
+		deferred.resolve(retArray1);
 	});
 
 	return deferred.promise;

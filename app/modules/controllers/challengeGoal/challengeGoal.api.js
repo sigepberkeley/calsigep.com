@@ -40,6 +40,8 @@ RPC challengeGoal endpoints
 3.1. rpcSaveBulk
 4. rpcDelete
 5. rpcObsoleteChallenge
+6. rpcSaveTag
+7. rpcSearchTag
 */
 
 'use strict';
@@ -97,7 +99,9 @@ ChallengeGoalApi.prototype.getRpcMethods = function(){
 		save: this.rpcSave(),
 		saveBulk: this.rpcSaveBulk(),
 		delete1: this.rpcDelete(),
-		obsoleteChallenge: this.rpcObsoleteChallenge()
+		obsoleteChallenge: this.rpcObsoleteChallenge(),
+		saveTag: this.rpcSaveTag(),
+		searchTag: this.rpcSearchTag()
 	};
 };
 
@@ -119,7 +123,9 @@ ChallengeGoalApi.prototype.rpcSearch = function(){
 			limit: { type: 'number', info: "How many to return, default =20" }
 		},
 		returns: {
-			challenge_goal: sampleChallengeGoalReturn
+			code: 'string',
+			msg: 'string',
+			results: 'array'
 		},
 		/**
 		@method action
@@ -311,6 +317,82 @@ ChallengeGoalApi.prototype.rpcObsoleteChallenge = function(){
 		**/
 		action: function(params, out) {
 			var promise =ChallengeGoalMod.obsoleteChallenge(db, params, {});
+			promise.then(function(ret1) {
+				out.win(ret1);
+			}, function(err) {
+				self.handleError(out, err, {});
+			});
+		}
+	};
+};
+
+/**
+@toc 6.
+@method rpcSaveTag
+**/
+ChallengeGoalApi.prototype.rpcSaveTag = function(){
+	var self = this;
+
+	return {
+		info: 'Saves (create if new, edit if _id already exists) one or more tags',
+		params: {
+			tags: { type: 'object', required: false, info: 'One or more objects of EXISTING tags to save/update. Each tag should have the _id field as the key and be an object with at least a name field. One of tags or new_tags is required.' },
+			new_tags: { type: 'array', required: false, info: 'Array of one or more NEW tags to create. Each item should have at least a name field. One of tags or new_tags is required.' }
+		},
+		returns: {
+			tags: {}
+		},
+		/**
+		@method action
+		@param {Object} params
+			@param {Object} data Params (detailed above)
+		@param {Object} out callback object which provides `win` and `fail` functions for handling `success` and `fail` callbacks
+			@param {Function} win Success callback
+			@param {Function} fail Fail callback
+		**/
+		action: function(params, out) {
+			var promise =ChallengeGoalMod.saveTag(db, params, {});
+			promise.then(function(ret1) {
+				out.win(ret1);
+			}, function(err) {
+				self.handleError(out, err, {});
+			});
+		}
+	};
+};
+
+/**
+@toc 7.
+@method rpcSearchTag
+**/
+ChallengeGoalApi.prototype.rpcSearchTag = function(){
+	var self = this;
+
+	return {
+		info: 'Search challenge goal tags',
+		params: {
+			searchString: { type: 'string', info: "Text to search for" },
+			searchFields: { type: 'array', info: "Fields to search searchString within, i.e. ['first_name', 'last_name']" },
+			skipIds: { type: 'array', info: "_id fields to skip (will be added to query AFTER they are converted to mongo ids (if necessary))" },
+			fields: { type: 'object', info: "Fields to return, i.e. {_id:1, first_name:1, last_name:1}" },
+			skip: { type: 'number', info: "Where to start returning from (like a cursor), default =0" },
+			limit: { type: 'number', info: "How many to return, default =20" }
+		},
+		returns: {
+			code: 'string',
+			msg: 'string',
+			results: 'array'
+		},
+		/**
+		@method action
+		@param {Object} params
+			@param {Object} data new challenge goal params (detailed above)
+		@param {Object} out callback object which provides `win` and `fail` functions for handling `success` and `fail` callbacks
+			@param {Function} win Success callback
+			@param {Function} fail Fail callback
+		**/
+		action: function(params, out) {
+			var promise =ChallengeGoalMod.searchTag(db, params, {});
 			promise.then(function(ret1) {
 				out.win(ret1);
 			}, function(err) {

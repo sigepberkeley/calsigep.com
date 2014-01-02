@@ -5,17 +5,20 @@
 @class crud
 
 @toc
-//1. setSearchParams
-//2. save (create, update)
-//3. read
-//4. delete1
-//5. saveSubArray (create, update)
-//5.1. subArrayCreate
-//6. deleteSubArray
+1. setSearchParams
+2. save (create, update)
+2.1. createBulk
+2.2. updateBulk
+3. read
+4. delete1
+5. saveSubArray (create, update)
+5.1. subArrayCreate
+6. deleteSubArray
 */
 
 'use strict';
 
+var Q = require('q');
 var mongodb = require('mongodb');
 var lodash = require('lodash');
 
@@ -133,6 +136,89 @@ Crud.prototype.save =function(db, data, params, callback)
 			callback(ret.code, ret);
 		});
 	}
+};
+
+/**
+Creates one or more records in a collection
+@toc 2.1.
+@method createBulk
+@param {Object} data
+	@param {Array} docs One or more objects to insert
+@param {Object} params
+	@param {String} collection Name of mongo collection to operate on.
+@return {Number} code
+@return {Object} ret
+	@param {Number} code
+	@param {String} msg
+	@param {Boolean|Array} results False if error, array of results otherwise
+*/
+Crud.prototype.createBulk =function(db, data, params, callback)
+{
+	var ret ={'code':0, 'msg':'Crud.createBulk ', 'results':false};
+	
+	db[params.collection].insert(data.docs, {safe: true}, function(err, records)
+	{
+		if(err)
+		{
+			ret.code =1;
+			ret.msg +="db."+params.collection+".insert Error: "+err;
+		}
+		else if(!records)
+		{
+			ret.code =2;
+			ret.msg +="db."+params.collection+".insert No records";
+		}
+		else
+		{
+			ret.results =records;		//insert returns an array of items, even if there's only 1
+		}
+		callback(ret.code, ret);
+	});
+};
+
+/**
+Updates one or more records in a collection
+@toc 2.2.
+@method updateBulk
+@param {Object} data
+	@param {Array} docs One or more objects to update (each should have an _id field)
+@param {Object} params
+	@param {String} collection Name of mongo collection to operate on.
+@return {Number} code
+@return {Object} ret
+	@param {Number} code
+	@param {String} msg
+	@param {Boolean|Array} results False if error, array of results otherwise
+*/
+Crud.prototype.updateBulk =function(db, data, params, callback)
+{
+	var ret ={'code':0, 'msg':'Crud.updateBulk ', 'results':false};
+	
+	//no direct mongodb way to bulk update? So have to loop through each document and save individually.
+	var promises =[], deferreds =[];
+	var ii;
+	for(ii =0; ii<data.docs.length; ii++) {
+		(function(ii) {
+			deferreds[ii] =Q.defer();
+			self.save(db, data.docs[ii], params, function(retCode, ret1) {
+				//if a result (the updated record), save/store it in the return results
+				if(ret1.result) {
+					if(!ret.results) {
+						ret.results =[];
+					}
+					ret.results.push(ret1.result);
+				}
+				deferreds[ii].resolve({});
+			});
+			promises[ii] =deferreds[ii].promise;
+		})(ii);
+	}
+	
+	Q.all(promises).then(function(ret1) {
+		callback(ret);
+	}, function(err) {
+		callback(ret);
+	});
 };
 
 /**

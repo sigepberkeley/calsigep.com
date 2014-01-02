@@ -6,6 +6,7 @@
 1. makeIds
 3. idsToString
 4. objectIdSubArray
+5. objectId
 */
 
 'use strict';
@@ -128,6 +129,21 @@ MongoDB.prototype.objectIdSubArray =function(obj, checkKeys, params) {
 		}
 	}
 	return obj;
+};
+
+/**
+@toc 5.
+@method objectId
+@param {Object}
+	@param {Boolean} [string] True to return string form rather than object
+@return {Object|String} mongo db object id OR string (pending if params.string is set or not)
+*/
+MongoDB.prototype.objectId =function(params) {
+	var objId =new mongodb.ObjectID();
+	if(params.string) {
+		objId =self.idsToString({id: objId});
+	}
+	return objId;
 };
 
 module.exports = new MongoDB({});
