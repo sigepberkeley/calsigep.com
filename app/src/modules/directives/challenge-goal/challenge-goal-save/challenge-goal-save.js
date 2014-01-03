@@ -79,6 +79,9 @@ angular.module('app').directive('appChallengeGoalSave', [ function () {
 					
 					"<h4>Challenges</h4>"+
 					"<div>Each challenge goal can be part of multiple challenges with different requirements for each (i.e. all challenges should have some sort of GPA/grades goals but the values and points will likely be different for each challenge)</div>"+
+					
+					"<div jrg-forminput type='select' select-opts='selectOptsChallenge' ng-model='formVals.curChallenge' opts=''></div>"+
+					
 					"<div class='margin-l' ng-repeat='challenge in goal.challenge'>"+
 						"<div jrg-forminput label='Challenge Name' placeholder='sigma' ng-model='challenge.name' opts='' required></div>"+
 						
@@ -112,10 +115,19 @@ angular.module('app').directive('appChallengeGoalSave', [ function () {
 		},
 		
 		controller: function($scope, $element, $attrs) {
+			$scope.formVals ={
+				curChallenge: ''
+			};
+			
+			$scope.selectOptsChallenge =[];
+			
 			function init(params) {
 				initSelectTags({});
 				if($scope.goal.challenge ===undefined || $scope.goal.challenge.length <1) {
 					$scope.addChallenge({});
+				}
+				else {
+					setSelectOptsChallenge({});
 				}
 			}
 			
@@ -133,6 +145,20 @@ angular.module('app').directive('appChallengeGoalSave', [ function () {
 				$scope.selectOptsTags =selectOptsTags;
 			}
 			
+			function setSelectOptsChallenge(params) {
+				var selectOptsChallenge =[];
+				var ii;
+				for(ii =0; ii<$scope.goal.challenge.length; ii++) {
+					if($scope.goal.challenge[ii].name) {
+						selectOptsChallenge.push({
+							val: $scope.goal.challenge[ii].name,
+							name: $scope.goal.challenge[ii].name
+						});
+					}
+				}
+				$scope.selectOptsChallenge =selectOptsChallenge;
+			}
+			
 			$scope.addChallenge =function(params) {
 				//only allow adding if none yet OR if last one has a name filled out
 				if($scope.goal.challenge ===undefined || $scope.goal.challenge.length <1 || $scope.goal.challenge[$scope.goal.challenge.length-1].name) {
@@ -144,6 +170,7 @@ angular.module('app').directive('appChallengeGoalSave', [ function () {
 					};
 					$scope.goal.challenge.push(defaultChallenge);
 				}
+				setSelectOptsChallenge({});
 			};
 			
 			init({});
