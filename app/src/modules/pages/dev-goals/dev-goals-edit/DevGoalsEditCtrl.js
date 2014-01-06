@@ -35,10 +35,12 @@ function($scope, appHttp) {
 	@param {Array} new_tags Array of tag objects, each has:
 		@param {String} name
 	*/
+	/*
 	$scope.saveNewTags =function(params, callback) {
 		appHttp.go({}, {url:'challengeGoal/saveTag', data:{new_tags:params.new_tags} }, {})
 		.then(function(response) {
 			callback({});
 		});
 	};
+	*/
 }]);
