@@ -603,19 +603,36 @@
 							"name": "dev-goals",
 							"dirs": [
 								{
-									"name": "dev-goals-goals",
+									"name": "dev-goals-edit",
 									"files": {
 										"html": [
-											"dev-goals-goals.html"
+											"dev-goals-edit.html"
 										],
 										"js": [
-											"DevGoalsGoalsCtrl.js"
+											"DevGoalsEditCtrl.js"
 										],
 										"testUnit": [
-											"DevGoalsGoalsCtrl.spec.js"
+											"DevGoalsEditCtrl.spec.js"
 										],
 										"less": [
-											"dev-goals-goals.less"
+											"dev-goals-edit.less"
+										]
+									}
+								},
+								{
+									"name": "dev-goals-list",
+									"files": {
+										"html": [
+											"dev-goals-list.html"
+										],
+										"js": [
+											"DevGoalsListCtrl.js"
+										],
+										"testUnit": [
+											"DevGoalsListCtrl.spec.js"
+										],
+										"less": [
+											"dev-goals-list.less"
 										]
 									}
 								}

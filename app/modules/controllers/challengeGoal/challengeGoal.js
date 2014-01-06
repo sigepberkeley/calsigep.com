@@ -237,6 +237,17 @@ function saveActual(db, data, params) {
 	var deferred = Q.defer();
 	var ret ={code:0, msg:'ChallengeGoal saveActual ', challenge_goal:{}};
 	
+	//convert to int
+	var toIntChallenge =['required', 'points', 'target_value', 'min_value', 'max_value', 'max_points'];
+	var xx, ii;
+	for(xx in data.challenge_goal.challenge) {
+		for(ii =0; ii<toIntChallenge.length; ii++) {
+			if(data.challenge_goal.challenge[xx][toIntChallenge[ii]] !==undefined) {
+				data.challenge_goal.challenge[xx][toIntChallenge[ii]] =parseInt(data.challenge_goal.challenge[xx][toIntChallenge[ii]], 10);
+			}
+		}
+	}
+	
 	CrudMod.save(db, data.challenge_goal, {'collection':'challenge_goal'}, function(err, ret1) {
 		ret.msg +=ret1.msg;
 		if(ret1.result) { 
@@ -348,24 +359,50 @@ ChallengeGoal.prototype.saveTag = function(db, data, params)
 	var deferred = Q.defer();
 	var ret ={code:0, msg:'ChallengeGoal.saveTag ', tags:[] };
 	
+	var promises =[], deferreds =[];
+	var promiseIndices ={
+		create: false,
+		update: false
+	};
+	
 	//create
 	if(data.new_tags !==undefined) {
+		promiseIndices.create =deferreds.length;
+		console.log(promiseIndices.create);
+		deferreds[promiseIndices.create] =Q.defer();
 		CrudMod.createBulk(db, {'docs':data.new_tags}, {collection: 'challenge_tag'}, function(code, ret1) {
+			console.log(ret1);
 			if(ret1.results) {
-				ret.tags.concatenate(ret1.results);
+				ret.tags =ret.tags.concat(ret1.results);
 			}
+			console.log('create done');
+			deferreds[promiseIndices.create].resolve({});
 		});
+		promises[promiseIndices.create] =deferreds[promiseIndices.create].promise;
 	}
 	
 	//update
 	if(data.tags !==undefined) {
+		promiseIndices.update =deferreds.length;
+		console.log(promiseIndices.update);
+		deferreds[promiseIndices.update] =Q.defer();
 		CrudMod.updateBulk(db, {'docs':data.tags}, {collection: 'challenge_tag'}, function(code, ret1) {
 			if(ret1.results) {
-				ret.tags.concatenate(ret1.results);
+				ret.tags =ret.tags.concat(ret1.results);
 			}
+			console.log('update done');
+			deferreds[promiseIndices.update].resolve({});
 		});
+		promises[promiseIndices.update] =deferreds[promiseIndices.update].promise;
 	}
 	
+	Q.all(promises).then(function(ret1) {
+		console.log('q.all done');
+		deferred.resolve(ret);
+	}, function(err) {
+		deferred.reject(ret);
+	});
+		
 	/*
 	var setObj ={};
 	if(data.tags !==undefined) {

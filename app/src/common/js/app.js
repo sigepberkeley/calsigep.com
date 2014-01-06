@@ -159,7 +159,14 @@ config(['$routeProvider', '$locationProvider', 'appConfigProvider', '$compilePro
 	*/
 	
 	//yeoman generated routes here - DO NOT DELETE THIS COMMENT AS IT IS USED BY YEOMAN TO GENERATE A NEW ROUTE!
-	$routeProvider.when(appPathRoute+'dev-goals-goals', {templateUrl: pagesPath+'dev-goals/dev-goals-goals/dev-goals-goals.html',
+$routeProvider.when(appPathRoute+'dev-goals-edit', {templateUrl: pagesPath+'dev-goals/dev-goals-edit/dev-goals-edit.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'dev-goals-list', {templateUrl: pagesPath+'dev-goals/dev-goals-list/dev-goals-list.html',
 		resolve: {
 			auth: function(appAuth) {
 				return appAuth.checkSess({});
