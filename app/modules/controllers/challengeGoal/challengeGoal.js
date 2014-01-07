@@ -160,6 +160,8 @@ Creates or updates a challenge goal
 @method save
 @param {Object} data
 	@param {Object} challenge_goal The data to save. If '_id' field is present, it will update; otherwise it will create
+	@param {Array} [new_tags] Array of one or more NEW tags to create. Each item should have at least a name field. One of tags or new_tags is required.
+		@param {String} name
 @param {Object} params
 @return {Promise}
 	@param {Object} challenge_goal
@@ -169,12 +171,44 @@ ChallengeGoal.prototype.save = function(db, data, params)
 	var deferred = Q.defer();
 	var ret ={code:0, msg:'ChallengeGoal.save ', challenge_goal:{}};
 	
-	saveActual(db, data, params)
-	.then(function(ret1) {
-		deferred.resolve(ret1);
-	}, function(err) {
-		deferred.reject(err);
-	});
+	if(data.new_tags !==undefined) {
+		self.saveTag(db, {new_tags:data.new_tags}, {})
+		/**
+		@param {Object} retTag
+			@param {Array} tags The final tags (now all joined into an object and all have _id fields, even new tags)
+				@param {String} _id
+				@param {String} name
+		*/
+		.then(function(retTag) {
+			//add these new tag id's
+			if(retTag.tags !==undefined) {
+				if(data.challenge_goal.tags ===undefined) {
+					data.challenge_goal.tags =[];
+				}
+				var ii;
+				for(ii =0; ii<retTag.tags.length; ii++) {
+					data.challenge_goal.tags.push(retTag.tags[ii]._id);
+				}
+			}
+			
+			saveActual(db, data, params)
+			.then(function(ret1) {
+				deferred.resolve(ret1);
+			}, function(err) {
+				deferred.reject(err);
+			});
+		}, function(retErr) {
+			deferred.reject(retErr);
+		});
+	}
+	else {
+		saveActual(db, data, params)
+		.then(function(ret1) {
+			deferred.resolve(ret1);
+		}, function(err) {
+			deferred.reject(err);
+		});
+	}
 
 	return deferred.promise;
 };
@@ -351,8 +385,12 @@ Saves (create if new, edit if _id already exists) one or more tags
 	@param {Array} [new_tags] Array of one or more NEW tags to create. Each item should have at least a name field. One of tags or new_tags is required.
 		@param {String} name
 @param {Object} params
-@return {Promise}
+@return {Object} (via Promise)
+	@param {Number} code
+	@param {String} msg
 	@param {Array} tags The final tags (now all joined into an object and all have _id fields, even new tags)
+		@param {String} _id
+		@param {String} name
 **/
 ChallengeGoal.prototype.saveTag = function(db, data, params)
 {
@@ -368,14 +406,11 @@ ChallengeGoal.prototype.saveTag = function(db, data, params)
 	//create
 	if(data.new_tags !==undefined) {
 		promiseIndices.create =deferreds.length;
-		console.log(promiseIndices.create);
 		deferreds[promiseIndices.create] =Q.defer();
 		CrudMod.createBulk(db, {'docs':data.new_tags}, {collection: 'challenge_tag'}, function(code, ret1) {
-			console.log(ret1);
 			if(ret1.results) {
 				ret.tags =ret.tags.concat(ret1.results);
 			}
-			console.log('create done');
 			deferreds[promiseIndices.create].resolve({});
 		});
 		promises[promiseIndices.create] =deferreds[promiseIndices.create].promise;
@@ -384,20 +419,17 @@ ChallengeGoal.prototype.saveTag = function(db, data, params)
 	//update
 	if(data.tags !==undefined) {
 		promiseIndices.update =deferreds.length;
-		console.log(promiseIndices.update);
 		deferreds[promiseIndices.update] =Q.defer();
 		CrudMod.updateBulk(db, {'docs':data.tags}, {collection: 'challenge_tag'}, function(code, ret1) {
 			if(ret1.results) {
 				ret.tags =ret.tags.concat(ret1.results);
 			}
-			console.log('update done');
 			deferreds[promiseIndices.update].resolve({});
 		});
 		promises[promiseIndices.update] =deferreds[promiseIndices.update].promise;
 	}
 	
 	Q.all(promises).then(function(ret1) {
-		console.log('q.all done');
 		deferred.resolve(ret);
 	}, function(err) {
 		deferred.reject(ret);

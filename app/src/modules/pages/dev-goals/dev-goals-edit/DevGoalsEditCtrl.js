@@ -21,8 +21,19 @@ function($scope, appHttp) {
 		$scope.challengeTags =response.result.results;
 	});
 	
+	/**
+	@method $scope.saveGoal
+	@param {Object} params
+		@param {Array} [new_tags] Array of tag objects, each has:
+	*/
 	$scope.saveGoal =function(params, callback) {
-		appHttp.go({}, {url:'challengeGoal/save', data:{challenge_goal:$scope.challengeGoal} }, {})
+		var ppSend ={
+			challenge_goal:$scope.challengeGoal
+		};
+		if(params.new_tags !==undefined) {
+			ppSend.new_tags =params.new_tags;
+		}
+		appHttp.go({}, {url:'challengeGoal/save', data:ppSend }, {})
 		.then(function(response) {
 			$scope.$emit('evtAppalertAlert', {type:'success', msg: 'Saved!'});
 			callback({});

@@ -57,6 +57,9 @@ $scope.tags =[
 	{_id: 'id3', name: 'tag3'}
 ];
 
+// @param {Object} params
+	// @param {Array} [new_tags] Array of tag objects, each has:
+		// @param {String} name
 $scope.saveGoal =function(params, callback) {
 	//save (to backend) here
 	callback({});
@@ -330,7 +333,7 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 					//save new tags (if any)
 					var newTags =checkSaveNewTags({});
 					if(newTags && newTags.length >0) {
-						paramsSend.newTags =newTags;
+						paramsSend.new_tags =newTags;
 					}
 					
 					if($scope.save !==undefined && $scope.save() !==undefined && typeof($scope.save()) =='function') {		//ensure it exists
@@ -352,7 +355,8 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 			Will compare current tags with original tags and if any NEW ones, will call saveNewTags function AND will REMOVE any new tags from $scope.goal.tags (since don't have an _id for it yet as it's new and we NEED an _id to save it since we save by _id, NOT by name!). Any new tags are returned so these can be sent to the backend as well for new tags to be added on the backend FIRST and then the new _id's used to add these new tags to this goal.
 			@toc 7.
 			@method checkSaveNewTags
-			@return {Array} newTags
+			@return {Array} newTags Array of new tags, each in an object of:
+				@param {String} name
 			*/
 			function checkSaveNewTags(params) {
 				var newTags =[];
@@ -362,7 +366,8 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 					for(ii =0; ii<$scope.goal.tags.length; ii++) {
 						newTag =false;
 						if(tagsOriginal && tagsOriginal.length) {
-							index1 =jrgArray.findArrayIndex(tagsOriginal, 'name', $scope.goal.tags[ii], {});
+							//NOTE: actually want to match on 'val' since that's what '_id' gets set to and what will be in $scope.goal.tags (the _id, not the name; name is only for NEW tags where there is no _id yet)
+							index1 =jrgArray.findArrayIndex(tagsOriginal, 'val', $scope.goal.tags[ii], {});
 							if(index1 <0) {		//if not found, it's a NEW one
 								newTag =true;
 							}

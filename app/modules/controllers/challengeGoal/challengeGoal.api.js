@@ -225,7 +225,8 @@ ChallengeGoalApi.prototype.rpcSaveBulk = function(){
 	return {
 		info: "Bulk save (create or update (if _id field is present)) a challenge goal.",
 		params: {
-			challenge_goal: {type: 'array', required: false, info: "Array of the challenge goal objects to insert/update. For each challenge goal: If _id is left out, will create this challenge goal with a new _id. All other parameters are optional and are the fields that will be updated. NOTE: challenge goal data will only be returned on CREATE, not on update." }
+			challenge_goal: {type: 'array', required: true, info: "Array of the challenge goal objects to insert/update. For each challenge goal: If _id is left out, will create this challenge goal with a new _id. All other parameters are optional and are the fields that will be updated. NOTE: challenge goal data will only be returned on CREATE, not on update." },
+			new_tags: { type: 'array', required: false, info: "Array of one or more NEW tags to create. Each item should have at least a name field. If set, this will add new tags and add their _id's to this goal as well." }
 		},
 		returns: {
 			challenge_goal: [
