@@ -219,6 +219,12 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 			];
 			
 			/**
+			@param $scope.selectOptsTags
+			@type Array
+			*/
+			$scope.selectOptsTags =[];
+			
+			/**
 			@property tagsOriginal Used to pick out any new tags for saving on backend (this allows bulk saving at END rather than instant one at a time saving)
 			@type Boolean|Array False until set, and then an array of tag objects, each has:
 				@param {String} _id
@@ -250,7 +256,6 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 				$scope.configTags ={
 					createNew: 1
 				};
-				$scope.selectOptsTags =[];
 				var ii, selectOptsTags =[];
 				for(ii =0; ii<$scope.tags.length; ii++) {
 					selectOptsTags.push({
