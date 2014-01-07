@@ -425,6 +425,9 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 				if(1) {
 					$scope.addChallenge({});
 					$scope.deleteChallenge(($scope.goal.challenge.length-1), {});
+					// if($scope.goal.challenge.length <1) {
+						// $scope.addChallenge({});
+					// }
 				}
 			});
 			
