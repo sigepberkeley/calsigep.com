@@ -415,6 +415,19 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 				init({});
 			}
 			
+			/**
+			Hack to ensure form is valid (otherwise when load a goal, there's an extra challenge that's not valid; this fixes it..)
+			@toc 8.1.
+			@method $scope.$watch('goal',..
+			*/
+			$scope.$watch('goal', function(newVal, oldVal) {
+				// if(!angular.equals(oldVal, newVal)) {
+				if(1) {
+					$scope.addChallenge({});
+					$scope.deleteChallenge(($scope.goal.challenge.length-1), {});
+				}
+			});
+			
 			
 			init({});
 		}

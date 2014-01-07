@@ -1,10 +1,14 @@
 /**
+
+GET URL params
+@param {String} [id] Challenge goal id (to load and edit this goal)
+
 */
 
 'use strict';
 
-angular.module('myApp').controller('DevGoalsEditCtrl', ['$scope', 'appHttp',
-function($scope, appHttp) {
+angular.module('myApp').controller('DevGoalsEditCtrl', ['$scope', 'appHttp', '$routeParams',
+function($scope, appHttp, $routeParams) {
 	/**
 	@property $scope.visible Toggles visibility (used with ng-show and ng-hide) of elements
 	@type Object
@@ -14,6 +18,18 @@ function($scope, appHttp) {
 	};
 	
 	$scope.challengeGoal ={};
+	
+	/**
+	If an edit, load from backend
+	*/
+	if($routeParams.id !==undefined) {
+		appHttp.go({}, {url:'challengeGoal/read', data:{_id: $routeParams.id} }, {})
+		.then(function(response) {
+			$scope.challengeGoal =response.result.result;
+			//default show
+			$scope.visible.addGoal =true;
+		});
+	}
 	
 	$scope.challengeTags =[];
 	appHttp.go({}, {url:'challengeGoal/searchTag', data:{} }, {})
