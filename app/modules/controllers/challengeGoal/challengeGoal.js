@@ -282,6 +282,9 @@ function saveActual(db, data, params) {
 		}
 	}
 	
+	//add timestamps
+	data.challenge_goal.last_updated =DatetimeMod.timestamp({});
+	
 	CrudMod.save(db, data.challenge_goal, {'collection':'challenge_goal'}, function(err, ret1) {
 		ret.msg +=ret1.msg;
 		if(ret1.result) { 

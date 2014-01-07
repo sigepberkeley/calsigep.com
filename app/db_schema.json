@@ -88,7 +88,8 @@
 		],
 		"title":"{String} i.e. 'Epsilon Interviews'",
 		"description":"{String} OPTIONAL. i.e. 'Interview/meet with at least 90% of Epsilons. Ask them: 1. why they joined SigEp, 2. favorite SigEp experience/memory, 3. 1 thing they would like to see from the Sigma class / chapter this semester. Note, can be up to 4 people per meeting (i.e. 2 sigmas & 2 epsilons), does not all have to be individual meetings (though those are preferred)'",
-		"tags":"{Array} OPTIONAL. i.e. ['brotherhood', 'sound_body']"
+		"tags":"{Array} OPTIONAL. i.e. ['brotherhood', 'sound_body']",
+		"last_updated": "{String} YYYY-MM-DD HH:mm:ssZ"
 	},
 	"challenge":[
 		{
