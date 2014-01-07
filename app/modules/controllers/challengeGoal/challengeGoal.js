@@ -272,7 +272,8 @@ function saveActual(db, data, params) {
 	var ret ={code:0, msg:'ChallengeGoal saveActual ', challenge_goal:{}};
 	
 	//convert to int
-	var toIntChallenge =['required', 'points', 'target_value', 'min_value', 'max_value', 'max_points'];
+	// var toIntChallenge =['required', 'points', 'target_value', 'min_value', 'max_value', 'max_points'];
+	var toIntChallenge =['required'];		//UPDATE: want to convert to FLOAT for most, not INT - so only convert things that are booleans
 	var xx, ii;
 	for(xx in data.challenge_goal.challenge) {
 		for(ii =0; ii<toIntChallenge.length; ii++) {

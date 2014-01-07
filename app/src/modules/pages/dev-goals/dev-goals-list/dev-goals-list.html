@@ -16,6 +16,9 @@
 					<div class='dev-goals-list-inline-values'>Max. Points: {{challenge.max_points}}</div>
 				</div>
 			</div>
+			<div>
+				<a class='btn btn-success btn-small' ng-href='{{appPathLink}}dev-goals-edit?id={{goal._id}}'>Edit</a> <span class='btn btn-danger btn-small' ng-click='deleteGoal(goal, $index, {})'>Delete</span>
+			</div>
 		</div>
 		
 	</div>
