@@ -7,8 +7,8 @@ GET URL params
 
 'use strict';
 
-angular.module('myApp').controller('DevGoalsEditCtrl', ['$scope', 'appHttp', '$routeParams',
-function($scope, appHttp, $routeParams) {
+angular.module('myApp').controller('DevGoalsEditCtrl', ['$scope', 'appHttp', '$routeParams', 'appChallengeTagModel',
+function($scope, appHttp, $routeParams, appChallengeTagModel) {
 	/**
 	@property $scope.visible Toggles visibility (used with ng-show and ng-hide) of elements
 	@type Object
@@ -32,9 +32,9 @@ function($scope, appHttp, $routeParams) {
 	}
 	
 	$scope.challengeTags =[];
-	appHttp.go({}, {url:'challengeGoal/searchTag', data:{} }, {})
-	.then(function(response) {
-		$scope.challengeTags =response.result.results;
+	appChallengeTagModel.read({})
+	.then(function(retTag) {
+		$scope.challengeTags =retTag.tags;
 	});
 	
 	/**

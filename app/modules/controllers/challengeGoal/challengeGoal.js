@@ -91,8 +91,8 @@ ChallengeGoal.prototype.search = function(db, data, params) {
 	var query ={};
 	var ppSend =CrudMod.setSearchParams(data, query, {});
 	
-	LookupMod.search(db, 'challenge_goal', ppSend, function(err, retArray1) {
-		deferred.resolve(retArray1);
+	LookupMod.search(db, 'challenge_goal', ppSend, function(err, ret1) {
+		deferred.resolve(ret1);
 	});
 
 	return deferred.promise;

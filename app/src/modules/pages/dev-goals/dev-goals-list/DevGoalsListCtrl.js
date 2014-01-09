@@ -3,8 +3,8 @@
 
 'use strict';
 
-angular.module('myApp').controller('DevGoalsListCtrl', ['$scope', 'appHttp',
-function($scope, appHttp) {
+angular.module('myApp').controller('DevGoalsListCtrl', ['$scope', 'appHttp', 'appChallengeTagModel',
+function($scope, appHttp, appChallengeTagModel) {
 
 	$scope.goals =[];
 	
@@ -19,19 +19,26 @@ function($scope, appHttp) {
 		};
 		appHttp.go({}, {url:'challengeGoal/search', data:data1 }, {})
 		.then(function(response) {
-			response.result.results =formatGoals(response.result.results, {});
-			$scope.goals =response.result.results;
+			formatGoals(response.result.results, {});
 		});
 	}
 	
 	function formatGoals(goals, params) {
-		var ii;
-		for(ii =0; ii<goals.length; ii++) {
-			goals[ii].xDisplay ={
-				visible: false
-			};
-		}
-		return goals;
+		appChallengeTagModel.stuffChallengeTags(goals, {})
+		.then(function(ret1) {
+			goals =ret1.challengeGoals;
+			
+			var ii;
+			for(ii =0; ii<goals.length; ii++) {
+				if(goals[ii].xDisplay ===undefined) {
+					goals[ii].xDisplay ={};
+				}
+				goals[ii].xDisplay.visible =false;
+				goals[ii].xDisplay.tagNames =goals[ii].xDisplay.tagNames.join(', ');
+			}
+		
+			$scope.goals =goals;
+		});
 	}
 	
 	$scope.deleteGoal =function(goal, goalsIndex, params) {

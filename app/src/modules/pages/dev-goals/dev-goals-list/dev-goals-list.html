@@ -2,7 +2,7 @@
 	<div ng-repeat='goal in goals'>
 		<div class='list-header pointer' ng-click='goal.xDisplay.visible =!goal.xDisplay.visible'>{{goal.title}}</div>
 		<div ng-show='goal.xDisplay.visible' class='list'>
-			<div>Tags: {{goal.tags}}</div>
+			<div>Tags: {{goal.xDisplay.tagNames}}</div>
 			<div>Description: {{goal.description}}</div>
 			<div class='margin-l dev-goals-list-challenge' ng-repeat='challenge in goal.challenge'>
 				<h4>{{challenge.name}}</h4>

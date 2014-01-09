@@ -201,6 +201,17 @@
 											"UserModel.spec.js"
 										]
 									}
+								},
+								{
+									"name": "challenge-tag-model",
+									"files": {
+										"js": [
+											"challenge-tag-model.js"
+										],
+										"testUnit": [
+											"challenge-tag-model.spec.js"
+										]
+									}
 								}
 							]
 						},
