@@ -80,6 +80,17 @@
 									"multiselect.less"
 								]
 							}
+						},
+						{
+							"name": "angular-lookup",
+							"files": {
+								"js": [
+									"lookup.min.js"
+								],
+								"less": [
+									"lookup.less"
+								]
+							}
 						}
 					]
 				},

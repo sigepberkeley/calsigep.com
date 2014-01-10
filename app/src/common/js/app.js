@@ -27,7 +27,8 @@ angular.module('jrg', [
 		//directives
 		'jackrabbitsgroup.angular-forminput',
 		'jackrabbitsgroup.angular-multiselect',
-		'jackrabbitsgroup.angular-datetimepicker'
+		'jackrabbitsgroup.angular-datetimepicker',
+		'jackrabbitsgroup.angular-lookup'
 	]
 );
 

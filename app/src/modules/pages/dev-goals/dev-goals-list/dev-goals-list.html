@@ -1,25 +1,26 @@
 <div ng-controller='DevGoalsListCtrl'>
-	<div ng-repeat='goal in goals'>
-		<div class='list-header pointer' ng-click='goal.xDisplay.visible =!goal.xDisplay.visible'>{{goal.title}}</div>
-		<div ng-show='goal.xDisplay.visible' class='list'>
-			<div>Tags: {{goal.xDisplay.tagNames}}</div>
-			<div>Description: {{goal.description}}</div>
-			<div class='margin-l dev-goals-list-challenge' ng-repeat='challenge in goal.challenge'>
-				<h4>{{challenge.name}}</h4>
+	<div jrg-lookup items-raw='goalsRaw' items-filtered='goals' filter-fields='filterFields' load-more='loadMoreGoals' opts='optsLookup' placeholder='Search by title or challenge'>
+		<div ng-repeat='goal in goals'>
+			<div class='list-header pointer' ng-click='goal.xDisplay.visible =!goal.xDisplay.visible'>{{goal.title}}</div>
+			<div ng-show='goal.xDisplay.visible' class='list'>
+				<div>Tags: {{goal.xDisplay.tagNames}}</div>
+				<div>Description: {{goal.description}}</div>
+				<div class='margin-l dev-goals-list-challenge' ng-repeat='challenge in goal.challenge'>
+					<h4>{{challenge.name}}</h4>
+					<div>
+						<div class='dev-goals-list-inline-values'>Group: {{challenge.group}}</div>
+						<div class='dev-goals-list-inline-values'>Required: {{challenge.required}}</div>
+						<div class='dev-goals-list-inline-values'>Min. Value: {{challenge.min_value}}</div>
+						<div class='dev-goals-list-inline-values'>Target Value: {{challenge.target_value}}</div>
+						<div class='dev-goals-list-inline-values'>Points: {{challenge.points}}</div>
+						<div class='dev-goals-list-inline-values'>Max. Value: {{challenge.max_value}}</div>
+						<div class='dev-goals-list-inline-values'>Max. Points: {{challenge.max_points}}</div>
+					</div>
+				</div>
 				<div>
-					<div class='dev-goals-list-inline-values'>Group: {{challenge.group}}</div>
-					<div class='dev-goals-list-inline-values'>Required: {{challenge.required}}</div>
-					<div class='dev-goals-list-inline-values'>Min. Value: {{challenge.min_value}}</div>
-					<div class='dev-goals-list-inline-values'>Target Value: {{challenge.target_value}}</div>
-					<div class='dev-goals-list-inline-values'>Points: {{challenge.points}}</div>
-					<div class='dev-goals-list-inline-values'>Max. Value: {{challenge.max_value}}</div>
-					<div class='dev-goals-list-inline-values'>Max. Points: {{challenge.max_points}}</div>
+					<a class='btn btn-success btn-small' ng-href='{{appPathLink}}dev-goals-edit?id={{goal._id}}'>Edit</a> <span class='btn btn-danger btn-small' ng-click='deleteGoal(goal, $index, {})'>Delete</span>
 				</div>
 			</div>
-			<div>
-				<a class='btn btn-success btn-small' ng-href='{{appPathLink}}dev-goals-edit?id={{goal._id}}'>Edit</a> <span class='btn btn-danger btn-small' ng-click='deleteGoal(goal, $index, {})'>Delete</span>
-			</div>
 		</div>
-		
 	</div>
 </div>

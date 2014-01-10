@@ -36,7 +36,8 @@
 		"angular-forminput": "latest",
 		"angular-socket-io": "latest",
 		"angular-multiselect": "latest",
-		"angular-datetimepicker": "latest"
+		"angular-datetimepicker": "latest",
+		"angular-lookup": "latest"
 	},
 	"license": "MIT",
 	"resolutions": {
