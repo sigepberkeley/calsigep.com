@@ -327,13 +327,12 @@ function go(params) {
 			
 			// it('should return the matched set of challenges with a search', function() {
 			var params ={
-				searchString: 'sigmA',		//should be case-insensitive
+				searchString: 'brother_Mentor',		//should be case-insensitive		//note: can NOT use the [0] test challenge since that name was CHANGED via the save call test above!
 				searchFields: ['name']
 			};
 			api.expectRequest({method:'Challenge.search'}, {data:params}, {}, {})
 			.then(function(res) {
 				var data =res.data;
-				console.log(data.result.results);
 				expect(data.result.results.length).toBe(1);
 				
 				var params ={
