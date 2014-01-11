@@ -41,7 +41,7 @@ var ChallengeTests = require(pathParts.modules+'/controllers/challenge/challenge
 process.argv.push('config=test');		//add test command line argument
 
 //if command line argument to NOT run run.js is set, skip (i.e. if want to keep node.js server running in separate command window to keep test output all together and make it run a bit faster)
-var curArgs =process.argv.splice(2);
+var curArgs =process.argv;		//NOTE: do NOT use .splice here as that modifies the actual process.argv, which will mess up things later!
 // console.log(curArgs);
 var runTimeout =0;
 if(curArgs.indexOf('runjs=no') <0) {
