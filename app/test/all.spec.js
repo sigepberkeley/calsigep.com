@@ -43,7 +43,9 @@ process.argv.push('config=test');		//add test command line argument
 //if command line argument to NOT run run.js is set, skip (i.e. if want to keep node.js server running in separate command window to keep test output all together and make it run a bit faster)
 var curArgs =process.argv.splice(2);
 // console.log(curArgs);
+var runTimeout =0;
 if(curArgs.indexOf('runjs=no') <0) {
+	runTimeout =2500;
 	var run =require(pathParts.modules+'/../../run.js');
 }
 
@@ -172,7 +174,7 @@ describe('all tests', function() {
 			
 		};
 		
-		}, 2500);		//end: timeout. NOTE: this time must be LESS than 5000 since that's the auto timeout for jasmine node test runner where it will quit!
+		}, runTimeout);		//end: timeout. NOTE: this time must be LESS than 5000 since that's the auto timeout for jasmine node test runner where it will quit!
 	
 	});
 });
