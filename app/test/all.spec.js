@@ -39,7 +39,13 @@ var ChallengeTests = require(pathParts.modules+'/controllers/challenge/challenge
 
 //run the server in the TEST environment (this also is required for coverage to work / run on all the files)		//UPDATE: now running this with grunt instead		//UPDATE 2: running with grunt breaks coverage (i.e. it does not run on all files) - apparently MUST run this file here for coverage to work properly..
 process.argv.push('config=test');		//add test command line argument
-var run =require(pathParts.modules+'/../../run.js');
+
+//if command line argument to NOT run run.js is set, skip (i.e. if want to keep node.js server running in separate command window to keep test output all together and make it run a bit faster)
+var curArgs =process.argv.splice(2);
+// console.log(curArgs);
+if(curArgs.indexOf('runjs=no') <0) {
+	var run =require(pathParts.modules+'/../../run.js');
+}
 
 var db =false;
 
