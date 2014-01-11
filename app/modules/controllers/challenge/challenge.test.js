@@ -333,7 +333,8 @@ function go(params) {
 			api.expectRequest({method:'Challenge.search'}, {data:params}, {}, {})
 			.then(function(res) {
 				var data =res.data;
-				expect(data.result.results.length).toBe(4);
+				console.log(data.result.results);
+				expect(data.result.results.length).toBe(1);
 				
 				var params ={
 					searchString: 'epsilon',
