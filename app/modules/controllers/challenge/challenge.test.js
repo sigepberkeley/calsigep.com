@@ -72,7 +72,7 @@ Variable to store variables we need to use in multiple tests (i.e. counters)
 @type Object
 */
 var globals ={
-	newNameChallenges: 0
+	newNameChallenges: []		//array of new challenges, each is an object that has at least a 'name' key
 };
 
 module.exports = Challenge;
@@ -133,6 +133,10 @@ function clearData(params) {
 	var ii=0;
 	for(ii =0; ii<TEST_CHALLENGES.length; ii++) {
 		names[ii] =TEST_CHALLENGES[ii].name;
+	}
+	//add new name challenges too
+	for(ii =0; ii<globals.newNameChallenges.length; ii++) {
+		names.push(globals.newNameChallenges[ii].name);
 	}
 	db.challenge.remove({name: {$in:names} }, function(err, numRemoved) {
 		if(err) {
@@ -289,7 +293,7 @@ function go(params) {
 		};
 		api.expectRequest({method:'Challenge.save'}, {data:params}, {}, {})
 		.then(function(res) {
-			var data =res.data;
+			var data =res.data.result;
 			read({'newName':testChallenge.name});		//go to next function/test in sequence
 		});
 	};
@@ -306,9 +310,9 @@ function go(params) {
 		};
 		api.expectRequest({method:'Challenge.read'}, {data:params}, {}, {})
 		.then(function(res) {
-			var data =res.data;
-			expect(data.result.result).toBeDefined();
-			expect(data.result.result.name).toBe(opts.newName);
+			var data =res.data.result;
+			expect(data.result).toBeDefined();
+			expect(data.result.name).toBe(opts.newName);
 			
 			search({});
 		});
@@ -325,8 +329,8 @@ function go(params) {
 		};
 		api.expectRequest({method:'Challenge.search'}, {data:params}, {}, {})
 		.then(function(res) {
-			var data =res.data;
-			expect(data.result.results.length).toBe(TEST_CHALLENGES.length);
+			var data =res.data.result;
+			expect(data.results.length).toBe(TEST_CHALLENGES.length);
 			
 			// it('should return the matched set of challenges with a search', function() {
 			var params ={
@@ -335,8 +339,8 @@ function go(params) {
 			};
 			api.expectRequest({method:'Challenge.search'}, {data:params}, {}, {})
 			.then(function(res) {
-				var data =res.data;
-				expect(data.result.results.length).toBe(1);
+				var data =res.data.result;
+				expect(data.results.length).toBe(1);
 				
 				var params ={
 					searchString: 'epsilon',
@@ -344,11 +348,10 @@ function go(params) {
 				};
 				api.expectRequest({method:'Challenge.search'}, {data:params}, {}, {})
 				.then(function(res) {
-					var data =res.data;
-					expect(data.result.results.length).toBe(1);
-							
-					// updateNamesAndGroups({});		//go to next function/test in sequence
-					delete1({});
+					var data =res.data.result;
+					expect(data.results.length).toBe(1);
+					
+					updateNamesAndGroups({});		//go to next function/test in sequence
 				});
 			});
 		});
@@ -370,11 +373,18 @@ function go(params) {
 				epsilon: ['group4']
 			}
 		};
-		globals.newNameChallenges =2;		//set so delete expectations can be matched appropriately
+		globals.newNameChallenges =[
+			{
+				name: 'sigma'
+			},
+			{
+				name: 'phi_edit'
+			}
+		];		//set so delete expectations can be matched appropriately
 		
 		api.expectRequest({method:'Challenge.updateNamesAndGroups'}, {data:params}, {}, {})
 		.then(function(res) {
-			var data =res.data;
+			var data =res.data.result;
 			readGroupNames({});		//go to next function/test in sequence
 		});
 	};
@@ -389,7 +399,7 @@ function go(params) {
 		};
 		api.expectRequest({method:'Challenge.readGroupNames'}, {data:params}, {}, {})
 		.then(function(res) {
-			var data =res.data;
+			var data =res.data.result;
 			expect(data.names.length).toBe(4);
 			delete1({});		//go to next function/test in sequence
 		});
@@ -408,14 +418,14 @@ function go(params) {
 		};
 		api.expectRequest({method:'Challenge.delete1'}, {data:params}, {}, {})
 		.then(function(res) {
-			var data =res.data;
+			var data =res.data.result;
 			
 			params ={
 			};
 			api.expectRequest({method:'Challenge.search'}, {data:params}, {}, {})
 			.then(function(res) {
-				var data =res.data;
-				expect(data.result.results.length).toBe((TEST_CHALLENGES.length-1));		//should be 1 less now that deleted one
+				var data =res.data.result;
+				expect(data.results.length).toBe((TEST_CHALLENGES.length-1+globals.newNameChallenges.length));		//should be 1 less now that deleted one
 				
 				// it('should delete multiple challenges', function() {
 				params ={
@@ -423,15 +433,15 @@ function go(params) {
 				};
 				api.expectRequest({method:'Challenge.delete1'}, {data:params}, {}, {})
 				.then(function(res) {
-					var data =res.data;
+					var data =res.data.result;
 				
 					params ={
 					};
 					
 					api.expectRequest({method:'Challenge.search'}, {data:params}, {}, {})
 					.then(function(res) {
-						var data =res.data;
-						expect(data.result.results.length).toBe((TEST_CHALLENGES.length-1-2));		//should be 1 less now that deleted ones
+						var data =res.data.result;
+						expect(data.results.length).toBe((TEST_CHALLENGES.length-1-2+globals.newNameChallenges.length));		//should be 1 less now that deleted ones
 						
 						deferred.resolve({});
 					});
