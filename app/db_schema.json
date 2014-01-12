@@ -70,44 +70,42 @@
 			}
 		]
 	},
-	"challenge_goal":{
-		"_id":"{ObjectId} ObjectId('123l4k234l')",
-		"challenge":[
+	"challenge_goal": {
+		"_id": "{ObjectId} ObjectId('123l4k234l')",
+		"challenge": [
 			{
-				"_id":"{String} sdfeaf234d",
-				"name":"{String} Should/must match what is set in the user.challenges.name field. A challenge_goal can potentially be part of multiple challenges - this allows for hybrid / modified challenges if need be. i.e. 'sigma' or 'brother_mentor'",
-				"date_last_active":"{String} YYYY-MM-DD HH:mm:ssZ OR undefined / not-exists for the current version. This is so can raise the standards with time but still see a copy of older 'versions' of the same challenge. I.e. the 'current' Epsilon goals will have this field blank and to 'retire' the current Epsilon goals to change them, the current ones would be cloned and the existing ones would get the current/last active date filled in.",
-				"group":"{String} OPTIONAL. Used to group goals together for setting minimum points per group to ensure balance when earning points. I.e. 'leg_strength'",
+				"_id": "{String} sdfeaf234d",
+				"name": "{String} Should/must match what is set in the user.challenges.name field. A challenge_goal can potentially be part of multiple challenges - this allows for hybrid / modified challenges if need be. i.e. 'sigma' or 'brother_mentor'",
+				"date_last_active": "{String} YYYY-MM-DD HH:mm:ssZ OR undefined / not-exists for the current version. This is so can raise the standards with time but still see a copy of older 'versions' of the same challenge. I.e. the 'current' Epsilon goals will have this field blank and to 'retire' the current Epsilon goals to change them, the current ones would be cloned and the existing ones would get the current/last active date filled in.",
+				"group": "{String} OPTIONAL. Used to group goals together for setting minimum points per group to ensure balance when earning points. I.e. 'leg_strength'",
 				"required": "{Number} 1 if a required goal, in which case makes min_value and min_points obsolete and just goes from points (at target_value) to max_points (at max_value) - basically it just cuts off partial points and starts points at ZERO for target_value",
-				"points":"{Number} The number of points awarded for completing this goal (achieving the target_value). Partial points could theoretically be supported/awarded if the goal is partially complete.",
-				"target_value":"{Number} DEFAULT 1. The target value to earn for this goal, i.e. 15",
-				"min_value":"{Number} OPTIONAL. DEFAULT 0. The minimum value required to earn for this goal; this value is where points starts at 0 (we do not need a min_points key since we assume min_points is always 0). For example, achieving a 3.0 GPA with a target_value of 3.1, min_value of 2.9 and points of 10 would earn (3.0-2.9)/(3.1-2.9)*10 = 5 points. i.e. 10",
-				"max_value":"{Number} OPTIONAL. The maximum value that will be counted toward points (will be awarded max_points if set). Points will be awarded on a linear scale between target_value and max_value for the difference of max_points minus points. For example, achieving a 3.8 GPA with a target_value of 3.1, max_value of 4.0, points of 10 and max_points of 20 would earn (20-10)/(4.0-3.1)*(3.9-3.1) =7.78 extra points, (10+7.78) = 17.78 total points for this goal. I.e. 20",
-				"max_points":"{Number} OPTIONAL. DEFAULT to the (max_value/target_value * points). The maximum points that can be earned for this goal if achieve the max_value, i.e. 10"
+				"points": "{Number} The number of points awarded for completing this goal (achieving the target_value). Partial points could theoretically be supported/awarded if the goal is partially complete.",
+				"target_value": "{Number} DEFAULT 1. The target value to earn for this goal, i.e. 15",
+				"min_value": "{Number} OPTIONAL. DEFAULT 0. The minimum value required to earn for this goal; this value is where points starts at 0 (we do not need a min_points key since we assume min_points is always 0). For example, achieving a 3.0 GPA with a target_value of 3.1, min_value of 2.9 and points of 10 would earn (3.0-2.9)/(3.1-2.9)*10 = 5 points. i.e. 10",
+				"max_value": "{Number} OPTIONAL. The maximum value that will be counted toward points (will be awarded max_points if set). Points will be awarded on a linear scale between target_value and max_value for the difference of max_points minus points. For example, achieving a 3.8 GPA with a target_value of 3.1, max_value of 4.0, points of 10 and max_points of 20 would earn (20-10)/(4.0-3.1)*(3.9-3.1) =7.78 extra points, (10+7.78) = 17.78 total points for this goal. I.e. 20",
+				"max_points": "{Number} OPTIONAL. DEFAULT to the (max_value/target_value * points). The maximum points that can be earned for this goal if achieve the max_value, i.e. 10"
 			}
 		],
-		"title":"{String} i.e. 'Epsilon Interviews'",
-		"description":"{String} OPTIONAL. i.e. 'Interview/meet with at least 90% of Epsilons. Ask them: 1. why they joined SigEp, 2. favorite SigEp experience/memory, 3. 1 thing they would like to see from the Sigma class / chapter this semester. Note, can be up to 4 people per meeting (i.e. 2 sigmas & 2 epsilons), does not all have to be individual meetings (though those are preferred)'",
-		"tags":"{Array} OPTIONAL. i.e. ['brotherhood', 'sound_body']",
+		"title": "{String} i.e. 'Epsilon Interviews'",
+		"description": "{String} OPTIONAL. i.e. 'Interview/meet with at least 90% of Epsilons. Ask them: 1. why they joined SigEp, 2. favorite SigEp experience/memory, 3. 1 thing they would like to see from the Sigma class / chapter this semester. Note, can be up to 4 people per meeting (i.e. 2 sigmas & 2 epsilons), does not all have to be individual meetings (though those are preferred)'",
+		"tags": "{Array} OPTIONAL. i.e. ['brotherhood', 'sound_body']",
 		"last_updated": "{String} YYYY-MM-DD HH:mm:ssZ"
 	},
-	"challenge":[
-		{
-			"_id":"{String} sdfeaf234d",
-			"name":"{String} One of: 'sigma', 'phi', 'epsilon', 'brother_mentor', 'fellow', etc.",
-			"max_duration":"{Number} Number of days from start date after which user fails the challenge / is kicked out",
-			"group":[
-				{
-					"_id":"{String} sdfeaf234d",
-					"name":"{String} Should match challenge_goal.challenge.group",
-					"min_points":"{Number} The minimum number of points that must be earned in this group. I.e. 5"
-				}
-			],
-			"min_points":"{Number} The minimum number of points required to complete this challenge"
-		}
-	],
+	"challenge": {
+		"_id": "{String} sdfeaf234d",
+		"name": "{String} SHOULD BE UNIQUE! No two of the same name!. One of: 'sigma', 'phi', 'epsilon', 'brother_mentor', 'fellow', etc.",
+		"max_duration": "{Number} Number of days from start date after which user fails the challenge / is kicked out",
+		"min_points": "{Number} The minimum number of points required to complete this challenge",
+		"group": [
+			{
+				"_id": "{String} sdfeaf234d",
+				"name": "{String} Should match challenge_goal.challenge.group",
+				"min_points": "{Number} The minimum number of points that must be earned in this group. I.e. 5"
+			}
+		]
+	},
 	"challenge_tag": {
-		"_id":"{ObjectId} ObjectId('123l4k234l')",
+		"_id": "{ObjectId} ObjectId('123l4k234l')",
 		"name": "{String} Name of the tag, i.e. 'brotherhood'"
 	}
 }

@@ -1,4 +1,6 @@
 /**
+The challenge collection is closely linked to this challenge_goal collection and whenever a challenge goal is saved / added, the challenge collection is updated with the name(s) of the challenges for that goal and any (points) groups for each challenge. This ensures that the challenge collection is always up to date and synced with the challenge goals (all challenge names and points groups in challenge goals will always be present the challenge collection as well).
+
 ChallengeGoal module representing the challenge goals
 @module challengeGoal
 @class challengeGoal
@@ -9,6 +11,7 @@ ChallengeGoal module representing the challenge goals
 3. save
 3.1. saveBulk
 3.5. saveActual (private function)
+3.6. saveChallengeNamesAndGroups (private function)
 4. delete1
 5. obsoleteChallenge
 6. saveTag
@@ -31,6 +34,8 @@ var CrudMod =require(pathParts.services+'crud/crud.js');
 var LookupMod =require(pathParts.services+'lookup/lookup.js');
 var DatetimeMod =require(pathParts.services+'datetime/datetime.js');
 var ArrayMod =require(pathParts.services+'array/array.js');
+
+var ChallengeMod =require(pathParts.controllers+'challenge/challenge.js');
 
 var self;
 
@@ -163,8 +168,10 @@ Creates or updates a challenge goal
 	@param {Array} [new_tags] Array of one or more NEW tags to create. Each item should have at least a name field. One of tags or new_tags is required.
 		@param {String} name
 @param {Object} params
+	@param {Boolean} [bulk] True if called from bulk call
 @return {Promise}
 	@param {Object} challenge_goal
+	@param {Array} challenge Array of challenge objects from the names/groups in this challenge goal
 **/
 ChallengeGoal.prototype.save = function(db, data, params)
 {
@@ -221,12 +228,13 @@ Creates or updates multiple challenge goals
 	@param {Array} challenge_goal Array of challenge goal objects to save. For each challenge goal object, if '_id' field is present, it will update; otherwise it will create
 @param {Object} params
 @return {Promise}
-	@param {Object} challenge_goal
+	@param {Array} challenge_goal Array of challenge goal objects
+	@param {Array} challenge Array of challenge objects from the names/groups in this challenge goal
 **/
 ChallengeGoal.prototype.saveBulk = function(db, data, params)
 {
 	var deferred = Q.defer();
-	var ret ={code:0, msg:'ChallengeGoal.saveBulk ', challenge_goal:[]};
+	var ret ={code:0, msg:'ChallengeGoal.saveBulk ', challenge_goal:[], challenge:[]};
 	
 	var ii, dataTemp;
 	var promises =[];
@@ -239,7 +247,7 @@ ChallengeGoal.prototype.saveBulk = function(db, data, params)
 			dataTemp ={
 				challenge_goal: data.challenge_goal[ii]
 			};
-			promises[ii] =self.save(db, dataTemp, {});
+			promises[ii] =self.save(db, dataTemp, {bulk:true});
 			// promises[ii] =deferreds[ii].promise;
 		})(ii);
 	}
@@ -252,8 +260,24 @@ ChallengeGoal.prototype.saveBulk = function(db, data, params)
 			else {
 				ret.challenge_goal[ii] =false;
 			}
+			
+			// if(ret1[ii].challenge !==undefined) {
+				// ret.challenge[ii] =ret1[ii].challenge;
+			// }
+			// else {
+				// ret.challenge[ii] =false;
+			// }
 		}
-		deferred.resolve(ret);
+		
+		//NOW have to save challenge names & groups (for bulk save have to do this ONCE at end to ensure no duplicates!)
+		saveChallengeNamesAndGroups(db, ret.challenge_goal, {})
+		.then(function(retNames) {
+			ret.challenge =retNames.challenge;
+			deferred.resolve(ret);
+		}, function(retErr) {
+			deferred.reject(retErr);
+		});
+		
 	}, function(err) {
 		deferred.reject(ret);
 	});
@@ -266,19 +290,26 @@ ChallengeGoal.prototype.saveBulk = function(db, data, params)
 @method saveActual
 @param {Object} data
 	@param {Object} challenge_goal The data to save. If '_id' field is present, it will update; otherwise it will create
+@param {Object} params
+	@param {Boolean} [bulk] True if called from bulk call
+@return {Object} (via Promise)
+	@param {Object} challenge_goal
+	@param {Array} challenge Array of challenge objects from the names/groups in this challenge goal
 */
 function saveActual(db, data, params) {
 	var deferred = Q.defer();
-	var ret ={code:0, msg:'ChallengeGoal saveActual ', challenge_goal:{}};
+	var ret ={code:0, msg:'ChallengeGoal saveActual ', challenge_goal:{}, challenge:[]};
 	
 	//convert to int
 	// var toIntChallenge =['required', 'points', 'target_value', 'min_value', 'max_value', 'max_points'];
 	var toIntChallenge =['required'];		//UPDATE: want to convert to FLOAT for most, not INT - so only convert things that are booleans
 	var xx, ii;
-	for(xx in data.challenge_goal.challenge) {
-		for(ii =0; ii<toIntChallenge.length; ii++) {
-			if(data.challenge_goal.challenge[xx][toIntChallenge[ii]] !==undefined) {
-				data.challenge_goal.challenge[xx][toIntChallenge[ii]] =parseInt(data.challenge_goal.challenge[xx][toIntChallenge[ii]], 10);
+	if(data.challenge_goal.challenge !==undefined) {
+		for(xx in data.challenge_goal.challenge) {
+			for(ii =0; ii<toIntChallenge.length; ii++) {
+				if(data.challenge_goal.challenge[xx][toIntChallenge[ii]] !==undefined) {
+					data.challenge_goal.challenge[xx][toIntChallenge[ii]] =parseInt(data.challenge_goal.challenge[xx][toIntChallenge[ii]], 10);
+				}
 			}
 		}
 	}
@@ -295,11 +326,77 @@ function saveActual(db, data, params) {
 			ret.challenge_goal =data.challenge_goal;
 		}
 		
-		deferred.resolve(ret);
+		//update challenges collection (insert challenges for new names and update/add (points) groups). BUT if a bulk save, have to do this just ONCE at the end to ensure uniqueness of challenge names (since can't have multiple challenges with the same name and may likely have challenge goals for the same challenge being saved and may have timing issues which could lead to duplicates)
+		if((params.bulk ===undefined || !params.bulk) && ret.challenge_goal.challenge !==undefined) {		//if have challenge key / array (may not on an update that just updates challenge goal title or something)
+			saveChallengeNamesAndGroups(db, [ret.challenge_goal], {})
+			.then(function(ret1) {
+				ret.challenge =ret1.challenge;
+				deferred.resolve(ret);
+			}, function(retErr) {
+				deferred.reject(retErr);
+			});
+		}
+		else {
+			deferred.resolve(ret);
+		}
 	});
 	
 	return deferred.promise;
 }
+
+/**
+Pulls out all the challenge names and (points) groups and saves them into the challenge collection as well
+@toc 3.6
+@method saveChallengeNamesAndGroups
+@param {Array} challengeGoals Array of one or more challenge goals, each is an object of:
+	@param {Array} challenge Array of objects
+		@param {String} name
+		@param {String} [group]
+@return {Object} (via Promise)
+	@param {Array} challenge Array of challenges that were updated (one for each data.names name - whether it was updated, inserted, or not)
+*/
+function saveChallengeNamesAndGroups(db, challengeGoals, params) {
+	var deferred = Q.defer();
+	var ret ={code:0, msg:'ChallengeGoal saveChallengeNamesAndGroups ', challenge:[]};
+	
+	var names =[];
+	/**
+	@property groupsByName Will hold an array of group names per challenge (for adding to challenge collection)
+	@type Object
+	*/
+	var groupsByName ={};
+	
+	//pull out challenge names
+	var ii, curName, kk, curGroupName;
+	for(kk =0; kk<challengeGoals.length; kk++) {
+		for(ii =0; ii<challengeGoals[kk].challenge.length; ii++) {
+			curName =challengeGoals[kk].challenge[ii].name;
+			if(names.indexOf(curName) <0) {		//if not already there - no duplicates!
+				names.push(curName);
+			}
+			if(challengeGoals[kk].challenge[ii].group !==undefined) {
+				curGroupName =challengeGoals[kk].challenge[ii].group;
+				if(groupsByName[curName] ===undefined) {
+					groupsByName[curName] =[];
+				}
+				if(groupsByName[curName].indexOf(curGroupName) <0) {		//if not already there - no duplicates!
+					groupsByName[curName].push(curGroupName);
+				}
+			}
+		}
+	}
+	
+	ChallengeMod.updateNamesAndGroups(db, {names:names, groupsByName:groupsByName}, {})
+	.then(function(ret1) {
+		ret.challenge =ret1.challenge;
+		deferred.resolve(ret);
+	}, function(retErr) {
+		deferred.reject(retErr);
+	});
+	
+	return deferred.promise;
+}
+
 
 /**
 Remove one or more challenge goals

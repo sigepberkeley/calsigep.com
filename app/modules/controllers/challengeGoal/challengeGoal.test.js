@@ -90,7 +90,8 @@ Variable to store variables we need to use in multiple tests (i.e. counters)
 @type Object
 */
 var globals ={
-	obsoleteGoalsLength: 0
+	obsoleteGoalsLength: 0,
+	addedChallenges: []		//used for clean-up - saving challenge goals updates / inserts challenges to ensure the names/(point) groups are all in the challenge collection. So we need to remove these at the end.
 };
 
 module.exports = ChallengeGoal;
@@ -148,7 +149,7 @@ function clearData(params) {
 	
 	//drop test challenge goal(s)
 	var titles =[];
-	var ii=0;
+	var ii;
 	for(ii =0; ii<TEST_CHALLENGEGOALS.length; ii++) {
 		titles[ii] =TEST_CHALLENGEGOALS[ii].title;
 	}
@@ -163,7 +164,30 @@ function clearData(params) {
 			ret.msg +="db.challenge_goal.remove Removed "+numRemoved;
 		}
 		
-		deferred.resolve(ret);
+		//also remove any challenges that were created (secondarily)
+		var jj, challengeIds =[], curId;
+		for(jj =0; jj<globals.addedChallenges.length; jj++) {
+			curId =globals.addedChallenges[jj]._id;
+			if(challengeIds.indexOf(curId) <0) {		//have to check since there may be duplicates
+				challengeIds.push(curId);
+			}
+		}
+		//convert to object id's
+		challengeIds =MongoDBMod.makeIds({ids: challengeIds});
+		db.challenge.remove({_id: {$in:challengeIds} }, function(err, numRemoved1) {
+			if(err) {
+				ret.msg +=" db.challenge.remove Error: "+err;
+			}
+			else if(numRemoved1 <1) {
+				ret.msg +=" db.challenge.remove Num removed: "+numRemoved1;
+			}
+			else {
+				ret.msg +=" db.challenge.remove Removed "+numRemoved1;
+			}
+			
+			deferred.resolve(ret);
+		});
+		
 	});
 	
 	return deferred.promise;
@@ -247,6 +271,7 @@ function go(params) {
 				api.expectRequest({method:'ChallengeGoal.save'}, {data:params}, {}, {})
 				.then(function(res) {
 					data =res.data.result;
+					globals.addedChallenges =globals.addedChallenges.concat(data.challenge);		//save for clearing at end
 					expect(data.challenge_goal.title).toEqual(challengeGoalsNonBulk[ii].title);
 					expect(data.challenge_goal._id).toBeDefined();
 					TEST_CHALLENGEGOALS[(ii+numBulk)]._id =data.challenge_goal._id;		//save for use later
@@ -284,6 +309,7 @@ function go(params) {
 		api.expectRequest({method:'ChallengeGoal.saveBulk'}, {data:params}, {}, {})
 		.then(function(res) {
 			data =res.data.result;
+			globals.addedChallenges =globals.addedChallenges.concat(data.challenge);		//save for clearing at end
 			for(ii =0; ii<challengeGoalsBulk.length; ii++) {
 				expect(data.challenge_goal[ii].title).toEqual(challengeGoalsBulk[ii].title);
 				expect(data.challenge_goal[ii]._id).toBeDefined();
@@ -307,7 +333,8 @@ function go(params) {
 		};
 		api.expectRequest({method:'ChallengeGoal.save'}, {data:params}, {}, {})
 		.then(function(res) {
-			var data =res.data;
+			var data =res.data.result;
+			globals.addedChallenges =globals.addedChallenges.concat(data.challenge);		//save for clearing at end
 			read({'newTitle':testChallengeGoal.title});		//go to next function/test in sequence
 		});
 	};
@@ -324,10 +351,10 @@ function go(params) {
 		};
 		api.expectRequest({method:'ChallengeGoal.read'}, {data:params}, {}, {})
 		.then(function(res) {
-			var data =res.data;
-			expect(data.result.result).toBeDefined();
-			expect(data.result.result.title).toBe(opts.newTitle);
-			expect(data.result.result.priority).toBe(testChallengeGoal.priority);
+			var data =res.data.result;
+			expect(data.result).toBeDefined();
+			expect(data.result.title).toBe(opts.newTitle);
+			expect(data.result.priority).toBe(testChallengeGoal.priority);
 			
 			obsoleteChallenge({});
 		});
@@ -344,9 +371,9 @@ function go(params) {
 		};
 		api.expectRequest({method:'ChallengeGoal.obsoleteChallenge'}, {data:params}, {}, {})
 		.then(function(res) {
-			var data =res.data;
+			var data =res.data.result;
 			globals.obsoleteGoalsLength =1;
-			expect(data.result.challenge_goal_obsolete.length).toBe(globals.obsoleteGoalsLength);		//copied goals should be same length as original goals FOR THIS CHALLENGE
+			expect(data.challenge_goal_obsolete.length).toBe(globals.obsoleteGoalsLength);		//copied goals should be same length as original goals FOR THIS CHALLENGE
 			
 			search({});		//go to next function/test in sequence
 		});
@@ -363,8 +390,8 @@ function go(params) {
 		};
 		api.expectRequest({method:'ChallengeGoal.search'}, {data:params}, {}, {})
 		.then(function(res) {
-			var data =res.data;
-			expect(data.result.results.length).toBe(TEST_CHALLENGEGOALS.length+globals.obsoleteGoalsLength);
+			var data =res.data.result;
+			expect(data.results.length).toBe(TEST_CHALLENGEGOALS.length+globals.obsoleteGoalsLength);
 			
 			// it('should return the matched set of challenge goals with a search', function() {
 			var params ={
@@ -373,8 +400,8 @@ function go(params) {
 			};
 			api.expectRequest({method:'ChallengeGoal.search'}, {data:params}, {}, {})
 			.then(function(res) {
-				var data =res.data;
-				expect(data.result.results.length).toBe(4+globals.obsoleteGoalsLength);
+				var data =res.data.result;
+				expect(data.results.length).toBe(4+globals.obsoleteGoalsLength);
 				
 				var params ={
 					searchString: 'epsilon',
@@ -382,8 +409,8 @@ function go(params) {
 				};
 				api.expectRequest({method:'ChallengeGoal.search'}, {data:params}, {}, {})
 				.then(function(res) {
-					var data =res.data;
-					expect(data.result.results.length).toBe(1+globals.obsoleteGoalsLength);
+					var data =res.data.result;
+					expect(data.results.length).toBe(1+globals.obsoleteGoalsLength);
 							
 					delete1({});		//go to next function/test in sequence
 				});
@@ -404,14 +431,14 @@ function go(params) {
 		};
 		api.expectRequest({method:'ChallengeGoal.delete1'}, {data:params}, {}, {})
 		.then(function(res) {
-			var data =res.data;
+			var data =res.data.result;
 			
 			params ={
 			};
 			api.expectRequest({method:'ChallengeGoal.search'}, {data:params}, {}, {})
 			.then(function(res) {
-				var data =res.data;
-				expect(data.result.results.length).toBe((TEST_CHALLENGEGOALS.length-1+globals.obsoleteGoalsLength));		//should be 1 less now that deleted one
+				var data =res.data.result;
+				expect(data.results.length).toBe((TEST_CHALLENGEGOALS.length-1+globals.obsoleteGoalsLength));		//should be 1 less now that deleted one
 				
 				// it('should delete multiple challenge goals', function() {
 				params ={
@@ -419,15 +446,15 @@ function go(params) {
 				};
 				api.expectRequest({method:'ChallengeGoal.delete1'}, {data:params}, {}, {})
 				.then(function(res) {
-					var data =res.data;
+					var data =res.data.result;
 				
 					params ={
 					};
 					
 					api.expectRequest({method:'ChallengeGoal.search'}, {data:params}, {}, {})
 					.then(function(res) {
-						var data =res.data;
-						expect(data.result.results.length).toBe((TEST_CHALLENGEGOALS.length-1-2+globals.obsoleteGoalsLength));		//should be 1 less now that deleted ones
+						var data =res.data.result;
+						expect(data.results.length).toBe((TEST_CHALLENGEGOALS.length-1-2+globals.obsoleteGoalsLength));		//should be 1 less now that deleted ones
 						
 						deferred.resolve({});
 					});

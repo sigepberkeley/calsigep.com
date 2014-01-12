@@ -17,6 +17,8 @@ private methods
 	6.2. saveUpdate
 	7. read
 	8. search
+	10. updateNamesAndGroups
+	11. readGroupNames
 	9. delete1
 */
 
@@ -70,6 +72,7 @@ Variable to store variables we need to use in multiple tests (i.e. counters)
 @type Object
 */
 var globals ={
+	newNameChallenges: 0
 };
 
 module.exports = Challenge;
@@ -344,9 +347,51 @@ function go(params) {
 					var data =res.data;
 					expect(data.result.results.length).toBe(1);
 							
-					delete1({});		//go to next function/test in sequence
+					// updateNamesAndGroups({});		//go to next function/test in sequence
+					delete1({});
 				});
 			});
+		});
+	};
+	
+	/**
+	@toc 10.
+	@method updateNamesAndGroups
+	@param {Object} opts
+	*/
+	var updateNamesAndGroups =function(opts) {
+		var params ={
+			//2 new challenges ('phi_edit' and 'sigma', which was re-named earlier so now is 'new')
+			names: ['sigma', 'phi_edit', 'epsilon'],
+			//4 new groups
+			groupsByName: {
+				sigma: ['group1', 'group2'],
+				phi_edit: ['group3', 'group1'],
+				epsilon: ['group4']
+			}
+		};
+		globals.newNameChallenges =2;		//set so delete expectations can be matched appropriately
+		
+		api.expectRequest({method:'Challenge.updateNamesAndGroups'}, {data:params}, {}, {})
+		.then(function(res) {
+			var data =res.data;
+			readGroupNames({});		//go to next function/test in sequence
+		});
+	};
+	
+	/**
+	@toc 11.
+	@method readGroupNames
+	@param {Object} opts
+	*/
+	var readGroupNames =function(opts) {
+		var params ={
+		};
+		api.expectRequest({method:'Challenge.readGroupNames'}, {data:params}, {}, {})
+		.then(function(res) {
+			var data =res.data;
+			expect(data.names.length).toBe(4);
+			delete1({});		//go to next function/test in sequence
 		});
 	};
 	

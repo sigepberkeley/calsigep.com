@@ -163,7 +163,7 @@ describe('all tests', function() {
 					.then(UserTests.run({}))
 					.then(FollowTests.run({}))
 					.then(ChallengeGoalTests.run({}))
-					.then(ChallengeTests.run({}))
+					// .then(ChallengeTests.run({}))
 					.then(function(retFin) {
 						console.log('all tests done!');
 					}, function(err) {
