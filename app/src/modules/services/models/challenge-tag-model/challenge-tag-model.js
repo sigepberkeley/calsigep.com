@@ -51,8 +51,8 @@ angular.module('app').factory('appChallengeTagModel', ['appStorage', 'appHttp', 
 				[
 					{
 						tags: [
-							_id: 'id1',
-							_id: 'id2'
+							'id1',
+							'id2'
 						]
 					}
 				]
