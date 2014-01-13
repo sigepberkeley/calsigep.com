@@ -26,6 +26,7 @@ angular.module('jrg', [
 		'jackrabbitsgroup.angular-google-auth',
 		//directives
 		'jackrabbitsgroup.angular-forminput',
+		'jackrabbitsgroup.angular-autocomplete',
 		'jackrabbitsgroup.angular-multiselect',
 		'jackrabbitsgroup.angular-datetimepicker',
 		'jackrabbitsgroup.angular-lookup'

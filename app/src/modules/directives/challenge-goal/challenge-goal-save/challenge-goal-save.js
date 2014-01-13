@@ -28,6 +28,7 @@
 @param {Array} tags Array of tag objects, each has:
 	@param {String} _id
 	@param {String} name
+@param {Array} groups Array of strings for groups to use for autocomplete vals
 @param {Function} save Called to save the challenge goal
 // @param {Function} saveNewTags Called to save any NEW tags created while creating/editing this goal
 
@@ -38,7 +39,7 @@ TODO
 
 @usage
 partial / html:
-<div app-challenge-goal-save goal='goal' tags='tags' save='saveGoal' ></div>
+<div app-challenge-goal-save goal='goal' tags='tags' groups='groups' save='saveGoal' ></div>
 TODO
 
 controller / js:
@@ -55,6 +56,11 @@ $scope.tags =[
 	{_id: 'id1', name: 'tag1'},
 	{_id: 'id2', name: 'tag2'},
 	{_id: 'id3', name: 'tag3'}
+];
+
+$scope.groups =[
+	'group1',
+	'group2'
 ];
 
 // @param {Object} params
@@ -85,6 +91,7 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 		scope: {
 			goal: '=',
 			tags: '=',
+			groups: '=',
 			save: '&'
 			// saveNewTags: '&'
 		},
@@ -149,7 +156,7 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 							"</div>"+
 						
 							"<div class='app-challenge-goal-save-inline-values'>"+
-								"<div jrg-forminput label='(Points) Group' placeholder='academics' ng-model='challenge.group' opts=''></div>"+
+								"<div jrg-forminput type='autocomplete' vals-autocomplete='groups' label='(Points) Group' placeholder='academics' ng-model='challenge.group' opts=''></div>"+
 							"</div>"+
 							
 							"<div class='app-challenge-goal-save-inline-values'>"+
@@ -224,6 +231,11 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 			*/
 			$scope.selectOptsTags =[];
 			
+			$scope.selectValsTags =[];
+			$scope.configTags ={
+				createNew: 1
+			};
+			
 			/**
 			@property tagsOriginal Used to pick out any new tags for saving on backend (this allows bulk saving at END rather than instant one at a time saving)
 			@type Boolean|Array False until set, and then an array of tag objects, each has:
@@ -252,10 +264,6 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 			@method initSelectTags
 			*/
 			function initSelectTags(params) {
-				$scope.selectValsTags =[];
-				$scope.configTags ={
-					createNew: 1
-				};
 				var ii, selectOptsTags =[];
 				for(ii =0; ii<$scope.tags.length; ii++) {
 					selectOptsTags.push({

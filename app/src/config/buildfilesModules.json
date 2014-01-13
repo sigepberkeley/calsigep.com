@@ -71,6 +71,17 @@
 							}
 						},
 						{
+							"name": "angular-autocomplete",
+							"files": {
+								"js": [
+									"autocomplete.min.js"
+								],
+								"less": [
+									"autocomplete.less"
+								]
+							}
+						},
+						{
 							"name": "angular-multiselect",
 							"files": {
 								"js": [
@@ -221,6 +232,17 @@
 										],
 										"testUnit": [
 											"challenge-tag-model.spec.js"
+										]
+									}
+								},
+								{
+									"name": "challenge-group-model",
+									"files": {
+										"js": [
+											"challenge-group-model.js"
+										],
+										"testUnit": [
+											"challenge-group-model.spec.js"
 										]
 									}
 								}
