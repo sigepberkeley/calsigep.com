@@ -66,7 +66,8 @@ ChallengeApi.prototype.getRpcMethods = function(){
 		saveBulk: this.rpcSaveBulk(),
 		delete1: this.rpcDelete(),
 		updateNamesAndGroups: this.rpcUpdateNamesAndGroups(),
-		readGroupNames: this.rpcReadGroupNames()
+		readGroupNames: this.rpcReadGroupNames(),
+		readNames: this.rpcReadNames()
 	};
 };
 
@@ -315,6 +316,39 @@ ChallengeApi.prototype.rpcReadGroupNames = function(){
 		**/
 		action: function(params, out) {
 			var promise =ChallengeMod.readGroupNames(db, params, {});
+			promise.then(function(ret1) {
+				out.win(ret1);
+			}, function(err) {
+				self.handleError(out, err, {});
+			});
+		}
+	};
+};
+
+/**
+@toc 7.
+@method rpcReadNames
+**/
+ChallengeApi.prototype.rpcReadNames = function(){
+	var self = this;
+
+	return {
+		info: 'Returns all challenge names',
+		params: {
+		},
+		returns: {
+			names: []
+		},
+		/**
+		@method action
+		@param {Object} params
+			@param {Object} data new challenge params (detailed above)
+		@param {Object} out callback object which provides `win` and `fail` functions for handling `success` and `fail` callbacks
+			@param {Function} win Success callback
+			@param {Function} fail Fail callback
+		**/
+		action: function(params, out) {
+			var promise =ChallengeMod.readNames(db, params, {});
 			promise.then(function(ret1) {
 				out.win(ret1);
 			}, function(err) {

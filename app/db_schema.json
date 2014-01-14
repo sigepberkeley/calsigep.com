@@ -98,8 +98,8 @@
 		"min_points": "{Number} The minimum number of points required to complete this challenge",
 		"group": [
 			{
-				"_id": "{String} sdfeaf234d",
-				"name": "{String} Should match challenge_goal.challenge.group",
+				"_id": "{String} OPTIONAL?? i.e. sdfeaf234d",
+				"name": "{String} Should match challenge_goal.challenge.group. SHOULD BE UNIQUE among others in this challenge!",
 				"min_points": "{Number} The minimum number of points that must be earned in this group. I.e. 5"
 			}
 		]

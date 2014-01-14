@@ -446,6 +446,25 @@
 									}
 								}
 							]
+						},
+						{
+							"name": "dev-challenge",
+							"dirs": [
+								{
+									"name": "dev-challenge-save",
+									"files": {
+										"js": [
+											"dev-challenge-save.js"
+										],
+										"testUnit": [
+											"dev-challenge-save.spec.js"
+										],
+										"less": [
+											"dev-challenge-save.less"
+										]
+									}
+								}
+							]
 						}
 					]
 				},
@@ -699,6 +718,23 @@
 										],
 										"less": [
 											"dev-challenge-list.less"
+										]
+									}
+								},
+								{
+									"name": "dev-challenge-edit",
+									"files": {
+										"html": [
+											"dev-challenge-edit.html"
+										],
+										"js": [
+											"DevChallengeEditCtrl.js"
+										],
+										"testUnit": [
+											"DevChallengeEditCtrl.spec.js"
+										],
+										"less": [
+											"dev-challenge-edit.less"
 										]
 									}
 								}

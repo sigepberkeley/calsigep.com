@@ -19,6 +19,7 @@ private methods
 	8. search
 	10. updateNamesAndGroups
 	11. readGroupNames
+	12. readNames
 	9. delete1
 */
 
@@ -401,6 +402,22 @@ function go(params) {
 		.then(function(res) {
 			var data =res.data.result;
 			expect(data.names.length).toBe(4);
+			readNames({});		//go to next function/test in sequence
+		});
+	};
+	
+	/**
+	@toc 12.
+	@method readNames
+	@param {Object} opts
+	*/
+	var readNames =function(opts) {
+		var params ={
+		};
+		api.expectRequest({method:'Challenge.readNames'}, {data:params}, {}, {})
+		.then(function(res) {
+			var data =res.data.result;
+			expect(data.names.length).toBe(TEST_CHALLENGES.length+globals.newNameChallenges.length);
 			delete1({});		//go to next function/test in sequence
 		});
 	};
