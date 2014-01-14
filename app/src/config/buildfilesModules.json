@@ -726,6 +726,23 @@
 											"dev-goals-challenge.less"
 										]
 									}
+								},
+								{
+									"name": "dev-goals",
+									"files": {
+										"html": [
+											"dev-goals.html"
+										],
+										"js": [
+											"DevGoalsCtrl.js"
+										],
+										"testUnit": [
+											"DevGoalsCtrl.spec.js"
+										],
+										"less": [
+											"dev-goals.less"
+										]
+									}
 								}
 							]
 						},

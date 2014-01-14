@@ -196,6 +196,13 @@ $routeProvider.when(appPathRoute+'dev-goals-challenge', {templateUrl: pagesPath+
 			}
 		}
 	});
+$routeProvider.when(appPathRoute+'dev-goals', {templateUrl: pagesPath+'dev-goals/dev-goals/dev-goals.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
 //end: yeoman generated routes here - DO NOT DELETE THIS COMMENT AS IT IS USED BY YEOMAN TO GENERATE A NEW ROUTE!
 	
 
