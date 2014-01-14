@@ -13,6 +13,7 @@ Challenge module representing the challenges
 5. updateNamesAndGroups
 6. readGroupNames
 7. readNames
+8. readByName
 */
 
 'use strict';
@@ -486,6 +487,40 @@ Challenge.prototype.readNames = function(db, data, params)
 			for(ii =0; ii<challenges.length; ii++) {
 				ret.names.push(challenges[ii].name);
 			}
+			deferred.resolve(ret);
+		}
+	});
+	
+	return deferred.promise;
+};
+
+/**
+Read one challenge by name
+@toc 8.
+@method readByName
+@param {Object} data
+	@param {String} name
+@param {Object} params
+@return {Object} (via Promise)
+	@param {Object} challenge
+**/
+Challenge.prototype.readByName = function(db, data, params)
+{
+	var deferred = Q.defer();
+	var ret ={code:0, msg:'Challenge.readByName ', challenge:false};
+	
+	db.challenge.findOne({name:data.name}, {}, function(err, challenge) {
+		if(err) {
+			ret.code =1;
+			ret.msg +="Error: "+err;
+			deferred.reject(ret);
+		}
+		else if(!challenge) {
+			ret.code =2;
+			deferred.resolve(ret);
+		}
+		else {
+			ret.challenge =challenge;
 			deferred.resolve(ret);
 		}
 	});

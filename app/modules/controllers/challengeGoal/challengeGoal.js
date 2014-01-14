@@ -16,6 +16,7 @@ ChallengeGoal module representing the challenge goals
 5. obsoleteChallenge
 6. saveTag
 7. searchTag
+8. readByChallenge
 */
 
 'use strict';
@@ -578,6 +579,57 @@ ChallengeGoal.prototype.saveTag = function(db, data, params)
 		@param {Array} results
 **/
 ChallengeGoal.prototype.searchTag = function(db, data, params) {
+	var deferred = Q.defer();
+	var ret ={code:0, msg:'ChallengeGoal.searchTag '};
+
+	var defaults ={
+		'limit':20,
+		'fields':{'_id':1, 'name':1},
+		'searchFields':['name']
+	};
+	if(data.fields ===undefined) {
+		data.fields = defaults.fields;
+	}
+	if(data.limit ===undefined) {
+		data.limit = defaults.limit;
+	}
+	if(data.searchFields ===undefined) {
+		data.searchFields = defaults.searchFields;
+	}
+
+	var query ={};
+	var ppSend =CrudMod.setSearchParams(data, query, {});
+	
+	LookupMod.search(db, 'challenge_tag', ppSend, function(err, retArray1) {
+		deferred.resolve(retArray1);
+	});
+
+	return deferred.promise;
+};
+
+/**
+Reads all challenge goals for a particular challenge name (and groups them by challenge group)
+@toc 8.
+@method readByChallenge
+@param {Object} data
+	@param {String} challenge_name
+@param {Object} params
+@return {Object} (via Promise)
+	@param {Number} code
+	@param {String} msg
+	@param {Object} challenge
+		@param {String} _id
+		@param {String} name
+		@param {Number} max_duration
+		@param {Number} min_points
+		@param {Array} group Array of group objects:
+			@param {String} _id
+			@param {String} name
+			@param {Number} min_points
+			@param {Array} goal Array of challenge goal objects for THIS group name
+		@param {Array} goal Array of challenge goal objects that are NOT in any group (or at least not in one of the groups for THIS challenge - though there shouldn't be any of those!)
+**/
+ChallengeGoal.prototype.readByChallenge = function(db, data, params) {
 	var deferred = Q.defer();
 	var ret ={code:0, msg:'ChallengeGoal.searchTag '};
 

@@ -20,6 +20,7 @@ private methods
 	10. updateNamesAndGroups
 	11. readGroupNames
 	12. readNames
+	13. readByName
 	9. delete1
 */
 
@@ -418,6 +419,23 @@ function go(params) {
 		.then(function(res) {
 			var data =res.data.result;
 			expect(data.names.length).toBe(TEST_CHALLENGES.length+globals.newNameChallenges.length);
+			readByName({});		//go to next function/test in sequence
+		});
+	};
+	
+	/**
+	@toc 13.
+	@method readByName
+	@param {Object} opts
+	*/
+	var readByName =function(opts) {
+		var params ={
+			name: TEST_CHALLENGES[1].name
+		};
+		api.expectRequest({method:'Challenge.readByName'}, {data:params}, {}, {})
+		.then(function(res) {
+			var data =res.data.result;
+			expect(data.challenge._id).toBe(TEST_CHALLENGES[1]._id);
 			delete1({});		//go to next function/test in sequence
 		});
 	};

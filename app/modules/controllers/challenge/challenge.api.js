@@ -11,6 +11,8 @@ RPC challenge endpoints
 4. rpcDelete
 5. rpcUpdateNamesAndGroups
 6. rpcReadGroupNames
+7. rpcReadNames
+8. rpcReadByName
 */
 
 'use strict';
@@ -67,7 +69,8 @@ ChallengeApi.prototype.getRpcMethods = function(){
 		delete1: this.rpcDelete(),
 		updateNamesAndGroups: this.rpcUpdateNamesAndGroups(),
 		readGroupNames: this.rpcReadGroupNames(),
-		readNames: this.rpcReadNames()
+		readNames: this.rpcReadNames(),
+		readByName: this.rpcReadByName()
 	};
 };
 
@@ -349,6 +352,39 @@ ChallengeApi.prototype.rpcReadNames = function(){
 		**/
 		action: function(params, out) {
 			var promise =ChallengeMod.readNames(db, params, {});
+			promise.then(function(ret1) {
+				out.win(ret1);
+			}, function(err) {
+				self.handleError(out, err, {});
+			});
+		}
+	};
+};
+
+/**
+@toc 8.
+@method rpcReadByName
+**/
+ChallengeApi.prototype.rpcReadByName = function(){
+	var self = this;
+
+	return {
+		info: 'Returns one challenge when passed a name to lookup',
+		params: {
+		},
+		returns: {
+			challenge: sampleChallengeReturn
+		},
+		/**
+		@method action
+		@param {Object} params
+			@param {Object} data new challenge params (detailed above)
+		@param {Object} out callback object which provides `win` and `fail` functions for handling `success` and `fail` callbacks
+			@param {Function} win Success callback
+			@param {Function} fail Fail callback
+		**/
+		action: function(params, out) {
+			var promise =ChallengeMod.readByName(db, params, {});
 			promise.then(function(ret1) {
 				out.win(ret1);
 			}, function(err) {
