@@ -7,6 +7,7 @@
 6. $scope.submitForm
 7. checkSaveNewTags
 8. resetGoal
+8.1. $scope.$watch('goal',..
 
 @param {Object} scope (attrs that must be defined on the scope (i.e. in the controller) - they can't just be defined in the partial html). REMEMBER: use snake-case when setting these on the partial!
 @param {Object} goal The challenge goal
@@ -33,14 +34,12 @@
 // @param {Function} saveNewTags Called to save any NEW tags created while creating/editing this goal
 
 @param {Object} attrs REMEMBER: use snake-case when setting these on the partial! i.e. my-attr='1' NOT myAttr='1'
-TODO
 
 @dependencies
 
 @usage
 partial / html:
 <div app-challenge-goal-save goal='goal' tags='tags' groups='groups' challenge-names='challengeNames' save='saveGoal' ></div>
-TODO
 
 controller / js:
 $scope.goal ={
@@ -216,10 +215,6 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 			*/
 			$scope.visible ={
 				pointsInfo: false
-			};
-			
-			$scope.formVals ={
-				curChallenge: ''
 			};
 			
 			$scope.selectOptsRequired =[
