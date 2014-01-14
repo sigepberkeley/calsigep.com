@@ -75,7 +75,7 @@
 		"challenge": [
 			{
 				"_id": "{String} sdfeaf234d",
-				"name": "{String} Should/must match what is set in the user.challenges.name field. A challenge_goal can potentially be part of multiple challenges - this allows for hybrid / modified challenges if need be. i.e. 'sigma' or 'brother_mentor'",
+				"name": "{String} Should/must match what is set in the user.challenges.name field. SHOULD BE UNIQUE among this challenge goal. A challenge_goal can potentially be part of multiple challenges - this allows for hybrid / modified challenges if need be. i.e. 'sigma' or 'brother_mentor'",
 				"date_last_active": "{String} YYYY-MM-DD HH:mm:ssZ OR undefined / not-exists for the current version. This is so can raise the standards with time but still see a copy of older 'versions' of the same challenge. I.e. the 'current' Epsilon goals will have this field blank and to 'retire' the current Epsilon goals to change them, the current ones would be cloned and the existing ones would get the current/last active date filled in.",
 				"group": "{String} OPTIONAL. Used to group goals together for setting minimum points per group to ensure balance when earning points. I.e. 'leg_strength'",
 				"required": "{Number} 1 if a required goal, in which case makes min_value and min_points obsolete and just goes from points (at target_value) to max_points (at max_value) - basically it just cuts off partial points and starts points at ZERO for target_value",

@@ -628,31 +628,93 @@ Reads all challenge goals for a particular challenge name (and groups them by ch
 			@param {Number} min_points
 			@param {Array} goal Array of challenge goal objects for THIS group name
 		@param {Array} goal Array of challenge goal objects that are NOT in any group (or at least not in one of the groups for THIS challenge - though there shouldn't be any of those!)
+	NOTE: challenge.goal and challenge.group.goal arrays are both arrays of modified challenge goal objects for JUST this challenge name, specifically they objects of:
+		_id: curGoal._id,
+		title: curGoal.title,
+		description: curGoal.description,
+		required: curGoalChallenge.required,
+		points: curGoalChallenge.points,
+		target_value: curGoalChallenge.target_value,
+		min_value: curGoalChallenge.min_value,
+		max_value: curGoalChallenge.max_value,
+		max_points: curGoalChallenge.max_points,
 **/
 ChallengeGoal.prototype.readByChallenge = function(db, data, params) {
 	var deferred = Q.defer();
-	var ret ={code:0, msg:'ChallengeGoal.searchTag '};
+	var ret ={code:0, msg:'ChallengeGoal.readByChallenge ', challenge:false};
 
-	var defaults ={
-		'limit':20,
-		'fields':{'_id':1, 'name':1},
-		'searchFields':['name']
-	};
-	if(data.fields ===undefined) {
-		data.fields = defaults.fields;
-	}
-	if(data.limit ===undefined) {
-		data.limit = defaults.limit;
-	}
-	if(data.searchFields ===undefined) {
-		data.searchFields = defaults.searchFields;
-	}
-
-	var query ={};
-	var ppSend =CrudMod.setSearchParams(data, query, {});
+	var ii;
 	
-	LookupMod.search(db, 'challenge_tag', ppSend, function(err, retArray1) {
-		deferred.resolve(retArray1);
+	//A. read both the challenge and all challenge goals with this name
+	var promises =[], deferreds =[];
+	var promiseKeys ={};		//will hold the index of the promise / deferred to set, i.e. 'challenge', 'goals'
+	
+	promiseKeys.goals =0;
+	deferreds[promiseKeys.goals] =Q.defer();
+	db.challenge_goal.find({'challenge.name': data.challenge_name}).toArray(function(err, records) {
+		if(err) {
+			deferreds[promiseKeys.goals].reject({});
+		}
+		else {
+			deferreds[promiseKeys.goals].resolve({goals:records});
+		}
+	});
+	promises[promiseKeys.goals] =deferreds[promiseKeys.goals].promise;
+	
+	promiseKeys.challenge =1;
+	promises[promiseKeys.challenge] =ChallengeMod.readByName(db, {name: data.challenge_name}, {});
+	
+	Q.all(promises).then(function(ret1) {
+		//set challenge from the challenge promise
+		ret.challenge =ret1[promiseKeys.challenge].challenge;
+		ret.challenge.goal =[];		//set to empty array (may be filled later)
+		
+		var goals =ret1[promiseKeys.goals].goals;
+		//go through each goal and add it into the challenge object
+		var index1, index2, curGoal, curGoalChallenge, curGoalFormatted, foundGroup;
+		for(ii =0; ii<goals.length; ii++) {
+			curGoal =goals[ii];
+			//find the challenge that matches this challenge
+			index1 =ArrayMod.findArrayIndex(curGoal.challenge, 'name', data.challenge_name, {});
+			if(index1 >-1) {
+				curGoalChallenge =curGoal.challenge[index1];
+				
+				//pull out select fields for a formatted goal for JUST this challenge name
+				curGoalFormatted ={
+					_id: curGoal._id,
+					title: curGoal.title,
+					description: curGoal.description,
+					required: curGoalChallenge.required,
+					points: curGoalChallenge.points,
+					target_value: curGoalChallenge.target_value,
+					min_value: curGoalChallenge.min_value,
+					max_value: curGoalChallenge.max_value,
+					max_points: curGoalChallenge.max_points,
+				};
+				
+				foundGroup =false;
+				if(curGoalChallenge.group !==undefined && curGoalChallenge.group) {
+					index2 =ArrayMod.findArrayIndex(ret.challenge.group, 'name', curGoalChallenge.group, {});
+					if(index2 >-1) {		//found
+						foundGroup =true;
+						if(ret.challenge.group[index2].goal ===undefined) {
+							ret.challenge.group[index2].goal =[];
+						}
+						ret.challenge.group[index2].goal.push(curGoalFormatted);
+					}
+				}
+				if(!foundGroup) {		//just add to end (outside a group)
+					ret.challenge.goal.push(curGoalFormatted);
+				}
+			}
+		}
+		
+		deferred.resolve(ret);
+		
+	}, function(err) {
+		ret.code =1;
+		ret.msg +='Error: '+err;
+		deferred.reject(ret);
 	});
 
 	return deferred.promise;

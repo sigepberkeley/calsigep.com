@@ -18,6 +18,7 @@ private methods
 	7. read
 	10. obsoleteChallenge
 	8. search
+	11. readByChallenge
 	9. delete1
 */
 
@@ -411,10 +412,30 @@ function go(params) {
 				.then(function(res) {
 					var data =res.data.result;
 					expect(data.results.length).toBe(1+globals.obsoleteGoalsLength);
-							
-					delete1({});		//go to next function/test in sequence
+					
+					readByChallenge({});		//go to next function/test in sequence
 				});
 			});
+		});
+	};
+	
+	/**
+	@toc 11.
+	@method readByChallenge
+	@param {Object} opts
+	*/
+	var readByChallenge =function(opts) {
+		var params ={
+			challenge_name: TEST_CHALLENGEGOALS[1].challenge[0].name
+		};
+		api.expectRequest({method:'ChallengeGoal.readByChallenge'}, {data:params}, {}, {})
+		.then(function(res) {
+			var data =res.data.result;
+			expect(data.challenge).toBeDefined();
+			// console.log(data.challenge);
+			//@todo - do some actual expects / tests here
+			
+			delete1({});		//go to next function/test in sequence
 		});
 	};
 	
