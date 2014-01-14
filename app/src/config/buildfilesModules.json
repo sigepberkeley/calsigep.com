@@ -245,6 +245,17 @@
 											"challenge-group-model.spec.js"
 										]
 									}
+								},
+								{
+									"name": "challenge-name-model",
+									"files": {
+										"js": [
+											"challenge-name-model.js"
+										],
+										"testUnit": [
+											"challenge-name-model.spec.js"
+										]
+									}
 								}
 							]
 						},

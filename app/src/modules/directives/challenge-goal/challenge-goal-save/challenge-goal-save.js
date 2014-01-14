@@ -29,6 +29,7 @@
 	@param {String} _id
 	@param {String} name
 @param {Array} groups Array of strings for groups to use for autocomplete vals
+@param {Array} challengeNames Array of strings for challenge names to use for autocomplete vals
 @param {Function} save Called to save the challenge goal
 // @param {Function} saveNewTags Called to save any NEW tags created while creating/editing this goal
 
@@ -39,7 +40,7 @@ TODO
 
 @usage
 partial / html:
-<div app-challenge-goal-save goal='goal' tags='tags' groups='groups' save='saveGoal' ></div>
+<div app-challenge-goal-save goal='goal' tags='tags' groups='groups' challenge-names='challengeNames' save='saveGoal' ></div>
 TODO
 
 controller / js:
@@ -61,6 +62,11 @@ $scope.tags =[
 $scope.groups =[
 	'group1',
 	'group2'
+];
+
+$scope.challengeNames =[
+	'name1',
+	'name2'
 ];
 
 // @param {Object} params
@@ -92,6 +98,7 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 			goal: '=',
 			tags: '=',
 			groups: '=',
+			challengeNames: '=',
 			save: '&'
 			// saveNewTags: '&'
 		},
@@ -152,7 +159,7 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 						
 						"<div class='center'>"+
 							"<div class='app-challenge-goal-save-inline-values'>"+
-								"<div jrg-forminput label='Challenge Name' placeholder='sigma' ng-model='challenge.name' opts='' required></div>"+
+								"<div jrg-forminput type='autocomplete' vals-autocomplete='challengeNames' label='Challenge Name' placeholder='sigma' ng-model='challenge.name' opts='' required></div>"+
 							"</div>"+
 						
 							"<div class='app-challenge-goal-save-inline-values'>"+

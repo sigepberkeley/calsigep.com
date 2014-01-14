@@ -7,8 +7,8 @@ GET URL params
 
 'use strict';
 
-angular.module('myApp').controller('DevGoalsEditCtrl', ['$scope', 'appHttp', '$routeParams', 'appChallengeTagModel', 'appChallengeGroupModel', 
-function($scope, appHttp, $routeParams, appChallengeTagModel, appChallengeGroupModel) {
+angular.module('myApp').controller('DevGoalsEditCtrl', ['$scope', 'appHttp', '$routeParams', 'appChallengeTagModel', 'appChallengeGroupModel', 'appChallengeNameModel', 
+function($scope, appHttp, $routeParams, appChallengeTagModel, appChallengeGroupModel, appChallengeNameModel) {
 	/**
 	@property $scope.visible Toggles visibility (used with ng-show and ng-hide) of elements
 	@type Object
@@ -41,6 +41,12 @@ function($scope, appHttp, $routeParams, appChallengeTagModel, appChallengeGroupM
 	appChallengeGroupModel.read({})
 	.then(function(retGroup) {
 		$scope.challengeGroups =retGroup.groups;
+	});
+	
+	$scope.challengeNames =[];
+	appChallengeNameModel.read({})
+	.then(function(retName) {
+		$scope.challengeNames =retName.names;
 	});
 	
 	/**
