@@ -1,0 +1,41 @@
+<div ng-controller='DevGoalsChallengeCtrl'>
+	<div jrg-forminput type='select' placeholder='Challenge Name' ng-model='formVals.challengeName' select-opts='selectOptsChallenge' opts='optsChallenge'></div>
+	
+	<div ng-show='challenge.name'>
+		<!--<h3>{{challenge.name}}</h3>-->
+		<div>Max. Duration: {{challenge.max_duration}}, Min. Points: {{challenge.min_duration}}</div>
+		
+		<div ng-repeat='group in challenge.group' class='dev-goals-challenge-group' ng-show='group.goal.length >0'>
+			<h4>{{group.name}}</h4>
+			<div>Min. Points: {{group.min_points}}</div>
+			
+			<div ng-repeat='goal in group.goal' class='dev-goals-challenge-goal'>
+				<h4>{{goal.title}}</h4>
+				<div>{{goal.description}}</div>
+				<div>
+					<div class='dev-goals-challenge-inline-values'>Required: {{goal.required}}</div>
+					<div class='dev-goals-challenge-inline-values'>Min. Value: {{goal.min_value}}</div>
+					<div class='dev-goals-challenge-inline-values'>Target Value: {{goal.target_value}}</div>
+					<div class='dev-goals-challenge-inline-values'>Points: {{goal.points}}</div>
+					<div class='dev-goals-challenge-inline-values'>Max. Value: {{goal.max_value}}</div>
+					<div class='dev-goals-challenge-inline-values'>Max. Points: {{goal.max_points}}</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<div ng-repeat='goal in challenge.goal' class='dev-goals-challenge-goal'>
+			<h4>{{goal.title}}</h4>
+			<div>{{goal.description}}</div>
+			<div>
+				<div class='dev-goals-challenge-inline-values'>Required: {{goal.required}}</div>
+				<div class='dev-goals-challenge-inline-values'>Min. Value: {{goal.min_value}}</div>
+				<div class='dev-goals-challenge-inline-values'>Target Value: {{goal.target_value}}</div>
+				<div class='dev-goals-challenge-inline-values'>Points: {{goal.points}}</div>
+				<div class='dev-goals-challenge-inline-values'>Max. Value: {{goal.max_value}}</div>
+				<div class='dev-goals-challenge-inline-values'>Max. Points: {{goal.max_points}}</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

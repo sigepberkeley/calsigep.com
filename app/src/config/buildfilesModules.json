@@ -709,6 +709,23 @@
 											"dev-goals-list.less"
 										]
 									}
+								},
+								{
+									"name": "dev-goals-challenge",
+									"files": {
+										"html": [
+											"dev-goals-challenge.html"
+										],
+										"js": [
+											"DevGoalsChallengeCtrl.js"
+										],
+										"testUnit": [
+											"DevGoalsChallengeCtrl.spec.js"
+										],
+										"less": [
+											"dev-goals-challenge.less"
+										]
+									}
 								}
 							]
 						},
