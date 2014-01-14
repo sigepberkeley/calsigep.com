@@ -2,7 +2,6 @@
 @toc
 1. init
 2. initSelectTags
-3. setSelectOptsChallenge
 4. $scope.addChallenge
 5. $scope.deleteChallenge
 6. $scope.submitForm
@@ -130,8 +129,6 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 					
 					"<div class='margin-small-tb'>Each challenge goal can be part of multiple challenges with different requirements for each (i.e. all challenges should have some sort of GPA/grades goals but the values and points will likely be different for each challenge)</div>"+
 					
-					// "<div jrg-forminput type='select' select-opts='selectOptsChallenge' ng-model='formVals.curChallenge' opts=''></div>"+
-					
 					"<div class='margin-tb'>"+
 						"<span class='btn-link' ng-click='visible.pointsInfo =!visible.pointsInfo'>How Points Work</span>"+
 						
@@ -225,8 +222,6 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 				curChallenge: ''
 			};
 			
-			$scope.selectOptsChallenge =[];
-			
 			$scope.selectOptsRequired =[
 				{val: 0, name: 'no'},
 				{val: 1, name: 'yes'}
@@ -260,9 +255,6 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 				initSelectTags({});
 				if($scope.goal.challenge ===undefined || $scope.goal.challenge.length <1) {
 					$scope.addChallenge({});
-				}
-				else {
-					setSelectOptsChallenge({});
 				}
 			}
 			
@@ -298,24 +290,6 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 			});
 			
 			/**
-			@toc 3.
-			@method setSelectOptsChallenge
-			*/
-			function setSelectOptsChallenge(params) {
-				var selectOptsChallenge =[];
-				var ii;
-				for(ii =0; ii<$scope.goal.challenge.length; ii++) {
-					if($scope.goal.challenge[ii].name) {
-						selectOptsChallenge.push({
-							val: $scope.goal.challenge[ii].name,
-							name: $scope.goal.challenge[ii].name
-						});
-					}
-				}
-				$scope.selectOptsChallenge =selectOptsChallenge;
-			}
-			
-			/**
 			@toc 4.
 			@method $scope.addChallenge
 			*/
@@ -332,7 +306,6 @@ angular.module('app').directive('appChallengeGoalSave', ['jrgArray', function (j
 					};
 					$scope.goal.challenge.push(defaultChallenge);
 				}
-				setSelectOptsChallenge({});
 			};
 			
 			/**

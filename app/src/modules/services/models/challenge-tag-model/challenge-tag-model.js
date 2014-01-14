@@ -127,7 +127,10 @@ angular.module('app').factory('appChallengeTagModel', ['appStorage', 'appHttp', 
 	*/
 	function getFromApi(params) {
 		var deferred =$q.defer();
-		appHttp.go({}, {url:'challengeGoal/searchTag', data:{} }, {})
+		var data1 ={
+			limit:999		//want to return all of them
+		};
+		appHttp.go({}, {url:'challengeGoal/searchTag', data:data1 }, {})
 		.then(function(response) {
 			tags =response.result.results;
 			deferred.resolve({});
