@@ -1,0 +1,20 @@
+<div ng-controller='DevChallengeListCtrl'>
+	
+	<div jrg-lookup items-raw='challengesRaw' items-filtered='challenges' filter-fields='filterFields' load-more='loadMoreChallenges' opts='optsLookup' placeholder='Search by challenge name'>
+		<div ng-repeat='challenge in challenges'>
+			<div class='list-header pointer' ng-click='challenge.xDisplay.visible =!challenge.xDisplay.visible'>{{challenge.name}}</div>
+			<div ng-show='challenge.xDisplay.visible' class='list'>
+				<div>Max Duration: {{challenge.max_duration}}</div>
+				<div>Min Points: {{challenge.min_points}}</div>
+				<div class='margin-l dev-challenge-list-group' ng-repeat='group in challenge.group'>
+					<h4>{{group.name}}</h4>
+					<div>Min Points: {{group.min_points}}</div>
+				</div>
+				<div>
+					<a class='btn btn-success btn-small' ng-href='{{appPathLink}}dev-challenge-edit?id={{challenge._id}}'>Edit</a> <span class='btn btn-danger btn-small' ng-click='deleteChallenge(challenge, $index, {})'>Delete</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

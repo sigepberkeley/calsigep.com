@@ -5,8 +5,6 @@
 
 angular.module('myApp').controller('DevGoalsListCtrl', ['$scope', 'appHttp', 'appChallengeTagModel', '$q',
 function($scope, appHttp, appChallengeTagModel, $q) {
-
-	$scope.goals =[];
 	
 	//set up jrg-lookup
 	$scope.optsLookup ={};

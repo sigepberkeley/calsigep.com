@@ -681,6 +681,28 @@
 									}
 								}
 							]
+						},
+						{
+							"name": "dev-challenge",
+							"dirs": [
+								{
+									"name": "dev-challenge-list",
+									"files": {
+										"html": [
+											"dev-challenge-list.html"
+										],
+										"js": [
+											"DevChallengeListCtrl.js"
+										],
+										"testUnit": [
+											"DevChallengeListCtrl.spec.js"
+										],
+										"less": [
+											"dev-challenge-list.less"
+										]
+									}
+								}
+							]
 						}
 					]
 				}
