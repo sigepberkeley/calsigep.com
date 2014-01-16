@@ -1,6 +1,6 @@
 /**
 Development Challenge Goals tracker
-- heat map organized by 3 things: person, challenge goal, date (choose one then can view the other 2 as x and y axes on a grid for the chosen one)
+- heat map organized by 3 things: person, challenge goal, date/milestone (choose one then can view the other 2 as x and y axes on a grid for the chosen one)
 - allow users to put in updates/progress by day/week and then have that auto-calculate based on deadline if they're ahead or behind schedule (green =on pace, yellow =starting to lag, red=behind. Blue = complete & approved (by challenge coordinator))
 - 3 key use cases:
 	- admin
@@ -20,13 +20,10 @@ Development Challenge Goals tracker
 	- be able to edit user.challenges (add them into new challenge and/or change date_started, date_deadline, date_completed for existing ones) - DONE? - need to test
 		- this automatically adds in / updates all challenge goals for that challenge and sets the date_started and date_deadline for all those challenge goals
 	- read by (one) date (and optionally select a challenge as well) - return all challenge goals (in the particular challenge) with a 'users' key that is an array of all users that have that goal (optionally that have NOT completed it?) with their LATEST (up until the date specified) milestone and date_started, date_deadline, date_completed.
-	
-	- view (& edit) challenges goals
-		- general/standard viewing/editing (limit only to 'current' challenge versions unless otherwise specified) - JUST USE SEARCH FUNCTION?
-		- "fork" a challenge's goals (i.e. for modified Epsilon program) - have checkboxes for which of the current ones to copy over and the name of the new/forked challenge to give these copied ones. - JUST USE UPDATE FUNCTION AND HANDLE ON FRONT END?
 		
-	- later
-		- do privileges / security
+- later / todo
+	- 'fork' a challenge (i.e. for modified Epsilon challenge) - JUST USE FRONTEND?
+	- add security
 
 		
 RPC challengeGoal endpoints

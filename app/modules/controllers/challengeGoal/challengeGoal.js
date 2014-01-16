@@ -116,12 +116,12 @@ Reads one or more challenge goals
 		@example {'_id':1, 'title':1, 'priority':1}
 	@param {Object} [query] Additional query for lookup (will be added to the id(s) query).
 @param {Object} params
-@return {Promise}
-	@param {Object} challenge_goal (or challenge_goals)
+@return {Object} (via Promise)
+	@param {Array} results challenge_goals
 **/
 ChallengeGoal.prototype.read = function(db, data, params) {
 	var deferred = Q.defer();
-	var ret ={code:0, msg:'ChallengeGoal.read ', challenge_goal:false};
+	var ret ={code:0, msg:'ChallengeGoal.read ', results:false};
 
 	var ppSend = {
 		'collection':'challenge_goal'

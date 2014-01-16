@@ -36,6 +36,7 @@ var UserTests = require(pathParts.modules+'/controllers/user/user.test.js');
 var FollowTests = require(pathParts.modules+'/controllers/follow/follow.test.js');
 var ChallengeGoalTests = require(pathParts.modules+'/controllers/challengeGoal/challengeGoal.test.js');
 var ChallengeTests = require(pathParts.modules+'/controllers/challenge/challenge.test.js');
+var UserChallengeGoalTests = require(pathParts.modules+'/controllers/userChallengeGoal/userChallengeGoal.test.js');
 
 //run the server in the TEST environment (this also is required for coverage to work / run on all the files)		//UPDATE: now running this with grunt instead		//UPDATE 2: running with grunt breaks coverage (i.e. it does not run on all files) - apparently MUST run this file here for coverage to work properly..
 process.argv.push('config=test');		//add test command line argument
@@ -138,6 +139,7 @@ describe('all tests', function() {
 			FollowTests =new FollowTests({db: db, api:api});
 			ChallengeGoalTests =new ChallengeGoalTests({db: db, api:api});
 			ChallengeTests =new ChallengeTests({db: db, api:api});
+			UserChallengeGoalTests =new UserChallengeGoalTests({db: db, api:api});
 		};
 
 		/**
@@ -164,6 +166,7 @@ describe('all tests', function() {
 					.then(FollowTests.run({}))
 					.then(ChallengeGoalTests.run({}))
 					.then(ChallengeTests.run({}))
+					.then(UserChallengeGoalTests.run({}))
 					.then(function(retFin) {
 						console.log('all tests done!');
 					}, function(err) {

@@ -67,7 +67,7 @@ UserChallengeGoal.prototype.readChallenge = function(db, data, params) {
 	};
 	CrudMod.read(db, data1, ppSend, function(err, ret1) {
 		if(ret1.result) {
-			ret.challenge =ret1.result;
+			ret.challenge =ret1.result.challenge;		//just want the challenge key itself; not the whole user object
 		}
 		deferred.resolve(ret);
 	});
@@ -97,7 +97,7 @@ UserChallengeGoal.prototype.readChallengeGoal = function(db, data, params) {
 	};
 	CrudMod.read(db, data1, ppSend, function(err, ret1) {
 		if(ret1.result) {
-			ret.challenge_goal =ret1.result;
+			ret.challenge_goal =ret1.result.challenge_goal;		//just want the challenge_goal key itself; not the whole user object
 		}
 		deferred.resolve(ret);
 	});
@@ -120,9 +120,9 @@ B. update user.challenge_goal
 	@param {Object} challenge The challenge to add (or update)
 		@param {String} [_id] Id of challenge sub object - if present, will be an update instead of a create
 		@param {String} name
-		@param {String} date_started
-		@param {String} date_deadline
-		@param {String} date_completed
+		@param {String} date_started YYYY-MM-DD HH:mm:ssZ
+		@param {String} date_deadline YYYY-MM-DD HH:mm:ssZ
+		@param {String} date_completed YYYY-MM-DD HH:mm:ssZ
 @param {Object} params
 	@param {Boolean} [resetChallengeGoals =false] True to reset all user.challenge_goals (even if already exist)
 @return {Promise}
@@ -143,7 +143,7 @@ UserChallengeGoal.prototype.saveChallenge = function(db, data, params) {
 		//B. go through all challenge goals for this challenge (by name) and add / update them in user.challenge_goal
 		
 		//B1. read challenge goals
-		ChallengeGoalMod.read(db, {fullQuery:{'challenge_name.name':data.challenge.name, 'date_last_active':{$exists:false} } }, {})
+		ChallengeGoalMod.read(db, {fullQuery:{'challenge.name':data.challenge.name, 'date_last_active':{$exists:false} } }, {})
 		.then(function(retRead) {
 		
 			//B2. read THIS USER's challenge goals
@@ -154,13 +154,13 @@ UserChallengeGoal.prototype.saveChallenge = function(db, data, params) {
 				var promises =[], deferreds =[];
 				var userGoals =retGoal.challenge_goal;
 				var ii, index1, newGoal, dataUpdate, needToUpdate;
-				for(ii =0; ii<retRead.challenge_goal.length; ii++) {
+				for(ii =0; ii<retRead.results.length; ii++) {
 					//need closure inside for loop
 					(function(ii) {
 						deferreds[ii] =Q.defer();
 						promises[ii] =deferreds[ii].promise;		//set for ALL to use closure on ii variable even though some will immediately resolve since no update is necessary
 						needToUpdate =false;
-						index1 =ArrayMod.findArrayIndex(userGoals, 'challenge_goal_id', retRead.challenge_goal[ii]._id, {});
+						index1 =ArrayMod.findArrayIndex(userGoals, 'challenge_goal_id', retRead.results[ii]._id, {});
 						if(index1 >-1) {		//user already has this goal - UPDATE
 							if(params.resetChallengeGoals !==undefined && params.resetChallengeGoals) {		//if WANT to overwrite (otherwise just leave it alone)
 								newGoal ={
@@ -175,7 +175,7 @@ UserChallengeGoal.prototype.saveChallenge = function(db, data, params) {
 						}
 						else {		//ADD
 							newGoal ={
-								challenge_goal_id: retRead.challenge_goal[ii]._id,
+								challenge_goal_id: retRead.results[ii]._id,
 								date_started: data.challenge.date_started,
 								date_deadline: data.challenge.date_deadline,
 								milestone: []
