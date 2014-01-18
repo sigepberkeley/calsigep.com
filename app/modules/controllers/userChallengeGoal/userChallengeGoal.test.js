@@ -14,6 +14,10 @@ private methods
 5. go
 	6. saveChallengeGoals
 	7. saveChallenge
+	10. addMilestone
+	11. readByDate
+	8. readChallenge
+	9. readChallengeGoal
 */
 
 'use strict';
@@ -29,6 +33,7 @@ var dependency =require('../../../dependency.js');
 var pathParts =dependency.buildPaths(__dirname, {});
 
 var MongoDBMod =require(pathParts.services+'mongodb/mongodb.js');
+var ArrayMod =require(pathParts.services+'array/array.js');
 
 var self, db, api;
 
@@ -317,6 +322,127 @@ function go(params) {
 		.then(function(res) {
 			var data =res.data.result;
 			
+			addMilestone({});
+		});
+	};
+	
+	/**
+	@toc 10.
+	@method addMilestone
+	@param {Object} opts
+	*/
+	var addMilestone =function(opts) {
+		//set dates to differentiate with readByDate later
+		var milestones =[
+			{
+				value: 1,
+				date: '2013-09-02 08:30:00-08:00'
+			},
+			{
+				value: 3,
+				description: 'interviewed johnny and bobby',
+				date: '2013-09-07 08:30:00-08:00'
+			},
+			{
+				value: 5,
+				description: 'interviewed 2 more',
+				date: '2013-09-15 13:03:05-08:00'
+			}
+		];
+		
+		/*
+		//not working - timing? all over-writing each other?
+		var promises =[], ii, params, deferreds =[];
+		for(ii =0; ii<milestones.length; ii++) {
+			(function(ii) {
+				deferreds[ii] =Q.defer();
+				params ={
+					user_id: TEST_USERS[0]._id,
+					challenge_goal_id: TEST_CHALLENGEGOALS[0]._id,
+					milestone: milestones[ii]
+				};
+				api.expectRequest({method:'UserChallengeGoal.addMilestone'}, {data:params}, {}, {})
+				.then(function(res) {
+					var data =res.data.result;
+					expect(data.milestone.value).toBe(milestones[ii].value);
+					deferreds[ii].resolve({});
+				});
+				
+				promises[ii] =deferreds[ii].promise;
+			})(ii);
+		}
+		
+		Q.all(promises).then(function(ret1) {
+			readByDate({});
+		}, function(err) {
+			readByDate({});
+		});
+		*/
+		
+		//in sequence
+		var params;
+		var curIndex =0;
+		params ={
+			user_id: TEST_USERS[0]._id,
+			challenge_goal_id: TEST_CHALLENGEGOALS[0]._id,
+			milestone: milestones[curIndex]
+		};
+		api.expectRequest({method:'UserChallengeGoal.addMilestone'}, {data:params}, {}, {})
+		.then(function(res) {
+			var data =res.data.result;
+			expect(data.milestone.value).toBe(milestones[curIndex].value);
+			
+			curIndex =1;
+			params ={
+				user_id: TEST_USERS[0]._id,
+				challenge_goal_id: TEST_CHALLENGEGOALS[0]._id,
+				milestone: milestones[curIndex]
+			};
+			api.expectRequest({method:'UserChallengeGoal.addMilestone'}, {data:params}, {}, {})
+			.then(function(res) {
+				var data =res.data.result;
+				expect(data.milestone.value).toBe(milestones[curIndex].value);
+				
+				curIndex =2;
+				params ={
+					user_id: TEST_USERS[0]._id,
+					challenge_goal_id: TEST_CHALLENGEGOALS[0]._id,
+					milestone: milestones[curIndex]
+				};
+				api.expectRequest({method:'UserChallengeGoal.addMilestone'}, {data:params}, {}, {})
+				.then(function(res) {
+					var data =res.data.result;
+					expect(data.milestone.value).toBe(milestones[curIndex].value);
+					
+					readByDate({});
+				});
+			});
+		});
+		
+	};
+	
+	/**
+	@toc 11.
+	@method readByDate
+	@param {Object} opts
+	*/
+	var readByDate =function(opts) {
+		var params =
+		{
+			date_max: '2013-09-08 08:30:00-08:00',		//set to after the 2nd milestone from above
+			challenge_name: TEST_CHALLENGEGOALS[0].challenge[0].name		//must match at least one of the challenges for this challenge goal
+		};
+		api.expectRequest({method:'UserChallengeGoal.readByDate'}, {data:params}, {}, {})
+		.then(function(res) {
+			var data =res.data.result;
+			expect(data.users.length).toBe(1);
+			//find the goal for this challenge goal id
+			var index1 =ArrayMod.findArrayIndex(data.users[0].challenge_goal, 'challenge_goal_id', TEST_CHALLENGEGOALS[0]._id, {});
+			
+			//@todo - finish
+			expect(data.users[0].challenge_goal[index1].milestone.date).toBe('2013-09-07 08:30:00-08:00');
+			expect(data.users[0].challenge_goal[index1].milestone.value).toBe(3);		//the value set on the date '2013-09-07 08:30:00-08:00'
+			
 			readChallenge({});		//go to next function/test in sequence
 		});
 	};
@@ -355,7 +481,11 @@ function go(params) {
 			var data =res.data.result;
 			expect(data.challenge_goal.length).toBe(2);		//2 sigma challenge goals and we added the 'sigma' challenge
 			
-			deferred.resolve({});		//finish
+			//find the goal for the challenge goal id that we added milestones to
+			var index1 =ArrayMod.findArrayIndex(data.challenge_goal, 'challenge_goal_id', TEST_CHALLENGEGOALS[0]._id, {});
+			expect(data.challenge_goal[index1].milestone.length).toBe(3);
+			
+			deferred.resolve({});
 		});
 	};
 	
