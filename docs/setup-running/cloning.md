@@ -47,9 +47,23 @@ APP_PORT 3000
 	2. open a browser to `http://APP_DOMAIN:APP_PORT/` to view the site/app
 6. run tests (and confirm they all pass!)
 	1. `grunt`
-	
 
-### More Info
+
+
+## Generators
+Make sure to leverage the available (sub)generators - i.e. for creating new pages/routes/controllers, directives, and services!
+Run generators with `yo mean-seed` and then select the sub-generator you want to use!
+
+https://github.com/jackrabbitsgroup/generator-mean-seed/blob/master/docs/generators/modules.md
+
+
+
+## Configs
+See [configs.md](../files/configs.md) in the `docs` folder
+
+
+
+## More Info
 See [setup-detailed.md](setup-detailed.md) and [running.md](running.md) in the `docs` folder.
 
 
@@ -57,8 +71,3 @@ See [setup-detailed.md](setup-detailed.md) and [running.md](running.md) in the `
 These cloning steps above are for duplicating the app/website/code to OTHER servers/machines AFTER Yeoman has been run (once).
 
 Give these steps to any fellow developers for them to get set up - they do NOT need to run Yeoman since you've already generated the app for them - the main generator for Yeoman only needs to be run ONCE (and later used for updates). Though other developers WILL use other Yeoman generators (i.e. for creating a new route), just not the main/core generator that builds the app from scratch the first time.
-
-
-
-## Configs
-See [configs.md](../files/configs.md) in the `docs` folder
