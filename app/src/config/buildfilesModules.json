@@ -784,6 +784,28 @@
 									}
 								}
 							]
+						},
+						{
+							"name": "public",
+							"dirs": [
+								{
+									"name": "contact",
+									"files": {
+										"html": [
+											"contact.html"
+										],
+										"js": [
+											"ContactCtrl.js"
+										],
+										"testUnit": [
+											"ContactCtrl.spec.js"
+										],
+										"less": [
+											"contact.less"
+										]
+									}
+								}
+							]
 						}
 					]
 				}

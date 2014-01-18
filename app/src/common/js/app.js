@@ -203,6 +203,13 @@ $routeProvider.when(appPathRoute+'dev-goals', {templateUrl: pagesPath+'dev-goals
 			}
 		}
 	});
+$routeProvider.when(appPathRoute+'contact', {templateUrl: pagesPath+'public/contact/contact.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
 //end: yeoman generated routes here - DO NOT DELETE THIS COMMENT AS IT IS USED BY YEOMAN TO GENERATE A NEW ROUTE!
 	
 
