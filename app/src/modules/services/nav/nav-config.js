@@ -169,7 +169,39 @@ var inst ={
 		
 		this.components.headerPublic ={
 			template: this.paths.templates.headerPublic,
+			links: [
+				{
+					html: "Philosophy",
+					href: this.paths.appPathLink+'philosophy'
+				},
+				{
+					html: "Gallery",
+					href: this.paths.appPathLink+'gallery'
+				},
+				{
+					html: "Brothers",
+					href: this.paths.appPathLink+'brothers'
+				},
+				{
+					html: "Rush",
+					href: this.paths.appPathLink+'rush'
+				},
+				{
+					html: "Contact",
+					href: this.paths.appPathLink+'contact'
+				}
+			]
 		};
+		//hardcoded array indices for use to change these buttons later
+		this.components.headerPublicIndices ={
+			philosophy:0,
+			gallery:1,
+			brothers:2,
+			rush:3,
+			contact:4
+		};
+		
+		
 		this.components.footerPublic ={
 			template: this.paths.templates.footerFlex,
 			classes: {
@@ -271,6 +303,9 @@ var inst ={
 		
 		//contact
 		this.pages.contact =jrgArray.copy(this.components.publicNav);
+		this.pages.contact.header.links[this.components.headerPublicIndices.contact].classes ={
+			cont: 'selected'
+		};
 		
 		//end: CUSTOM nav definitions
 	}
