@@ -173,6 +173,7 @@
 				"less": [
 					"reset.less",
 					"fonts.less",
+					"flexbox.less",
 					"typography.less",
 					"bootstrap-parts.less",
 					"body-other.less",
@@ -476,6 +477,20 @@
 									}
 								}
 							]
+						},
+						{
+							"name": "challenge-tracker",
+							"files": {
+								"js": [
+									"challenge-tracker.js"
+								],
+								"testUnit": [
+									"challenge-tracker.spec.js"
+								],
+								"less": [
+									"challenge-tracker.less"
+								]
+							}
 						}
 					]
 				},
@@ -784,6 +799,23 @@
 									}
 								}
 							]
+						},
+						{
+							"name": "challenge-tracker",
+							"files": {
+								"html": [
+									"challenge-tracker.html"
+								],
+								"js": [
+									"ChallengeTrackerCtrl.js"
+								],
+								"testUnit": [
+									"ChallengeTrackerCtrl.spec.js"
+								],
+								"less": [
+									"challenge-tracker.less"
+								]
+							}
 						}
 					]
 				}
