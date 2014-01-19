@@ -339,6 +339,17 @@
 											"footer-flex.less"
 										]
 									}
+								},
+								{
+									"name": "header-public",
+									"files": {
+										"html": [
+											"header-public.html"
+										],
+										"less": [
+											"header-public.less"
+										]
+									}
 								}
 							]
 						},
