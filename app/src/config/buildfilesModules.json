@@ -828,7 +828,8 @@
 									"challenge-tracker.less"
 								]
 							}
-
+						},
+						{
 							"name": "public",
 							"dirs": [
 								{
