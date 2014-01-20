@@ -340,6 +340,17 @@
 											"footer-flex.less"
 										]
 									}
+								},
+								{
+									"name": "header-public",
+									"files": {
+										"html": [
+											"header-public.html"
+										],
+										"less": [
+											"header-public.less"
+										]
+									}
 								}
 							]
 						},
@@ -801,6 +812,7 @@
 							]
 						},
 						{
+
 							"name": "challenge-tracker",
 							"files": {
 								"html": [
@@ -816,6 +828,28 @@
 									"challenge-tracker.less"
 								]
 							}
+
+							"name": "public",
+							"dirs": [
+								{
+									"name": "contact",
+									"files": {
+										"html": [
+											"contact.html"
+										],
+										"js": [
+											"ContactCtrl.js"
+										],
+										"testUnit": [
+											"ContactCtrl.spec.js"
+										],
+										"less": [
+											"contact.less"
+										]
+									}
+								}
+							]
+
 						}
 					]
 				}

@@ -6,6 +6,8 @@
 1. rpcReadChallenge
 1.5. rpcReadChallengeGoal
 2. rpcSaveChallenge
+3. rpcReadByDate
+4. rpcAddMilestone
 */
 
 'use strict';
@@ -49,7 +51,9 @@ UserChallengeGoalApi.prototype.getRpcMethods = function(){
 	return {
 		readChallenge: this.rpcReadChallenge(),
 		readChallengeGoal: this.rpcReadChallengeGoal(),
-		saveChallenge: this.rpcSaveChallenge()
+		saveChallenge: this.rpcSaveChallenge(),
+		readByDate: this.rpcReadByDate(),
+		addMilestone: this.rpcAddMilestone()
 	};
 };
 
@@ -143,6 +147,76 @@ UserChallengeGoalApi.prototype.rpcSaveChallenge = function(){
 		**/
 		action: function(params, out) {
 			var promise =UserChallengeGoalMod.saveChallenge(db, params, {});
+			promise.then(function(ret1) {
+				out.win(ret1);
+			}, function(err) {
+				self.handleError(out, err, {});
+			});
+		}
+	};
+};
+
+/**
+@toc 3.
+@method rpcReadByDate
+**/
+UserChallengeGoalApi.prototype.rpcReadByDate = function(){
+	var self = this;
+
+	return {
+		info: 'Returns a list of all users and their challenge goals for ONE challenege with just the MOST CURRENT milestone that is BEFORE the date_max that is passed in.',
+		params: {
+			date_max: { type: 'string', required:true, info: "YYYY-MM-DD HH:mm:ssZ The last date to read milestones for challenge goals (will return only milestones BEFORE this date)" },
+			challenge_name: { type: 'string', required:true, info: 'The challenge to return challenge goals for' }
+		},
+		returns: {
+			users: 'array'
+		},
+		/**
+		@method action
+		@param {Object} params
+			@param {Object} data new challenge goal params (detailed above)
+		@param {Object} out callback object which provides `win` and `fail` functions for handling `success` and `fail` callbacks
+			@param {Function} win Success callback
+			@param {Function} fail Fail callback
+		**/
+		action: function(params, out) {
+			var promise =UserChallengeGoalMod.readByDate(db, params, {});
+			promise.then(function(ret1) {
+				out.win(ret1);
+			}, function(err) {
+				self.handleError(out, err, {});
+			});
+		}
+	};
+};
+
+/**
+@toc 4.
+@method rpcAddMilestone
+**/
+UserChallengeGoalApi.prototype.rpcAddMilestone = function(){
+	var self = this;
+
+	return {
+		info: 'Adds one milestone to the user.challenge_goal.milestone array for the given user_id and challenge_goal_id',
+		params: {
+			user_id: { type: 'string', required:true, info: "The user to add a milestone for" },
+			challenge_goal_id: { type: 'string', required:true, info: 'Challenge goal to update' }
+		},
+		returns: {
+			milestone: 'object'
+		},
+		/**
+		@method action
+		@param {Object} params
+			@param {Object} data new challenge goal params (detailed above)
+		@param {Object} out callback object which provides `win` and `fail` functions for handling `success` and `fail` callbacks
+			@param {Function} win Success callback
+			@param {Function} fail Fail callback
+		**/
+		action: function(params, out) {
+			var promise =UserChallengeGoalMod.addMilestone(db, params, {});
 			promise.then(function(ret1) {
 				out.win(ret1);
 			}, function(err) {

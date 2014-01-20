@@ -53,6 +53,7 @@
 				"completed_approved_user_id":"{String} The user id of the user who approved that this challenge goal is complete.",
 				"milestone":[
 					{
+						"_id":"{String} sdfeaf234d",
 						"date":"{String} YYYY-MM-DD HH:mm:ssZ",
 						"value":"{Mixed} Current value / progress for this goal - value depends on the type of goal",
 						"description":"{String} The details/proof of completion of this milestone"

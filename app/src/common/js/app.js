@@ -211,6 +211,10 @@ $routeProvider.when(appPathRoute+'challenge-tracker', {templateUrl: pagesPath+'/
 								loggedIn: {}
 								}
 						});
+$routeProvider.when(appPathRoute+'contact', {templateUrl: pagesPath+'public/contact/contact.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
 			}
 		}
 	});

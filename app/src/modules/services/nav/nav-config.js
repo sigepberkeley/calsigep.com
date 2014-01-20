@@ -96,7 +96,8 @@ var inst ={
 		this.pathRoot =appConfig.dirPaths.staticPath+this.pathRoot;		//prepend static path to account for different environments / configs and ensure this always references the correct path
 		this.paths.templates = {
 			headerCentered: this.pathRoot+'header-centered/header-centered.html',
-			footerFlex: this.pathRoot+'footer-flex/footer-flex.html'
+			footerFlex: this.pathRoot+'footer-flex/footer-flex.html',
+			headerPublic: this.pathRoot+'header-public/header-public.html',
 		};
 		this.paths.appPathLink =appConfig.dirPaths.appPathLink;
 	},
@@ -166,9 +167,24 @@ var inst ={
 		this.components.footerMainIndices ={
 		};
 		
+		this.components.headerPublic ={
+			template: this.paths.templates.headerPublic,
+		};
+		this.components.footerPublic ={
+			template: this.paths.templates.footerFlex,
+			classes: {
+				cont: 'hidden'
+			}
+		};
+		
 		this.components.defaultNav ={
 			header: this.components.headerCentered,
 			footer: this.components.footerMain
+		};
+		
+		this.components.publicNav ={
+			header: this.components.headerPublic,
+			footer: this.components.footerPublic
 		};
 	},
 	
@@ -252,6 +268,9 @@ var inst ={
 		// this.pages.test.footer.classes ={
 			// cont: 'hidden'
 		// };
+		
+		//contact
+		this.pages.contact =jrgArray.copy(this.components.publicNav);
 		
 		//end: CUSTOM nav definitions
 	}
