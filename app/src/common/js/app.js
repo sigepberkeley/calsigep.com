@@ -29,7 +29,8 @@ angular.module('jrg', [
 		'jackrabbitsgroup.angular-autocomplete',
 		'jackrabbitsgroup.angular-multiselect',
 		'jackrabbitsgroup.angular-datetimepicker',
-		'jackrabbitsgroup.angular-lookup'
+		'jackrabbitsgroup.angular-lookup',
+		'jackrabbitsgroup.angular-image-upload'
 	]
 );
 
@@ -207,6 +208,48 @@ $routeProvider.when(appPathRoute+'contact', {templateUrl: pagesPath+'public/cont
 		resolve: {
 			auth: function(appAuth) {
 				return appAuth.checkSess({});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'brothers', {templateUrl: pagesPath+'/brothers/brothers.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({noLoginRequired:true});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'profile', {templateUrl: pagesPath+'/profile/profile.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({noLoginRequired:true});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'admin-portal', {templateUrl: pagesPath+'admin/admin-portal/admin-portal.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({noLoginRequired:true});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'admin-photos', {templateUrl: pagesPath+'admin/admin-photos/admin-photos.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({noLoginRequired:true});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'admin-albums', {templateUrl: pagesPath+'admin/admin-albums/admin-albums.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({noLoginRequired:true});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'admin-album-edit', {templateUrl: pagesPath+'admin/admin-album-edit/admin-album-edit.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({noLoginRequired:true});
 			}
 		}
 	});
