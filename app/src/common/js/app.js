@@ -231,6 +231,13 @@ $routeProvider.when(appPathRoute+'rush', {templateUrl: pagesPath+'public/rush/ru
 			}
 		}
 	});
+$routeProvider.when(appPathRoute+'gallery', {templateUrl: pagesPath+'public/gallery/gallery.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
 //end: yeoman generated routes here - DO NOT DELETE THIS COMMENT AS IT IS USED BY YEOMAN TO GENERATE A NEW ROUTE!
 	
 

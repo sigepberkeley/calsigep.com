@@ -885,6 +885,23 @@
 											"rush.less"
 										]
 									}
+								},
+								{
+									"name": "gallery",
+									"files": {
+										"html": [
+											"gallery.html"
+										],
+										"js": [
+											"GalleryCtrl.js"
+										],
+										"testUnit": [
+											"GalleryCtrl.spec.js"
+										],
+										"less": [
+											"gallery.less"
+										]
+									}
 								}
 							]
 						}
