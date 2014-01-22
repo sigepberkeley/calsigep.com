@@ -490,20 +490,6 @@
 							]
 						},
 						{
-							"name": "challenge-tracker",
-							"files": {
-								"js": [
-									"challenge-tracker.js"
-								],
-								"testUnit": [
-									"challenge-tracker.spec.js"
-								],
-								"less": [
-									"challenge-tracker.less"
-								]
-							}
-						},
-						{
 							"name": "nav",
 							"dirs": [
 								{
