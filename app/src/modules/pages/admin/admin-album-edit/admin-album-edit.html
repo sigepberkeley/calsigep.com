@@ -20,8 +20,8 @@
 					<div class = 'admin-album-photos-photo-arrow fa fa-chevron-circle-left' ng-show = '$index > 0' ng-click = 'shiftPhoto($index, $index - 1)'></div>
 					<div class = 'admin-album-photos-photo-delete flex1'>
 						<div class = 'admin-button btn btn-warning' ng-show = '!photo.confirm_delete_show' ng-click = 'photo.confirm_delete_show = true'>Delete Photo</div>
-						<div class = 'admin-button btn btn-success' ng-show = 'photo.confirm_delete_show' ng-click = 'photo.confirm_delete_show = false'>Cancel</div>
-						<div class = 'admin-button btn btn-danger' ng-show = 'photo.confirm_delete_show' ng-click = 'deletePhoto($index)'>Confirm</div>
+						<div class = 'admin-album-button btn btn-success' ng-show = 'photo.confirm_delete_show' ng-click = 'photo.confirm_delete_show = false'>Cancel</div>
+						<div class = 'admin-album-button btn btn-danger' ng-show = 'photo.confirm_delete_show' ng-click = 'deletePhoto($index)'>Confirm</div>
 					</div>
 					<div class = 'admin-album-photos-photo-arrow fa fa-chevron-circle-right' ng-show = '$index < album.photos.length - 1' ng-click = 'shiftPhoto($index, $index + 1)'></div>
 				</div>

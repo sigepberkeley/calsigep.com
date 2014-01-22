@@ -194,11 +194,11 @@ Photo.prototype.readPhotos = function(db, data, params)
 			{
 				if(ids.indexOf(a._id) < ids.indexOf(b._id))
 				{
-					return -1;
+					return 1;
 				}
 				else
 				{
-					return 1;
+					return -1;
 				}
 			});
 			

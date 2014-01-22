@@ -30,7 +30,8 @@ angular.module('jrg', [
 		'jackrabbitsgroup.angular-multiselect',
 		'jackrabbitsgroup.angular-datetimepicker',
 		'jackrabbitsgroup.angular-lookup',
-		'jackrabbitsgroup.angular-image-upload'
+		'jackrabbitsgroup.angular-image-upload',
+		'jackrabbitsgroup.angular-carousel-directive'
 	]
 );
 
