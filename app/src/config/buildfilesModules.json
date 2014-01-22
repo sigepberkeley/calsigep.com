@@ -502,6 +502,25 @@
 									"challenge-tracker.less"
 								]
 							}
+						},
+						{
+							"name": "nav",
+							"dirs": [
+								{
+									"name": "nav-header-public",
+									"files": {
+										"js": [
+											"nav-header-public.js"
+										],
+										"testUnit": [
+											"nav-header-public.spec.js"
+										],
+										"less": [
+											"nav-header-public.less"
+										]
+									}
+								}
+							]
 						}
 					]
 				},
