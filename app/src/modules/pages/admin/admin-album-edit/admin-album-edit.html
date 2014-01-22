@@ -1,3 +1,44 @@
-<div ng-controller='AdminAlbumEditCtrl'>
-	admin-album-edit
+<div class = 'admin-portal' ng-controller='AdminAlbumEditCtrl'>
+	<div ng-if = 'super_admin'>
+		<div class = 'center margin-b'>
+			<a class = 'a-div btn btn-info' ng-href = '{{appPathLink + "admin-albums"}}'> Back to Albums </a>
+		</div>
+		
+		<div jrg-forminput type = 'text' placeholder = 'Album Name' ng-model = 'album.name' opts = '' required></div>
+		<div jrg-forminput type = 'textarea' placeholder = 'Album Description' ng-model = 'album.desc' opts = ''></div>
+		
+		<div class = 'center margin-tb'>
+			<div class = 'btn btn-info' ng-click = 'saveAlbum()'> Save Album </div>
+			<br/>
+			{{msg}}
+		</div>
+		
+		<div class = 'admin-album-photos margin-tb'>
+			<div class = 'admin-album-photos-photo' ng-repeat = 'photo in album.photos'>
+				<img class = 'admin-album-photos-photo-image' width = '200' height = '200' ng-src = '{{appPathImg + "/images/photos/" + photo.url}}'/>
+				<div class = 'flexbox row'>
+					<div class = 'admin-album-photos-photo-arrow fa fa-chevron-circle-left' ng-show = '$index > 0' ng-click = 'shiftPhoto($index, $index - 1)'></div>
+					<div class = 'admin-album-photos-photo-delete flex1'>
+						<div class = 'admin-button btn btn-warning' ng-show = '!photo.confirm_delete_show' ng-click = 'photo.confirm_delete_show = true'>Delete Photo</div>
+						<div class = 'admin-button btn btn-success' ng-show = 'photo.confirm_delete_show' ng-click = 'photo.confirm_delete_show = false'>Cancel</div>
+						<div class = 'admin-button btn btn-danger' ng-show = 'photo.confirm_delete_show' ng-click = 'deletePhoto($index)'>Confirm</div>
+					</div>
+					<div class = 'admin-album-photos-photo-arrow fa fa-chevron-circle-right' ng-show = '$index < album.photos.length - 1' ng-click = 'shiftPhoto($index, $index + 1)'></div>
+				</div>
+			</div>
+		</div>
+		
+		<div ng-if = '!new_album'>
+			<div class = 'center margin-tb'>
+				<div class = 'btn btn-info' ng-click = 'addPhoto()'> Add This Photo </div>
+			</div>
+		
+			<div jrg-image-upload opts='uploadOpts' ng-model='cur_image.url'></div>
+		</div>
+		
+		
+	</div>
+	<div ng-if = '!super_admin'>
+		You do not have permission to access this page.
+	</div>
 </div>

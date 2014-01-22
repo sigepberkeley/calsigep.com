@@ -232,13 +232,6 @@ $routeProvider.when(appPathRoute+'admin-portal', {templateUrl: pagesPath+'admin/
 			}
 		}
 	});
-$routeProvider.when(appPathRoute+'admin-photos', {templateUrl: pagesPath+'admin/admin-photos/admin-photos.html',
-		resolve: {
-			auth: function(appAuth) {
-				return appAuth.checkSess({noLoginRequired:true});
-			}
-		}
-	});
 $routeProvider.when(appPathRoute+'admin-albums', {templateUrl: pagesPath+'admin/admin-albums/admin-albums.html',
 		resolve: {
 			auth: function(appAuth) {

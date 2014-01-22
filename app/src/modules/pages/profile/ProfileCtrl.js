@@ -62,21 +62,21 @@ function($scope, UserModel, appHttp)
 	];
 	
 	$scope.uploadOpts =
-{
-        //'type':'byUrl',
-        'uploadPath':'/imageUpload',
-        'uploadDirectory':$scope.appPathImg + '/images/bioPics',
-        'serverParamNames': {
-                'file': 'myFile'
-        },
-        // 'uploadCropPath':'/api/image/crop',
-        // 'callbackInfo':{'evtName':evtImageUpload, 'args':[{'var1':'yes'}]},
-        'imageServerKeys':{'imgFileName':'fileNameSave', 'picHeight':'picHeight', 'picWidth':'picWidth', 'imgFileNameCrop':'newFileName'},                //hardcoded must match: server return data keys
-        //'htmlDisplay':"<div class='ig-form-pic-upload'><div class='ig-form-pic-upload-button'>Select Photo</div></div>",
-        // 'cropOptions': {'crop':true, 'cropMaxHeight':500, 'cropMaxWidth':500}
-        'cropOptions': {'crop':false}
-        //'values':{'dirPath':'/uploads'}
-};
+	{
+			//'type':'byUrl',
+			'uploadPath':'/imageUpload',
+			'uploadDirectory':$scope.appPathImg + '/images/bioPics',
+			'serverParamNames': {
+					'file': 'myFile'
+			},
+			// 'uploadCropPath':'/api/image/crop',
+			// 'callbackInfo':{'evtName':evtImageUpload, 'args':[{'var1':'yes'}]},
+			'imageServerKeys':{'imgFileName':'fileNameSave', 'picHeight':'picHeight', 'picWidth':'picWidth', 'imgFileNameCrop':'newFileName'},                //hardcoded must match: server return data keys
+			//'htmlDisplay':"<div class='ig-form-pic-upload'><div class='ig-form-pic-upload-button'>Select Photo</div></div>",
+			// 'cropOptions': {'crop':true, 'cropMaxHeight':500, 'cropMaxWidth':500}
+			'cropOptions': {'crop':false}
+			//'values':{'dirPath':'/uploads'}
+	};
 	
 	$scope.updateUser = function()
 	{

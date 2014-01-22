@@ -14,6 +14,7 @@ RPC follow endpoints
 8. rpcReadAlbum
 9. rpcSearchAlbums
 10. rpcDeleteAlbums
+11. rpcAddPhotoToAlbum
 */
 
 'use strict';
@@ -77,6 +78,7 @@ PhotoApi.prototype.getRpcMethods = function(){
 		readAlbum: this.rpcReadAlbum(),
 		searchAlbums: this.rpcSearchAlbums(),
 		deleteAlbums: this.rpcDeleteAlbums(),
+		addPhotoToAlbum: this.rpcAddPhotoToAlbum()
 	};
 };
 
@@ -95,6 +97,7 @@ PhotoApi.prototype.rpcCreatePhoto = function()
 		{
 			user_id: { required: true, type: 'string', info: "_id of user creating the image" },
 			photo: { required: true, type: 'object', info: "Photo object to create. url should be relative to app/src/common/img/images/photos/" },
+			album_id: { type: 'string', info: "_id of album to add newly created image to. Optional." }
 		},
 		returns:
 		{
@@ -207,7 +210,7 @@ PhotoApi.prototype.rpcReadPhotos = function()
 
 /**
 Returns RPC schema object for Photo.searchPhotos
-@toc 3.
+@toc 4.
 @method rpcSearchPhotos
 **/
 PhotoApi.prototype.rpcSearchPhotos = function()
@@ -253,7 +256,7 @@ PhotoApi.prototype.rpcSearchPhotos = function()
 
 /**
 Returns RPC schema object for Photo.deletePhotos
-@toc 3.
+@toc 5.
 @method rpcDeletePhotos
 **/
 PhotoApi.prototype.rpcDeletePhotos = function()
@@ -294,7 +297,7 @@ PhotoApi.prototype.rpcDeletePhotos = function()
 
 /**
 Returns RPC schema object for Photo.createAlbum
-@toc 1.
+@toc 6.
 @method rpcCreateAlbum
 **/
 PhotoApi.prototype.rpcCreateAlbum = function()
@@ -302,7 +305,7 @@ PhotoApi.prototype.rpcCreateAlbum = function()
 	var self = this;
 
 	return {
-		info: 'Create an album',
+		info: 'Create an album.  Extra keys on any photos will be removed.',
 		params:
 		{
 			user_id: { required: true, type: 'string', info: "_id of user creating the album" },
@@ -336,7 +339,7 @@ PhotoApi.prototype.rpcCreateAlbum = function()
 
 /**
 Returns RPC schema object for Photo.updateAlbum
-@toc 1.
+@toc 7.
 @method rpcUpdateAlbum
 **/
 PhotoApi.prototype.rpcUpdateAlbum = function()
@@ -344,7 +347,7 @@ PhotoApi.prototype.rpcUpdateAlbum = function()
 	var self = this;
 
 	return {
-		info: 'Update an album',
+		info: 'Update an album.  Extra keys on any photos will be removed.',
 		params:
 		{
 			user_id: { required: true, type: 'string', info: "_id of user creating the album" },
@@ -378,7 +381,7 @@ PhotoApi.prototype.rpcUpdateAlbum = function()
 
 /**
 Returns RPC schema object for Photo.readAlbum
-@toc 1.
+@toc 8.
 @method rpcReadAlbum
 **/
 PhotoApi.prototype.rpcReadAlbum = function()
@@ -420,7 +423,7 @@ PhotoApi.prototype.rpcReadAlbum = function()
 
 /**
 Returns RPC schema object for Photo.searchAlbums
-@toc 3.
+@toc 9.
 @method rpcSearchAlbums
 **/
 PhotoApi.prototype.rpcSearchAlbums = function()
@@ -466,7 +469,7 @@ PhotoApi.prototype.rpcSearchAlbums = function()
 
 /**
 Returns RPC schema object for Photo.deleteAlbums
-@toc 3.
+@toc 10.
 @method rpcDeleteAlbums
 **/
 PhotoApi.prototype.rpcDeleteAlbums = function()
@@ -494,6 +497,48 @@ PhotoApi.prototype.rpcDeleteAlbums = function()
 		**/
 		action: function(params, out) {
 			var promise =PhotoMod.deleteAlbums(db, params, {});
+			promise.then(function(ret1)
+			{
+				out.win(ret1);
+			}, function(err)
+			{
+				// self.handleError(out.fail);
+				self.handleError(out, err, {});
+			});
+		}
+	};
+};
+
+/**
+Returns RPC schema object for Photo.addPhotoToAlbum
+@toc 11.
+@method rpcAddPhotoToAlbum
+**/
+PhotoApi.prototype.rpcAddPhotoToAlbum = function()
+{
+	var self = this;
+
+	return {
+		info: 'Add an existing photo to an existing album',
+		params:
+		{
+			user_id: { required: true, type: 'string', info: "_id of user adding the photo" },
+			album_id: { required: true, type: 'string', info: "_id of album to add to" },
+			photo_id: { required: true, type: 'string', info: "_id of photo to add" },
+		},
+		returns:
+		{
+		},
+		/**
+		Update an album
+		@method action
+		@param {Object} params (detailed above)
+		@param {Object} out callback object which provides `win` and `fail` functions for handling `success` and `fail` callbacks
+			@param {Function} win Success callback
+			@param {Function} fail Fail callback
+		**/
+		action: function(params, out) {
+			var promise =PhotoMod.addPhotoToAlbum(db, params, {});
 			promise.then(function(ret1)
 			{
 				out.win(ret1);

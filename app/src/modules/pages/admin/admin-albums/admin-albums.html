@@ -1,3 +1,18 @@
-<div ng-controller='AdminAlbumsCtrl'>
-	admin-albums
+<div class = 'admin-portal' ng-controller='AdminAlbumsCtrl'>
+	<div class = 'center' ng-if = 'super_admin'>
+		<a class = 'a-div btn btn-primary' ng-href = '{{appPathLink + "admin-album-edit"}}'> New Album </a>
+		<br/>
+		<div class = 'admin-album flexbox row margin-tb' ng-repeat = 'album in albums'>
+			<div class = 'flex2'> {{album.name}} </div>
+			<div class = 'flex1'> <a class = 'admin-button a-div btn btn-info' ng-href =  '{{appPathLink + "admin-album-edit?album_id=" + album._id}}'>Edit</a> </div>
+			<div class = 'flex1'>
+				<div class = 'admin-button btn btn-warning' ng-show = '!album.confirm_delete_show' ng-click = 'album.confirm_delete_show = true'>Delete</div>
+				<div class = 'admin-button btn btn-success' ng-show = 'album.confirm_delete_show' ng-click = 'album.confirm_delete_show = false'>Cancel</div>
+				<div class = 'admin-button btn btn-danger' ng-show = 'album.confirm_delete_show' ng-click = 'deleteAlbum($index)'>Confirm Delete</div>
+			</div>
+		</div>
+	</div>
+	<div ng-if = '!super_admin'>
+		You do not have permission to access this page.
+	</div>
 </div>

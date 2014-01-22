@@ -16,6 +16,7 @@ public methods
 8. readAlbum
 9. searchAlbums
 10. deleteAlbums
+11. addPhotoToAlbum
 
 private methods
 */
@@ -66,6 +67,7 @@ Create a photo
 @param {Object} data
 	@param {String} user_id Uploader's _id
 	@param {Object} photo Photo object
+	@param {String} album_id _id of album to add newly created image to. Optional.
 @param {Object} params
 @return {Promise}
 	@param {Object} photo New Photo object
@@ -77,7 +79,8 @@ Photo.prototype.createPhoto = function(db, data, params)
 	var ret ={code:0, msg:'Photo.createPhoto ', 'photo': {}};
 	var ii;
 	
-	db.photo.insert(data.photo, function(err, photo)
+	console.log('photo.url: ' + data.photo.url);
+	db.photo.insert(data.photo, {'safe': true}, function(err, photo)
 	{
 		if(err)
 		{
@@ -87,9 +90,31 @@ Photo.prototype.createPhoto = function(db, data, params)
 		}
 		else
 		{
-			ret.code = 0;
+			photo = photo[0]; //Comes back as array
 			ret.photo = photo;
-			deferred.resolve(ret);
+			console.log('photo2.url: ' + photo.url);
+			if(data.album_id !== undefined)
+			{
+				var add_promise = self.addPhotoToAlbum(db, {'user_id': data.user_id, 'album_id': data.album_id, 'photo_id': photo._id.toHexString()}, {});
+				add_promise.then(
+					function(ret1)
+					{
+						ret.code = 0;
+						deferred.resolve(ret);
+					},
+					function(ret1)
+					{
+						ret.code = 1;
+						ret.msg += ret1.msg;
+						deferred.reject(ret);
+					}
+				);
+			}
+			else
+			{
+				ret.code = 0;
+				deferred.resolve(ret);
+			}
 		}
 	});
 	
@@ -337,7 +362,7 @@ Photo.prototype.deletePhotos = function(db, data, params)
 };
 
 /**
-Create an album
+Create an album. Extra keys on any photos will be removed.
 @toc 6.
 @method createAlbum
 @param {Object} data
@@ -354,6 +379,24 @@ Photo.prototype.createAlbum = function(db, data, params)
 	var ret ={code:0, msg:'Photo.createAlbum ', 'album': {}};
 	var ii;
 	
+	if(data.album.photos === undefined || data.album.photos === null)
+	{
+		data.album.photos = [];	//Ensure photos field is defined
+	}
+	
+	//Remove any extra keys on the photos
+	var xx;
+	for(ii = 0; ii < data.album.photos.length; ii++)
+	{
+		for(xx in data.album.photos[ii])
+		{
+			if(xx != '_id')
+			{
+				delete data.album.photos[ii][xx];
+			}
+		}
+	}
+	
 	db.album.insert(data.album, function(err, album)
 	{
 		if(err)
@@ -365,7 +408,7 @@ Photo.prototype.createAlbum = function(db, data, params)
 		else
 		{
 			ret.code = 0;
-			ret.album = album;
+			ret.album = album[0];	//Comes back as array
 			deferred.resolve(ret);
 		}
 	});
@@ -374,7 +417,7 @@ Photo.prototype.createAlbum = function(db, data, params)
 };
 
 /**
-Update an album
+Update an album.  Extra keys on any photos will be removed.
 @toc 7.
 @method updateAlbum
 @param {Object} data
@@ -393,6 +436,19 @@ Photo.prototype.updateAlbum = function(db, data, params)
 	
 	var id_obj = MongoDBMod.makeIds({'id': data.album_id});
 	delete data.album._id;
+	
+	//Remove any extra keys on the photos
+	var xx;
+	for(ii = 0; ii < data.album.photos.length; ii++)
+	{
+		for(xx in data.album.photos[ii])
+		{
+			if(xx != '_id')
+			{
+				delete data.album.photos[ii][xx];
+			}
+		}
+	}
 	
 	db.album.update({'_id': id_obj}, {'$set': data.album }, {'safe': true}, function(err, valid)
 	{
@@ -436,7 +492,7 @@ Photo.prototype.readAlbum = function(db, data, params)
 	
 	db.album.findOne({'_id': MongoDBMod.makeIds({'id': data.album_id})}, function(err, album)
 	{
-		if(err)
+		if(err || !album)
 		{
 			ret.code = 1;
 			ret.msg += err;
@@ -630,6 +686,57 @@ Photo.prototype.deleteAlbums = function(db, data, params)
 		deleteAlbums();
 	}
 
+	return deferred.promise;
+};
+
+/**
+Add a photo to an album
+@toc 11.
+@method addPhotoToAlbum
+@param {Object} data
+	@param {String} user_id Uploader's _id
+	@param {String} album_id Album's _id
+	@param {String} photo_id Photo's _id
+@param {Object} params
+@return {Promise}
+	
+**/
+Photo.prototype.addPhotoToAlbum = function(db, data, params)
+{
+	var deferred = Q.defer();
+	var ret ={code:0, msg:'Photo.addPhotoToAlbum '};
+	var ii;
+	
+	var id_obj = MongoDBMod.makeIds({'id': data.album_id});
+	
+	db.album.findOne({'_id': id_obj}, function(err, album)
+	{
+		if(err)
+		{
+			ret.code = 1;
+			ret.msg += err;
+			deferred.reject(ret);
+		}
+		else
+		{
+			album.photos.push({'_id': data.photo_id});
+			var update_promise = self.updateAlbum(db, {'user_id': data.user_id, 'album_id': data.album_id, 'album': album}, {});
+			update_promise.then(
+				function(ret1)
+				{
+					ret.code = 0;
+					deferred.resolve(ret);
+				},
+				function(ret1)
+				{
+					ret.code = 1;
+					ret.msg += ret1.msg;
+					deferred.reject(ret);
+				}
+			);
+		}
+	});
+	
 	return deferred.promise;
 };
 

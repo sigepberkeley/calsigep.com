@@ -903,23 +903,6 @@
 									}
 								},
 								{
-									"name": "admin-photos",
-									"files": {
-										"html": [
-											"admin-photos.html"
-										],
-										"js": [
-											"AdminPhotosCtrl.js"
-										],
-										"testUnit": [
-											"AdminPhotosCtrl.spec.js"
-										],
-										"less": [
-											"admin-photos.less"
-										]
-									}
-								},
-								{
 									"name": "admin-albums",
 									"files": {
 										"html": [

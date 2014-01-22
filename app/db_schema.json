@@ -145,8 +145,8 @@
 		"desc": "{String}",
 		"photos": [
 			{
-				"_id": "{String} 123l4k234l",
+				"_id": "{String} 123l4k234l"
 			}
 		]
-	},
+	}
 }
