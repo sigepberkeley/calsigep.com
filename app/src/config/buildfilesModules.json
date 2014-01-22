@@ -112,7 +112,8 @@
 					"files": {
 						"js": [
 							"angular-hammer/angular-hammer.js",
-							"angular-socket-io/socket.js"
+							"angular-socket-io/socket.js",
+							"crop/crop.js"
 						],
 						"testUnit": [
 							"angular-socket-io/mock/socket-io.js"
@@ -661,6 +662,9 @@
 										],
 										"html": [
 											"test.html"
+										],
+										"less": [
+											"test.less"
 										],
 										"testUnit": [
 											"TestCtrl.spec.js"
