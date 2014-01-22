@@ -29,7 +29,8 @@ angular.module('jrg', [
 		'jackrabbitsgroup.angular-autocomplete',
 		'jackrabbitsgroup.angular-multiselect',
 		'jackrabbitsgroup.angular-datetimepicker',
-		'jackrabbitsgroup.angular-lookup'
+		'jackrabbitsgroup.angular-lookup',
+		'jackrabbitsgroup.angular-image-upload'
 	]
 );
 
@@ -203,7 +204,74 @@ $routeProvider.when(appPathRoute+'dev-goals', {templateUrl: pagesPath+'dev-goals
 			}
 		}
 	});
+$routeProvider.when(appPathRoute+'challenge-tracker', {templateUrl: pagesPath+'/challenge-tracker/challenge-tracker.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({
+							auth: {
+								loggedIn: {}
+								}
+						});
+			}
+		}
+	});
 $routeProvider.when(appPathRoute+'contact', {templateUrl: pagesPath+'public/contact/contact.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'profile', {templateUrl: pagesPath+'/profile/profile.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({noLoginRequired:true});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'admin-portal', {templateUrl: pagesPath+'admin/admin-portal/admin-portal.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({noLoginRequired:true});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'admin-albums', {templateUrl: pagesPath+'admin/admin-albums/admin-albums.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({noLoginRequired:true});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'admin-album-edit', {templateUrl: pagesPath+'admin/admin-album-edit/admin-album-edit.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({noLoginRequired:true});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'philosophy', {templateUrl: pagesPath+'public/philosophy/philosophy.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'brothers', {templateUrl: pagesPath+'public/brothers/brothers.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'rush', {templateUrl: pagesPath+'public/rush/rush.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'gallery', {templateUrl: pagesPath+'public/gallery/gallery.html',
 		resolve: {
 			auth: function(appAuth) {
 				return appAuth.checkSess({});

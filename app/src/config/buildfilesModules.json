@@ -102,6 +102,17 @@
 									"lookup.less"
 								]
 							}
+						},
+						{
+							"name": "angular-image-upload",
+							"files": {
+								"js": [
+									"image-upload.min.js"
+								],
+								"less": [
+									"image-upload.less"
+								]
+							}
 						}
 					]
 				},
@@ -174,6 +185,7 @@
 				"less": [
 					"reset.less",
 					"fonts.less",
+					"flexbox.less",
 					"typography.less",
 					"bootstrap-parts.less",
 					"body-other.less",
@@ -820,6 +832,24 @@
 							]
 						},
 						{
+
+							"name": "challenge-tracker",
+							"files": {
+								"html": [
+									"challenge-tracker.html"
+								],
+								"js": [
+									"ChallengeTrackerCtrl.js"
+								],
+								"testUnit": [
+									"ChallengeTrackerCtrl.spec.js"
+								],
+								"less": [
+									"challenge-tracker.less"
+								]
+							}
+						},
+						{
 							"name": "public",
 							"dirs": [
 								{
@@ -838,8 +868,150 @@
 											"contact.less"
 										]
 									}
+								},
+								{
+									"name": "philosophy",
+									"files": {
+										"html": [
+											"philosophy.html"
+										],
+										"js": [
+											"PhilosophyCtrl.js"
+										],
+										"testUnit": [
+											"PhilosophyCtrl.spec.js"
+										],
+										"less": [
+											"philosophy.less"
+										]
+									}
+								},
+								{
+									"name": "brothers",
+									"files": {
+										"html": [
+											"brothers.html"
+										],
+										"js": [
+											"BrothersCtrl.js"
+										],
+										"testUnit": [
+											"BrothersCtrl.spec.js"
+										],
+										"less": [
+											"brothers.less"
+										]
+									}
+								},
+								{
+									"name": "rush",
+									"files": {
+										"html": [
+											"rush.html"
+										],
+										"js": [
+											"RushCtrl.js"
+										],
+										"testUnit": [
+											"RushCtrl.spec.js"
+										],
+										"less": [
+											"rush.less"
+										]
+									}
+								},
+								{
+									"name": "gallery",
+									"files": {
+										"html": [
+											"gallery.html"
+										],
+										"js": [
+											"GalleryCtrl.js"
+										],
+										"testUnit": [
+											"GalleryCtrl.spec.js"
+										],
+										"less": [
+											"gallery.less"
+										]
+									}
 								}
 							]
+						},
+						{
+							"name": "profile",
+							"files": {
+								"html": [
+									"profile.html"
+								],
+								"js": [
+									"ProfileCtrl.js"
+								],
+								"testUnit": [
+									"ProfileCtrl.spec.js"
+								],
+								"less": [
+									"profile.less"
+								]
+							}
+						},
+						{
+							"name": "admin",
+							"dirs": [
+								{
+									"name": "admin-portal",
+									"files": {
+										"html": [
+											"admin-portal.html"
+										],
+										"js": [
+											"AdminPortalCtrl.js"
+										],
+										"testUnit": [
+											"AdminPortalCtrl.spec.js"
+										],
+										"less": [
+											"admin-portal.less"
+										]
+									}
+								},
+								{
+									"name": "admin-albums",
+									"files": {
+										"html": [
+											"admin-albums.html"
+										],
+										"js": [
+											"AdminAlbumsCtrl.js"
+										],
+										"testUnit": [
+											"AdminAlbumsCtrl.spec.js"
+										],
+										"less": [
+											"admin-albums.less"
+										]
+									}
+								},
+								{
+									"name": "admin-album-edit",
+									"files": {
+										"html": [
+											"admin-album-edit.html"
+										],
+										"js": [
+											"AdminAlbumEditCtrl.js"
+										],
+										"testUnit": [
+											"AdminAlbumEditCtrl.spec.js"
+										],
+										"less": [
+											"admin-album-edit.less"
+										]
+									}
+								}
+							]
+
 						}
 					]
 				}

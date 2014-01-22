@@ -34,6 +34,30 @@
 		"signup": "{String} [timestamp YYYY-MM-DD HH:mm:ssZ] 2013-06-13 15:30:00-07:00",
 		"last_login": "{String} [timestamp YYYY-MM-DD HH:mm:ssZ] 2013-06-13 02:30:00+03:30",
 		"status": "{String} member",
+		"alumni_status": "{String} 'alumnus' or 'undergrad'",
+		"position": "{String} VP Recruitment",
+		"dev_challenge": "{String} 'sigma' or 'phi' or 'epsilon'",
+		"year": "{Number} 2014",
+		"major_1": "{String} EECS",
+		"major_2": "{String} Math",
+		"minor": "{String} English",
+		"hometown": "{String} Berkeley",
+		"big_bro": "{String} John Bob",
+		"little_bro": "{String} Bob John",
+		"sigma_mentor": "{String} Jack Smith",
+		"sigma_mentee": "{String} Joe Smith",
+		"animal_name": "{String} Leopard",
+		"undergrad_school": "{String} Berkeley",
+		"grad_school": "{String} Berkeley",
+		"zip_code": "{Number} 12345",
+		"state": "{String} CA",
+		"city": "{String} Walnut Creek",
+		"address": "{String} 1234 Main Street",
+		"olympic_team": "{String} Rho",
+		"live_in": "{String} 'Yes' or 'No'",
+		"parent_email": "{String} parents_email_address@gmail.com",
+		"image": "{String} file_name.jpg",
+		"bio": "{String} Self-description blurb",
 		"super_admin": "{Number} 1",
 		"social":{
 			"google":{
@@ -108,5 +132,21 @@
 	"challenge_tag": {
 		"_id": "{ObjectId} ObjectId('123l4k234l')",
 		"name": "{String} Name of the tag, i.e. 'brotherhood'"
+	},
+	"photo":
+	{
+		"_id": "{ObjectId} ObjectId('123l4k234l')",
+		"url": "{String} picture.jpg [relative to app/src/common/img/images/photos/]"
+	},
+	"album":
+	{
+		"_id": "{ObjectId} ObjectId('123l4k234l')",
+		"name": "{String} Philanthropy",
+		"desc": "{String}",
+		"photos": [
+			{
+				"_id": "{String} 123l4k234l"
+			}
+		]
 	}
 }
