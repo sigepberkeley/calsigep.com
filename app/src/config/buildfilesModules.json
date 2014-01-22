@@ -815,6 +815,57 @@
 											"contact.less"
 										]
 									}
+								},
+								{
+									"name": "philosophy",
+									"files": {
+										"html": [
+											"philosophy.html"
+										],
+										"js": [
+											"PhilosophyCtrl.js"
+										],
+										"testUnit": [
+											"PhilosophyCtrl.spec.js"
+										],
+										"less": [
+											"philosophy.less"
+										]
+									}
+								},
+								{
+									"name": "brothers",
+									"files": {
+										"html": [
+											"brothers.html"
+										],
+										"js": [
+											"BrothersCtrl.js"
+										],
+										"testUnit": [
+											"BrothersCtrl.spec.js"
+										],
+										"less": [
+											"brothers.less"
+										]
+									}
+								},
+								{
+									"name": "rush",
+									"files": {
+										"html": [
+											"rush.html"
+										],
+										"js": [
+											"RushCtrl.js"
+										],
+										"testUnit": [
+											"RushCtrl.spec.js"
+										],
+										"less": [
+											"rush.less"
+										]
+									}
 								}
 							]
 						}
