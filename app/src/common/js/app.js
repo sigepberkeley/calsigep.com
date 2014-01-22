@@ -211,13 +211,6 @@ $routeProvider.when(appPathRoute+'contact', {templateUrl: pagesPath+'public/cont
 			}
 		}
 	});
-$routeProvider.when(appPathRoute+'brothers', {templateUrl: pagesPath+'/brothers/brothers.html',
-		resolve: {
-			auth: function(appAuth) {
-				return appAuth.checkSess({noLoginRequired:true});
-			}
-		}
-	});
 $routeProvider.when(appPathRoute+'profile', {templateUrl: pagesPath+'/profile/profile.html',
 		resolve: {
 			auth: function(appAuth) {

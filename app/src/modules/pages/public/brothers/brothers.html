@@ -1,3 +1,50 @@
-<div ng-controller='BrothersCtrl'>
-	brothers
+<div class = 'brothers' ng-controller='BrothersCtrl'>
+	<div class = 'brothers-header'>
+		<div class = 'brothers-header-left'>BROTHERS</div>
+		<div class = 'brothers-header-middle'>
+			<img ng-src = '{{appPathImg + "/arrow-part.png"}}' />
+		</div>
+		<div class = 'brothers-header-right'>
+			<div class = 'flexbox center'>
+				Our Brothers are a diverse group... different races, religions, areas of interest, hometowns... but we come together and are better for each others' friendship
+			</div>
+		</div>
+	</div>
+	<div class = 'brothers-body'>
+		<div class = 'brothers-list flexbox row' ng-show = '!profile_show'>
+			<div class = 'brothers-body-left'>
+				<div class = 'brothers-body-header-text'>Officers</div>
+				<div class = 'margin-small-tb brothers-officer' ng-repeat = 'officer in officers'>
+					<div><b>{{officer.title}}</b></div>
+					<div>{{officer.name}}</div>
+				</div>
+			</div>
+			<div class = 'brothers-body-right flex1'>
+				<div class = 'brothers-body-header-text'>Brothers (click a name to view)</div>
+				<div class = 'brothers-body-brother margin-small' ng-repeat = 'brother in brothers' ng-click = 'viewProfile($index)'>
+					<div class = 'brothers-body-brother-image'>
+						<img ng-src = '{{appPathImg + "/" + brother.image}}' height = '75' width = '60'/>
+					</div>
+					<div class = 'brothers-body-brother-name'>
+						{{brother.first_name + ' ' + brother.last_name}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class = 'brother-profile center' ng-show = 'profile_show'>
+			<div class = 'brother-profile-inner flexbox row'>
+				<div class = 'brother-profile-arrow fa fa-caret-left' ng-click = 'viewProfile(cur_brother - 1)'> </div>
+				<div class = 'brother-profile-image'>
+					<img ng-src = '{{appPathImg + "/" + brothers[cur_brother].image}}' width = '200'/>
+				</div>
+				<div class = 'brother-profile-text flex1'>
+					<div class = 'brother-profile-name'>{{brothers[cur_brother].first_name + ' ' + brothers[cur_brother].last_name}}</div>
+					<div class = 'brother-profile-data'>{{brothers[cur_brother].year + " | " + brothers[cur_brother].major_1 + " | " + brothers[cur_brother].hometown}}</div>
+					<div class = 'brother-profile-desc'>{{brothers[cur_brother].bio}}</div>
+				</div>
+				<div class = 'brother-profile-arrow fa fa-caret-right' ng-click = 'viewProfile(cur_brother + 1)'> </div>
+			</div>
+			<div class = 'brother-profile-close btn-link' ng-click = 'profile_show = false'> Back to Brothers List </div>
+		</div>
+	</div>
 </div>

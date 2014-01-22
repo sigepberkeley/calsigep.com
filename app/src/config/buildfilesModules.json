@@ -917,23 +917,6 @@
 							]
 						},
 						{
-							"name": "brothers",
-							"files": {
-								"html": [
-									"brothers.html"
-								],
-								"js": [
-									"BrothersCtrl.js"
-								],
-								"testUnit": [
-									"BrothersCtrl.spec.js"
-								],
-								"less": [
-									"brothers.less"
-								]
-							}
-						},
-						{
 							"name": "profile",
 							"files": {
 								"html": [
