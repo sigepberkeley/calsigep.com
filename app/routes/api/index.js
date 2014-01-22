@@ -40,7 +40,7 @@ var FollowApi = require(pathPart+'follow/follow.api.js');
 var ChallengeGoalApi = require(pathPart+'challengeGoal/challengeGoal.api.js');
 var ChallengeApi = require(pathPart+'challenge/challenge.api.js');
 var UserChallengeGoalApi = require(pathPart+'userChallengeGoal/userChallengeGoal.api.js');
-
+var PhotoApi = require(pathPart+'photo/photo.api.js');
 
 
 /**
@@ -73,6 +73,9 @@ module.exports = function(cfg, server, db){
 		db: db
 	});
 	var userChallengeGoalApi = new UserChallengeGoalApi({
+		db: db
+	});
+	var photoApi = new PhotoApi({
 		db: db
 	});
 
@@ -131,6 +134,12 @@ module.exports = function(cfg, server, db){
 			},
 			middleware: []
 		},
+		photo: {
+			modules: {
+				photo: photoApi
+			},
+			middleware: []
+		}
 	};
 
 	

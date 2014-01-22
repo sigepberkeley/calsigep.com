@@ -1,0 +1,35 @@
+<div class = 'profile' ng-controller='ProfileCtrl'>
+	<div jrg-forminput type = 'text' placeholder = 'First Name' ng-model = 'user.first_name' opts = '' required></div>
+	<div jrg-forminput type = 'text' placeholder = 'Last Name' ng-model = 'user.last_name' opts = '' required></div>
+	<div jrg-forminput type = 'email' placeholder = 'Email' ng-model = 'user.email' opts = '' required></div>
+	<div jrg-forminput type = 'text' placeholder = 'Phone Number' ng-model = 'user.phone.number' opts = ''></div>
+	<div jrg-forminput type = 'select' placeholder = 'Alumni Status' ng-model = 'user.alumni_status' opts = '' select-opts = 'alumni_status_opts'></div>
+	<div jrg-forminput type = 'text' placeholder = 'Position' ng-model = 'user.position' opts = ''></div>
+	<div jrg-forminput type = 'select' placeholder = 'Dev Challenge' ng-model = 'user.dev_challenge' opts = '' select-opts = 'dev_challenge_opts'></div>
+	<div jrg-forminput type = 'text' placeholder = 'Grad Year' ng-model = 'user.year' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'School Major 1' ng-model = 'user.major_1' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'School Major 2' ng-model = 'user.major_2' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'School Minor' ng-model = 'user.minor' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'Current Hometown' ng-model = 'user.hometown' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'Big Bro' ng-model = 'user.big_bro' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'Little Bro' ng-model = 'user.little_bro' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'Sigma Mentor' ng-model = 'user.sigma_mentor' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'Sigma Mentee' ng-model = 'user.sigma_mentee' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'Animal Name' ng-model = 'user.animal_name' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'Undergrad School' ng-model = 'user.undergrad_school' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'Grad School' ng-model = 'user.grad_school' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'Zip Code' ng-model = 'user.zip_code' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'State' ng-model = 'user.state' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'City' ng-model = 'user.city' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'Address' ng-model = 'user.address' opts = ''></div>
+	<div jrg-forminput type = 'text' placeholder = 'Olympics Team' ng-model = 'user.olympic_team' opts = ''></div>
+	<div jrg-forminput type = 'select' placeholder = 'Live In?' ng-model = 'user.live_in' opts = '' select-opts = 'live_in_opts'></div>
+	<div jrg-forminput type = 'text' placeholder = 'Parent Email' ng-model = 'user.parent_email' opts = ''></div>
+
+	<div jrg-image-upload opts='uploadOpts' ng-model='user.image'></div>
+	
+	<div jrg-forminput type = 'textarea' placeholder = 'Bio' ng-model = 'user.bio' opts = ''></div>
+	
+	<div class = 'btn btn-info' ng-click = 'updateUser()'> Update Profile </div>
+	<div class = 'profile-msg'> {{msg}} </div>
+</div>

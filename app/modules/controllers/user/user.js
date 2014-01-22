@@ -56,7 +56,7 @@ var readFilter = {
 		'include':['_id', 'email', 'first_name', 'last_name', 'phone']
 	},
 	'login': {
-		'include':['_id', 'email', 'first_name', 'last_name', 'sess_id', 'phone']
+		'include':['_id', 'email', 'first_name', 'last_name', 'sess_id', 'phone', 'super_admin']
 	},
 	'full': {
 		'omit':['password', 'password_reset_key', 'password_salt']

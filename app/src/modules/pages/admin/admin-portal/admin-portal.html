@@ -1,0 +1,8 @@
+<div class = 'admin-portal' ng-controller='AdminPortalCtrl'>
+	<div class = 'center' ng-if = 'super_admin'>
+		<a class = 'a-div inline-block btn btn-primary margin' ng-repeat = 'link in links' ng-href = '{{appPathLink + link.href}}'> {{link.text}} </a>
+	</div>
+	<div ng-if = '!super_admin'>
+		You do not have permission to access this page.
+	</div>
+</div>
