@@ -246,6 +246,34 @@ $routeProvider.when(appPathRoute+'admin-album-edit', {templateUrl: pagesPath+'ad
 			}
 		}
 	});
+$routeProvider.when(appPathRoute+'philosophy', {templateUrl: pagesPath+'public/philosophy/philosophy.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'brothers', {templateUrl: pagesPath+'public/brothers/brothers.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'rush', {templateUrl: pagesPath+'public/rush/rush.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'gallery', {templateUrl: pagesPath+'public/gallery/gallery.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
 //end: yeoman generated routes here - DO NOT DELETE THIS COMMENT AS IT IS USED BY YEOMAN TO GENERATE A NEW ROUTE!
 	
 
