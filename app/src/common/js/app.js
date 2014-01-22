@@ -205,6 +205,17 @@ $routeProvider.when(appPathRoute+'dev-goals', {templateUrl: pagesPath+'dev-goals
 			}
 		}
 	});
+$routeProvider.when(appPathRoute+'challenge-tracker', {templateUrl: pagesPath+'/challenge-tracker/challenge-tracker.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({
+							auth: {
+								loggedIn: {}
+								}
+						});
+			}
+		}
+	});
 $routeProvider.when(appPathRoute+'contact', {templateUrl: pagesPath+'public/contact/contact.html',
 		resolve: {
 			auth: function(appAuth) {
