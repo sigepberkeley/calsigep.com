@@ -102,6 +102,26 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 							"description":"{String} The details/proof of completion of this milestone"
 						}
 					]
+				},
+				{
+					"_id":"52deac67d9af64fa572b07a1",
+					"challenge_goal_id":"Monday Meeting Dinners",
+					"date_started":"2014-02-06 15:30:00-07:00",
+					"date_deadline":"2014-05-01 15:30:00-07:00",
+					"date_completed":"{String} YYYY-MM-DD HH:mm:ssZ",
+					"completed_approved_user_id":"{String} The user id of the user who approved that this challenge goal is complete.",
+					"milestone":[
+						{
+							"date":"2014-01-14 15:30:00-07:00",
+							"value":"0",
+							"description":"{String} The details/proof of completion of this milestone"
+						},
+						{
+							"date":"2014-01-21 15:30:00-07:00",
+							"value":"1",
+							"description":"{String} The details/proof of completion of this milestone"
+						}
+					]
 				}
 			],
 			"challenge":[
@@ -155,6 +175,7 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 				"last_updated": "2014-01-21 09:16:08-08:00"
 			},
 			{
+				"_id": "52deac67d9af64fa572b07a0",
 				"challenge": [
 					{
 						"name": "phi",
@@ -170,9 +191,28 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 				"tags": [],
 				"title": "Leg Press",
 				"description": "You must leg press 1.75x your body weight",
-				"last_updated": "2014-01-21 09:20:39-08:00",
-				"_id": "52deac67d9af64fa572b07a0"
+				"last_updated": "2014-01-21 09:20:39-08:00"
 			},
+			{
+				"_id": "52deac67d9af64fa572b07a1",
+				"challenge": [
+					{
+						
+						"date_last_active": "{String} YYYY-MM-DD HH:mm:ssZ OR undefined / not-exists for the current version. This is so can raise the standards with time but still see a copy of older 'versions' of the same challenge. I.e. the 'current' Epsilon goals will have this field blank and to 'retire' the current Epsilon goals to change them, the current ones would be cloned and the existing ones would get the current/last active date filled in.",
+						"name": "phi",
+						"required": 0,
+						"group": "",
+						"min_value": 2,
+						"target_value": '3',
+						"points": 3,
+						"max_value": 3,
+						"max_points": 3
+					}
+				],
+				"title": "Monday Meeting Dinner",
+				"description": "Lead 3 dinners for monday meetings through the semester",
+				"last_updated": "2014-01-21 09:16:08-08:00"
+			}
 
 		];
 
