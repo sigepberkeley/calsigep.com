@@ -17,6 +17,7 @@ public methods
 9. searchAlbums
 10. deleteAlbums
 11. addPhotoToAlbum
+12. cropPhoto
 
 private methods
 */
@@ -734,6 +735,54 @@ Photo.prototype.addPhotoToAlbum = function(db, data, params)
 					deferred.reject(ret);
 				}
 			);
+		}
+	});
+	
+	return deferred.promise;
+};
+
+/**
+Crop a photo
+@toc 12.
+@method cropPhoto
+@param {Object} data
+@param {Object} params
+@return {Promise}
+	@param {String} cropped_path Path to the newly created image
+**/
+Photo.prototype.cropPhoto = function(db, data, params)
+{
+	var deferred = Q.defer();
+	var ret ={code:0, msg:'Photo.cropPhoto ', 'cropped_path': ''};
+	var ii;
+	
+	var im = require('imagemagick');
+	
+	//File names relative to the root project directory
+	var input_file = 'image.jpg';
+	var output_file = 'crop_image.jpg';
+	var new_width = 100;
+	var new_height = 100;
+	var x_off = 30;
+	var y_off = 30;
+	
+	var geometry = new_width + 'x' + new_height + '+' + x_off + '+' + y_off;	//Format: 120x80+30+15
+	
+	var args = [input_file, "-crop", geometry, output_file];
+	
+	im.convert(args, function(err)
+	{
+		if(err)
+		{
+			ret.code = 1;
+			ret.msg += err;
+			deferred.reject(ret);
+		}
+		else
+		{
+			ret.code = 0;
+			ret.cropped_path = output_file;
+			deferred.resolve(ret);
 		}
 	});
 	
