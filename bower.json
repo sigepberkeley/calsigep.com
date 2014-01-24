@@ -38,7 +38,9 @@
 		"angular-multiselect": "latest",
 		"angular-datetimepicker": "latest",
 		"angular-lookup": "latest",
-		"angular-autocomplete": "latest"
+		"angular-autocomplete": "latest",
+		"angular-image-upload": "latest",
+		"angular-carousel-directive": "latest"
 	},
 	"license": "MIT",
 	"resolutions": {

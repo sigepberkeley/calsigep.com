@@ -102,6 +102,28 @@
 									"lookup.less"
 								]
 							}
+						},
+						{
+							"name": "angular-image-upload",
+							"files": {
+								"js": [
+									"image-upload.min.js"
+								],
+								"less": [
+									"image-upload.less"
+								]
+							}
+						},
+						{
+							"name": "angular-carousel-directive",
+							"files": {
+								"js": [
+									"carousel.min.js"
+								],
+								"less": [
+									"carousel.less"
+								]
+							}
 						}
 					]
 				},
@@ -173,6 +195,7 @@
 				"less": [
 					"reset.less",
 					"fonts.less",
+					"flexbox.less",
 					"typography.less",
 					"bootstrap-parts.less",
 					"body-other.less",
@@ -816,6 +839,24 @@
 							]
 						},
 						{
+
+							"name": "challenge-tracker",
+							"files": {
+								"html": [
+									"challenge-tracker.html"
+								],
+								"js": [
+									"ChallengeTrackerCtrl.js"
+								],
+								"testUnit": [
+									"ChallengeTrackerCtrl.spec.js"
+								],
+								"less": [
+									"challenge-tracker.less"
+								]
+							}
+						},
+						{
 							"name": "public",
 							"dirs": [
 								{
@@ -904,6 +945,80 @@
 									}
 								}
 							]
+						},
+						{
+							"name": "profile",
+							"files": {
+								"html": [
+									"profile.html"
+								],
+								"js": [
+									"ProfileCtrl.js"
+								],
+								"testUnit": [
+									"ProfileCtrl.spec.js"
+								],
+								"less": [
+									"profile.less"
+								]
+							}
+						},
+						{
+							"name": "admin",
+							"dirs": [
+								{
+									"name": "admin-portal",
+									"files": {
+										"html": [
+											"admin-portal.html"
+										],
+										"js": [
+											"AdminPortalCtrl.js"
+										],
+										"testUnit": [
+											"AdminPortalCtrl.spec.js"
+										],
+										"less": [
+											"admin-portal.less"
+										]
+									}
+								},
+								{
+									"name": "admin-albums",
+									"files": {
+										"html": [
+											"admin-albums.html"
+										],
+										"js": [
+											"AdminAlbumsCtrl.js"
+										],
+										"testUnit": [
+											"AdminAlbumsCtrl.spec.js"
+										],
+										"less": [
+											"admin-albums.less"
+										]
+									}
+								},
+								{
+									"name": "admin-album-edit",
+									"files": {
+										"html": [
+											"admin-album-edit.html"
+										],
+										"js": [
+											"AdminAlbumEditCtrl.js"
+										],
+										"testUnit": [
+											"AdminAlbumEditCtrl.spec.js"
+										],
+										"less": [
+											"admin-album-edit.less"
+										]
+									}
+								}
+							]
+
 						}
 					]
 				}

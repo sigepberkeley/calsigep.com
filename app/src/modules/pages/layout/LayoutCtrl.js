@@ -19,8 +19,8 @@ The "pages" array defines the pages and is used to set the layout and top level 
 
 'use strict';
 
-angular.module('myApp').controller('LayoutCtrl', ['$scope', 'appConfig', '$location', '$cookieStore', '$rootScope', 'appAuth',
- function($scope, appConfig, $location, $cookieStore, $rootScope, appAuth) {
+angular.module('myApp').controller('LayoutCtrl', ['$scope', 'appConfig', '$location', '$cookieStore', '$rootScope', 'appAuth', 'UserModel',
+ function($scope, appConfig, $location, $cookieStore, $rootScope, appAuth, UserModel) {
 	/**
 	define 'global' properties
 	@toc 1.
@@ -75,6 +75,13 @@ angular.module('myApp').controller('LayoutCtrl', ['$scope', 'appConfig', '$locat
 	@type String
 	*/
 	$scope.appTitle =appConfig.cfgJson.app.title;
+	
+	/**
+	True iff the currently logged-in user is a super_admin
+	@property $scope.super_admin
+	@type Boolean
+	*/
+	$scope.super_admin = false;
 
 	$scope.ids ={'header':'header', 'content':'content', 'footer':'footer'};
 	/**
@@ -121,6 +128,14 @@ angular.module('myApp').controller('LayoutCtrl', ['$scope', 'appConfig', '$locat
 			if(params.user_id !==undefined) {
 				$cookieStore.put('user_id', params.user_id);
 			}
+			
+			$scope.super_admin = false;
+			var user = UserModel.load();
+			if(user.super_admin === 1)
+			{
+				$scope.super_admin = true;
+			}
+			
 			if(params.noRedirect ===undefined || !params.noRedirect || (params.loggedIn && (locPathMatch ==appPath1Match+'login' || locPathMatch ==appPath1Match+'password-reset' || locPathMatch ==appPath1Match+'signup') ) ) {
 				var page ='home';
 				var redirect =false;

@@ -1,0 +1,32 @@
+<div ng-controller='ChallengeTrackerCtrl'>
+	Challenge-Tracker 
+	<br>
+	<br>
+	<div>
+		This is {{user.first_name}} {{user.last_name}}'s development challenge status represented by (current value/target value)
+		<br>
+		Percentage is based on how close you are to completing the goal vs proximity to the deadline.
+		<br>
+		<br>
+	</div>
+	<div>
+		<div class = 'flexbox'>
+			<div class = 'flex1'>
+			</div>
+			<div ng-repeat = 'col in columns' class = 'flex1'>
+				Week {{col}}
+			</div>
+		</div>
+		<div class = 'flexbox' ng-repeat = 'newRow in testData.user.challenge_goal'>
+			<div class = 'flex1'>
+				{{newRow.challenge_goal_id}}
+			</div>
+			<div class = 'flex1' ng-repeat = 'cell in newRow.milestone track by $id($index)'>
+				{{percent(cell.value, targetVal(newRow._id), $index, weeksToDeadline)}}
+				<div style = 'background-color:rgb({{rgbVal1(tempVal)}},{{rgbVal2(tempVal)}},0);'>
+				{{cell.value}}/{{targetVal(newRow._id)}} ({{(tempVal*100)}}% on track)
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
