@@ -10,13 +10,13 @@ function($scope, appHttp)
 
 	$scope.officers = 
 	[
-		{ 'title': 'President', 'name': 'Nolan McPeek'},
-		{ 'title': 'VP Recruitment', 'name': 'Matt Symonds'},
-		{ 'title': 'VP Communications', 'name': 'Bryson Edgar'},
-		{ 'title': 'Chaplain', 'name': 'Sebastien Welch'},
-		{ 'title': 'VP Development', 'name': 'Akash Sharma'},
-		{ 'title': 'VP Finance', 'name': 'Nick Hancock'},
-		{ 'title': 'VP Programming', 'name': 'Ryan Miller'}
+		{ 'title': 'President', 'name': 'Matt Symonds'},
+		{ 'title': 'VP Recruitment', 'name': 'Jordan Gilles'},
+		{ 'title': 'VP Communications', 'name': 'Divit Sood'},
+		{ 'title': 'Chaplain', 'name': 'Keane Ellis'},
+		{ 'title': 'VP Development', 'name': 'Milan Amin'},
+		{ 'title': 'VP Finance', 'name': 'Aidan Clark'},
+		{ 'title': 'VP Programming', 'name': 'Eric Liu'}
 	];
 	
 	var read_promise =appHttp.go({}, {url:'user/search', data: {'fields': {}, 'searchString': 'undergrad', 'searchFields': ['alumni_status'], limit: 1000 } }, {});
@@ -116,4 +116,5 @@ function($scope, appHttp)
 		}
 	];
 	*/
+
 }]);
