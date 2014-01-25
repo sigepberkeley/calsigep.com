@@ -301,6 +301,31 @@ var inst ={
 			// cont: 'hidden'
 		// };
 		
+		//philosophy
+		this.pages.philosophy =jrgArray.copy(this.components.publicNav);
+		this.pages.philosophy.header.links[this.components.headerPublicIndices.philosophy].classes ={
+			cont: 'selected'
+		};
+
+		//gallery
+		this.pages.gallery =jrgArray.copy(this.components.publicNav);
+		this.pages.gallery.header.links[this.components.headerPublicIndices.gallery].classes ={
+			cont: 'selected'
+		};
+
+		//brothers
+		this.pages.brothers =jrgArray.copy(this.components.publicNav);
+		this.pages.brothers.header.links[this.components.headerPublicIndices.brothers].classes ={
+			cont: 'selected'
+		};
+
+
+		//rush
+		this.pages.rush =jrgArray.copy(this.components.publicNav);
+		this.pages.rush.header.links[this.components.headerPublicIndices.rush].classes ={
+			cont: 'selected'
+		};
+
 		//contact
 		this.pages.contact =jrgArray.copy(this.components.publicNav);
 		this.pages.contact.header.links[this.components.headerPublicIndices.contact].classes ={

@@ -1,7 +1,7 @@
-<div ng-controller='GalleryCtrl'>
+<div ng-controller='GalleryCtrl' class="gallery">
 	<div class = 'gallery-list' ng-show = '!album_view'>
-		<div class = 'center'><h2><i>Photos</i></h2></div>
-		<div class = 'center font-small'>Click on an album and <b>see</b> what we're all about</div>
+		<div class = 'center'><h1 class-"gallery-header">Photos</h1></div>
+		<div class = 'gallery-description'>Click on an album and <b>see</b> what we're all about.</div>
 		
 		<div class = 'margin-tb'>
 			<div class = 'gallery-albums-album btn-link' ng-repeat = 'album in albums' ng-click = 'viewAlbum($index)'>
