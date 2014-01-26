@@ -2,6 +2,8 @@
 	Challenge-Tracker 
 	<br>
 	<br>
+	<!-- {{trackerData}} -->
+	<br>
 	<div>
 		This is {{user.first_name}} {{user.last_name}}'s development challenge status represented by (current value/target value)
 		<br>
@@ -13,18 +15,18 @@
 		<div class = 'flexbox'>
 			<div class = 'flex1'>
 			</div>
-			<div ng-repeat = 'col in columns' class = 'flex1'>
+			<div ng-repeat = 'col in trackerData.weeks' class = 'flex1'>
 				Week {{col}}
 			</div>
 		</div>
-		<div class = 'flexbox' ng-repeat = 'newRow in testData.user.challenge_goal'>
+		<div class = 'flexbox' ng-repeat = 'newRow in trackerData.myChallengeGoals track by $id($index)'>
 			<div class = 'flex1'>
-				{{newRow.challenge_goal_id}}
+				{{newRow.name}}
 			</div>
-			<div class = 'flex1' ng-repeat = 'cell in newRow.milestone track by $id($index)'>
-				{{percent(cell.value, targetVal(newRow._id), $index, weeksToDeadline)}}
+			<div class = 'flex1' ng-repeat = 'cell in trackerData.milestoneGrid[$index].milestonesByWeek track by $id($index)'>
+				{{percent(cell, newRow.target_value, $index, weeksToDeadline)}}
 				<div style = 'background-color:rgb({{rgbVal1(tempVal)}},{{rgbVal2(tempVal)}},0);'>
-				{{cell.value}}/{{targetVal(newRow._id)}} ({{(tempVal*100)}}% on track)
+				{{cell}}/{{newRow.target_value}} ({{(tempVal*100)}}% on track)
 				</div>
 			</div>
 		</div>
