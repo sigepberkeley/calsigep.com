@@ -104,10 +104,21 @@
 							}
 						},
 						{
+							"name": "angular-area-select",
+							"files": {
+								"js": [
+									"area-select.min.js"
+								],
+								"less": [
+									"area-select.less"
+								]
+							}
+						},
+						{
 							"name": "angular-image-upload",
 							"files": {
 								"js": [
-									"image-upload.min.js"
+									"image-upload.js"
 								],
 								"less": [
 									"image-upload.less"

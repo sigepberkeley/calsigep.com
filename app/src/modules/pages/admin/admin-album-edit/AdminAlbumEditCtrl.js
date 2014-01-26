@@ -88,19 +88,20 @@ function($scope, $routeParams, UserModel, appHttp, $location)
 	
 	$scope.uploadOpts =
 	{
-			//'type':'byUrl',
-			'uploadPath':'/imageUpload',
-			'uploadDirectory':$scope.appPathImg + '/images/photos',
-			'serverParamNames': {
-					'file': 'myFile'
-			},
-			// 'uploadCropPath':'/api/image/crop',
-			// 'callbackInfo':{'evtName':evtImageUpload, 'args':[{'var1':'yes'}]},
-			'imageServerKeys':{'imgFileName':'fileNameSave', 'picHeight':'picHeight', 'picWidth':'picWidth', 'imgFileNameCrop':'newFileName'},                //hardcoded must match: server return data keys
-			//'htmlDisplay':"<div class='ig-form-pic-upload'><div class='ig-form-pic-upload-button'>Select Photo</div></div>",
-			// 'cropOptions': {'crop':true, 'cropMaxHeight':500, 'cropMaxWidth':500}
-			'cropOptions': {'crop':false}
-			//'values':{'dirPath':'/uploads'}
+		//'type':'byUrl',
+		// 'uploadPath':'/imageUpload',
+		'uploadPath': 'api/photo/uploadPhoto',
+		'uploadDirectory':$scope.appPathImg + '/images/photos',
+		'serverParamNames': {
+			'file': 'myFile'
+		},
+		// 'uploadCropPath':'/api/image/crop',
+		// 'callbackInfo':{'evtName':evtImageUpload, 'args':[{'var1':'yes'}]},
+		'imageServerKeys':{'imgFileName':'result.fileNameSave', 'picHeight':'result.picHeight', 'picWidth':'result.picWidth', 'imgFileNameCrop':'result.newFileName'},                //hardcoded must match: server return data keys
+		//'htmlDisplay':"<div class='ig-form-pic-upload'><div class='ig-form-pic-upload-button'>Select Photo</div></div>",
+		// 'cropOptions': {'crop':true, 'cropMaxHeight':500, 'cropMaxWidth':500}
+		'cropOptions': {'crop':true}
+		//'values':{'dirPath':'/uploads'}
 	};
 	
 	//Adds the photo currently uploaded in the file upload zone to the database and the album
