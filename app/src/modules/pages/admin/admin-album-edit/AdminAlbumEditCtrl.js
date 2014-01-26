@@ -91,7 +91,7 @@ function($scope, $routeParams, UserModel, appHttp, $location)
 		//'type':'byUrl',
 		// 'uploadPath':'/imageUpload',
 		'uploadPath': 'api/photo/uploadPhoto',
-		'uploadDirectory':$scope.appPathImg + '/images/photos',
+		'uploadDirectory':$scope.appPathImg + '/images/uploads',
 		'serverParamNames': {
 			'file': 'myFile'
 		},
@@ -107,7 +107,10 @@ function($scope, $routeParams, UserModel, appHttp, $location)
 	//Adds the photo currently uploaded in the file upload zone to the database and the album
 	$scope.addPhoto = function()
 	{
-		var create_promise =appHttp.go({}, {url:'photo/createPhoto', data:  {'user_id': user._id, 'photo': {'url': $scope.cur_image.url}, 'album_id': album_id}  }, {});
+		var index1 =$scope.cur_image.url.lastIndexOf('.');
+		var crop_file_name = $scope.cur_image.url.slice(0, index1) + '_crop' + $scope.cur_image.url.slice(index1, $scope.cur_image.url.length);
+		
+		var create_promise =appHttp.go({}, {url:'photo/createPhoto', data:  {'user_id': user._id, 'photo': {'url': crop_file_name}, 'album_id': album_id, 'current_location': $scope.appPathImg +'/images/uploads/'+ crop_file_name}  }, {});
 		create_promise.then(
 			function(ret1)
 			{

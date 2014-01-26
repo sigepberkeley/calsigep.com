@@ -101,7 +101,8 @@ PhotoApi.prototype.rpcCreatePhoto = function()
 		{
 			user_id: { required: true, type: 'string', info: "_id of user creating the image" },
 			photo: { required: true, type: 'object', info: "Photo object to create. url should be relative to app/src/common/img/images/photos/" },
-			album_id: { type: 'string', info: "_id of album to add newly created image to. Optional." }
+			album_id: { type: 'string', info: "_id of album to add newly created image to. Optional." },
+			current_location: { required: true, type: 'string', info: "Photo url relative to root of the project" },
 		},
 		returns:
 		{

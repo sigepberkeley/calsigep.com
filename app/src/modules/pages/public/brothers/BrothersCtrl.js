@@ -19,6 +19,7 @@ function($scope, appHttp)
 		{ 'title': 'VP Programming', 'name': 'Eric Liu'}
 	];
 	
+	$scope.brothers = [];
 	var read_promise =appHttp.go({}, {url:'user/search', data: {'fields': {}, 'searchString': 'undergrad', 'searchFields': ['alumni_status'], limit: 1000 } }, {});
 	read_promise.then(
 		function(ret1)
@@ -63,7 +64,7 @@ function($scope, appHttp)
 		{
 			'first_name': 'John',
 			'last_name': 'Bob',
-			'image': $scope.appPathImg + '/ie-safari-logo.png',
+			'image': 'ie-safari-logo.png',
 			'year': '2014',
 			'major': 'Math',
 			'hometown': 'Berkeley, CA',
@@ -72,7 +73,7 @@ function($scope, appHttp)
 		{
 			'first_name': 'John',
 			'last_name': 'Bob',
-			'image': $scope.appPathImg + '/ie-safari-logo.png',
+			'image': 'ie-safari-logo.png',
 			'year': '2015',
 			'major': 'EECS',
 			'hometown': 'Berkeley, CA',
@@ -81,7 +82,7 @@ function($scope, appHttp)
 		{
 			'first_name': 'John',
 			'last_name': 'Bob',
-			'image': $scope.appPathImg + '/ie-safari-logo.png',
+			'image': 'ie-safari-logo.png',
 			'year': '2016',
 			'major': 'Math',
 			'hometown': 'Berkeley, CA',
@@ -90,7 +91,7 @@ function($scope, appHttp)
 		{
 			'first_name': 'John',
 			'last_name': 'Bob',
-			'image': $scope.appPathImg + '/ie-safari-logo.png',
+			'image': 'ie-safari-logo.png',
 			'year': '2017',
 			'major': 'Math',
 			'hometown': 'Berkeley, CA',
@@ -99,7 +100,7 @@ function($scope, appHttp)
 		{
 			'first_name': 'John',
 			'last_name': 'Bob',
-			'image': $scope.appPathImg + '/ie-safari-logo.png',
+			'image': 'ie-safari-logo.png',
 			'year': '2018',
 			'major': 'Math',
 			'hometown': 'Berkeley, CA',
@@ -108,7 +109,7 @@ function($scope, appHttp)
 		{
 			'first_name': 'John',
 			'last_name': 'Bob',
-			'image': $scope.appPathImg + '/ie-safari-logo.png',
+			'image': 'ie-safari-logo.png',
 			'year': '2019',
 			'major': 'Math',
 			'hometown': 'Berkeley, CA',

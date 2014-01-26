@@ -72,6 +72,7 @@ Create a photo
 	@param {String} user_id Uploader's _id
 	@param {Object} photo Photo object
 	@param {String} album_id _id of album to add newly created image to. Optional.
+	@param {String} current_location Photo url relative to root of the project
 @param {Object} params
 @return {Promise}
 	@param {Object} photo New Photo object
@@ -83,43 +84,51 @@ Photo.prototype.createPhoto = function(db, data, params)
 	var ret ={code:0, msg:'Photo.createPhoto ', 'photo': {}};
 	var ii;
 	
-	console.log('photo.url: ' + data.photo.url);
-	db.photo.insert(data.photo, {'safe': true}, function(err, photo)
+	//Move the file from uploads directory to photos directory
+	var oldPath =__dirname + "../../../../" + data.current_location;
+	//copy (read and then write) the file to photos directory
+	fs.readFile(oldPath, function (err1, data1) 
 	{
-		if(err)
+		var newPath = __dirname + "../../../../src/common/img/images/photos/"+data.photo.url;
+		fs.writeFile(newPath, data1, function (err2)
 		{
-			ret.code = 1;
-			ret.msg += err;
-			deferred.reject(ret);
-		}
-		else
-		{
-			photo = photo[0]; //Comes back as array
-			ret.photo = photo;
-			console.log('photo2.url: ' + photo.url);
-			if(data.album_id !== undefined)
+			db.photo.insert(data.photo, {'safe': true}, function(err3, photo)
 			{
-				var add_promise = self.addPhotoToAlbum(db, {'user_id': data.user_id, 'album_id': data.album_id, 'photo_id': photo._id.toHexString()}, {});
-				add_promise.then(
-					function(ret1)
+				if(err3)
+				{
+					ret.code = 1;
+					ret.msg += err3;
+					deferred.reject(ret);
+				}
+				else
+				{
+					photo = photo[0]; //Comes back as array
+					ret.photo = photo;
+					if(data.album_id !== undefined)
+					{
+						var add_promise = self.addPhotoToAlbum(db, {'user_id': data.user_id, 'album_id': data.album_id, 'photo_id': photo._id.toHexString()}, {});
+						add_promise.then(
+							function(ret1)
+							{
+								ret.code = 0;
+								deferred.resolve(ret);
+							},
+							function(ret1)
+							{
+								ret.code = 1;
+								ret.msg += ret1.msg;
+								deferred.reject(ret);
+							}
+						);
+					}
+					else
 					{
 						ret.code = 0;
 						deferred.resolve(ret);
-					},
-					function(ret1)
-					{
-						ret.code = 1;
-						ret.msg += ret1.msg;
-						deferred.reject(ret);
 					}
-				);
-			}
-			else
-			{
-				ret.code = 0;
-				deferred.resolve(ret);
-			}
-		}
+				}
+			});
+		});
 	});
 	
 	return deferred.promise;
@@ -850,10 +859,53 @@ Photo.prototype.uploadPhoto = function(db, data, params)
 	ret.fileNameSave =imageFileName;                //hardcoded 'fileNameSave' must match what's set in imageServerKeys.imgFileName value for image-upload directive. THIS MUST BE PASSED BACK SO WE CAN SET NG-MODEL ON THE FRONTEND AND DISPLAY THE IMAGE!
 	
 	//copy (read and then write) the file to the uploads directory. Then return json.
-	fs.readFile(data.files[fileInputName].path, function (err, data1) {
+	fs.readFile(data.files[fileInputName].path, function (err1, data1)
+	{
 		var newPath = dirPath +"/"+imageFileName;
-		fs.writeFile(newPath, data1, function (err) {
-			deferred.resolve(ret);
+		fs.writeFile(newPath, data1, function (err2)
+		{
+			//Crop the photo
+			im.identify(newPath, function(err3, features)
+			{
+				// { format: 'JPEG', width: 3904, height: 2622, depth: 8 }
+				
+				var crop_data =
+				{
+					'fileName': data.fileData.uploadDir + '/' + imageFileName,
+					'cropOptions': {'cropDuplicateSuffix': '_crop'},
+					'cropCoords': {},
+					'fullCoords': {'left': 0, 'top': 0, 'right': features.width, 'bottom': features.height}
+				};
+				//Crop to square
+				if(features.width > features.height)
+				{
+					crop_data.cropCoords.top = 0;
+					crop_data.cropCoords.bottom = features.height;
+					crop_data.cropCoords.left = ((features.width - features.height) / 2);
+					crop_data.cropCoords.right = features.width - ((features.width - features.height) / 2);
+				}
+				else
+				{
+					crop_data.cropCoords.left = 0;
+					crop_data.cropCoords.right = features.width;
+					crop_data.cropCoords.top = ((features.height - features.width) / 2);
+					crop_data.cropCoords.bottom = features.height - ((features.height - features.width) / 2);
+				}
+				
+				var crop_promise = self.cropPhoto(db, crop_data, {});
+				crop_promise.then(
+					function(ret1)
+					{
+						ret.code = 0;
+						deferred.resolve(ret);
+					},
+					function(ret2)
+					{
+						ret.code = 1;
+						deferred.reject(ret);
+					}
+				);
+			});
 		});
 	});
 	

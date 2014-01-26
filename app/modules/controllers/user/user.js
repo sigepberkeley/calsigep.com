@@ -299,6 +299,7 @@ User.prototype.update = function(db, data, params)
 	var AuthMod =require(pathParts.controllers+'auth/auth.js');
 	var deferred = Q.defer();
 	var ret ={code:0, msg:'User.update '};
+	var fs = require('fs');
 
 	var _id =data.user_id;
 	delete data.user_id;
@@ -308,21 +309,54 @@ User.prototype.update = function(db, data, params)
 	
 	data =self.fixPhoneFormat(db, data, params);
 	
-	db.user.update({_id:MongoDBMod.makeIds({'id':_id}) }, {$set: data}, function(err, valid)
+	//DRY continuation function
+	var update = function()
 	{
-		if(err) {
-			ret.msg +='Error: '+err;
-			deferred.reject(ret);
-		}
-		else if (!valid) {
-			ret.msg +='Not valid ';
-			deferred.reject(ret);
-		}
-		else {
-			ret.msg ='User updated';
-			deferred.resolve(ret);
-		}
-	});
+		db.user.update({_id:MongoDBMod.makeIds({'id':_id}) }, {$set: data}, function(err, valid)
+		{
+			if(err) {
+				ret.msg +='Error: '+err;
+				deferred.reject(ret);
+			}
+			else if (!valid) {
+				ret.msg +='Not valid ';
+				deferred.reject(ret);
+			}
+			else {
+				ret.msg ='User updated';
+				deferred.resolve(ret);
+			}
+		});
+	};
+	
+	//Check user image. If it does not have the user's id in it, it's a new image, and we need to move it to the bioPics directory
+	if(data.image !== undefined && data.image.indexOf(_id) === -1)
+	{
+		//Get the cropped file name
+		var index1 = data.image.lastIndexOf('.');
+		var crop_file_name = data.image.slice(0, index1) + '_crop' + data.image.slice(index1, data.image.length);
+		
+		var oldPath =__dirname + "../../../../src/common/img/images/uploads/" + crop_file_name;
+		//copy (read and then write) the file to bioPics directory
+		fs.readFile(oldPath, function (err1, data1) 
+		{
+			console.log(err1);
+			//Rename file as user's id. Keep original file extension.
+			var new_file_name = _id + data.image.slice(index1, data.image.length);
+			var newPath = __dirname + "../../../../src/common/img/images/bioPics/"+ new_file_name;
+			fs.writeFile(newPath, data1, function (err2)
+			{
+				console.log(err2);
+				//image field is expected to be relative to app/src/common/img/
+				data.image = 'images/bioPics/' + new_file_name;
+				update();
+			});
+		});
+	}
+	else
+	{
+		update();
+	}	
 
 	return deferred.promise;
 };
