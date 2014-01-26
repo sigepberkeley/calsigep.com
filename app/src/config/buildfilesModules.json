@@ -118,7 +118,7 @@
 							"name": "angular-image-upload",
 							"files": {
 								"js": [
-									"image-upload.js"
+									"image-upload.min.js"
 								],
 								"less": [
 									"image-upload.less"

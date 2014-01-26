@@ -95,7 +95,7 @@ function($scope, $routeParams, UserModel, appHttp, $location)
 		'serverParamNames': {
 			'file': 'myFile'
 		},
-		// 'uploadCropPath':'/api/image/crop',
+		'uploadCropPath':'/api/photo/cropPhoto',
 		// 'callbackInfo':{'evtName':evtImageUpload, 'args':[{'var1':'yes'}]},
 		'imageServerKeys':{'imgFileName':'result.fileNameSave', 'picHeight':'result.picHeight', 'picWidth':'result.picWidth', 'imgFileNameCrop':'result.newFileName'},                //hardcoded must match: server return data keys
 		//'htmlDisplay':"<div class='ig-form-pic-upload'><div class='ig-form-pic-upload-button'>Select Photo</div></div>",

@@ -31,6 +31,7 @@ var moment = require('moment');
 var Q = require('q');
 var lodash = require('lodash');
 var async = require('async');
+var im = require('imagemagick');
 
 var dependency =require('../../../dependency.js');
 var pathParts =dependency.buildPaths(__dirname, {});
@@ -748,6 +749,19 @@ Crop a photo
 @toc 12.
 @method cropPhoto
 @param {Object} data
+	@param {String} fileName The file name (from the original upload - should already be in the uploads directory)
+	@param {Object} cropCoords
+		@param {String} left
+		@param {String} top
+		@param {String} right
+		@param {String} bottom
+	@param {Object} fullCoords Convenience coordinates for the full size of the image
+		@param {String} left
+		@param {String} top
+		@param {String} right
+		@param {String} bottom
+	@param {Object} cropOptions
+		@param {String} cropDuplicateSuffix
 @param {Object} params
 @return {Promise}
 	@param {String} cropped_path Path to the newly created image
@@ -758,15 +772,24 @@ Photo.prototype.cropPhoto = function(db, data, params)
 	var ret ={code:0, msg:'Photo.cropPhoto ', 'cropped_path': ''};
 	var ii;
 	
-	var im = require('imagemagick');
+	// var dirPath =__dirname + "/"+data.fileData.uploadDir;		//use post data 'uploadDir' parameter to set the directory to upload this image file to
+	var dirPath =__dirname +"../../../..";		//filename already has uploadDir prepended to it
 	
+	//uploads directory should already exist from pre-crop upload so don't need to make it
+	
+	var fileName =data.fileName;
+	//form crop named version
+	var index1 =fileName.lastIndexOf('.');
+	var fileNameCrop =fileName.slice(0, index1)+data.cropOptions.cropDuplicateSuffix+fileName.slice(index1, fileName.length);
+	
+	//actually do the cropping here (i.e. using ImageMagick)
 	//File names relative to the root project directory
-	var input_file = 'image.jpg';
-	var output_file = 'crop_image.jpg';
-	var new_width = 100;
-	var new_height = 100;
-	var x_off = 30;
-	var y_off = 30;
+	var input_file = dirPath +"/"+fileName;
+	var output_file = dirPath +"/"+fileNameCrop;
+	var new_width = (data.cropCoords.right -data.cropCoords.left);
+	var new_height = (data.cropCoords.bottom -data.cropCoords.top);
+	var x_off = data.cropCoords.left;
+	var y_off = data.cropCoords.top;
 	
 	var geometry = new_width + 'x' + new_height + '+' + x_off + '+' + y_off;	//Format: 120x80+30+15
 	
@@ -783,7 +806,7 @@ Photo.prototype.cropPhoto = function(db, data, params)
 		else
 		{
 			ret.code = 0;
-			ret.cropped_path = output_file;
+			// ret.cropped_path = output_file;
 			deferred.resolve(ret);
 		}
 	});
@@ -796,6 +819,9 @@ Upload a photo
 @toc 13.
 @method uploadPhoto
 @param {Object} data
+	@param {Object} files
+	@param {Object} fileData
+		@param {String} uploadDir
 @param {Object} params
 @return {Object} (via Promise)
 **/
