@@ -30,6 +30,7 @@ angular.module('jrg', [
 		'jackrabbitsgroup.angular-multiselect',
 		'jackrabbitsgroup.angular-datetimepicker',
 		'jackrabbitsgroup.angular-lookup',
+		'jackrabbitsgroup.angular-area-select',
 		'jackrabbitsgroup.angular-image-upload',
 		'jackrabbitsgroup.angular-carousel-directive'
 	]
@@ -92,7 +93,7 @@ config(['$routeProvider', '$locationProvider', 'appConfigProvider', '$compilePro
 	Generic / common routes
 	@toc 2.
 	*/
-	$routeProvider.when(appPathRoute+'home', {redirectTo: appPathRoute+'dev-test/test'});
+	// $routeProvider.when(appPathRoute+'home', {redirectTo: appPathRoute+'dev-test/test'});
 	
 	$routeProvider.when(appPathRoute+'login', {templateUrl: pagesPath+'login/login.html',
 		resolve: {
@@ -226,28 +227,32 @@ $routeProvider.when(appPathRoute+'contact', {templateUrl: pagesPath+'public/cont
 $routeProvider.when(appPathRoute+'profile', {templateUrl: pagesPath+'/profile/profile.html',
 		resolve: {
 			auth: function(appAuth) {
-				return appAuth.checkSess({noLoginRequired:true});
+				return appAuth.checkSess({
+					auth: {
+						loggedIn: {}
+					}
+				});
 			}
 		}
 	});
 $routeProvider.when(appPathRoute+'admin-portal', {templateUrl: pagesPath+'admin/admin-portal/admin-portal.html',
 		resolve: {
 			auth: function(appAuth) {
-				return appAuth.checkSess({noLoginRequired:true});
+				return appAuth.checkSess({});
 			}
 		}
 	});
 $routeProvider.when(appPathRoute+'admin-albums', {templateUrl: pagesPath+'admin/admin-albums/admin-albums.html',
 		resolve: {
 			auth: function(appAuth) {
-				return appAuth.checkSess({noLoginRequired:true});
+				return appAuth.checkSess({});
 			}
 		}
 	});
 $routeProvider.when(appPathRoute+'admin-album-edit', {templateUrl: pagesPath+'admin/admin-album-edit/admin-album-edit.html',
 		resolve: {
 			auth: function(appAuth) {
-				return appAuth.checkSess({noLoginRequired:true});
+				return appAuth.checkSess({});
 			}
 		}
 	});
@@ -286,6 +291,6 @@ $routeProvider.when(appPathRoute+'gallery', {templateUrl: pagesPath+'public/gall
 	catch-all 'otherwise' route
 	@toc 4.
 	*/
-	$routeProvider.otherwise({redirectTo: appPathRoute+'home'});
+	$routeProvider.otherwise({redirectTo: appPathRoute+'philosophy'});
 	
 }]);

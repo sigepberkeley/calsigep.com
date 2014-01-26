@@ -33,7 +33,7 @@ $scope.nav ={
 
 'use strict';
 
-angular.module('app').directive('appNavHeaderPublic', [ function () {
+angular.module('app').directive('appNavHeaderPublic', ['appConfig', function (appConfig) {
 
 	return {
 		restrict: 'A',
@@ -69,12 +69,13 @@ angular.module('app').directive('appNavHeaderPublic', [ function () {
 						"</div>"+
 					"</div>"+
 					
-					"<img class='header-public-img-letters' ng-src='{{appPathImg}}/logos/greek-letters.png' />"+
+					"<a ng-href='{{appPathLink}}profile' class='a-block'><img class='header-public-img-letters' ng-src='{{appPathImg}}/logos/greek-letters.png' /></a>"+
 				"</div>"+
 				
 				//menu
 				"<div class='header-public-menu padding-lr' ng-show='visible.menu'>"+
 					"<a ng-repeat='link in nav.links' class='a-div header-public-menu-link padding-tb {{link.classes.cont}}' ng-href='{{link.href}}'>{{link.html}}</a>"+
+					"<a ng-href='{{appPathLink}}profile' class='a-block'><img class='header-public-img-letters-menu' ng-src='{{appPathImg}}/logos/greek-letters.png' /></a>"+
 				"</div>"+
 			"</div>";
 			return html;
@@ -84,6 +85,8 @@ angular.module('app').directive('appNavHeaderPublic', [ function () {
 		},
 		
 		controller: function($scope, $element, $attrs) {
+			$scope.appPathLink =appConfig.appPathLink;
+			
 			$scope.visible ={
 				menu: false
 			};

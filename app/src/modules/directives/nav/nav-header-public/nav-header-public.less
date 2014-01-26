@@ -4,6 +4,9 @@
 	background: url('@{rootDir}/common/img/header/site-header-background.jpg');
 	background-size:auto cover;
 	overflow:hidden;
+	font-family: arial;
+	font-weight:bold;
+	font-size:17pt;
 }
 .header-public-inner {
 	height:100%;
@@ -13,20 +16,38 @@
 
 .header-public-img-bm {
 	position:absolute;
-	left: 25%;
+	left: 280px;
 	height:100%;
 }
+
+
+@media (max-width:650px)
+{
+	.header-public-img-bm {
+	position:absolute;
+	left:95px;
+	height:100%;
+}
+
+
+}
+
 .header-public-img-sigep {
 	margin-right:15px;
 }
 .header-public-img-sigep, .header-public-img-berkeley {
 	height:120%;
 	margin-top:-10px;
+	z-index:2;
 }
 .header-public-img-letters {
 	height:140%;
 	padding-top:4px;
 	margin-right:-20px;
+}
+.header-public-img-letters-menu {
+	margin:10px auto;
+	display:block;
 }
 
 .header-public-links-all {
@@ -37,23 +58,33 @@
 	vertical-align:top;
 	line-height:@header-height;
 	padding-left:5px;
-	padding-right:5px;
+	padding-right:9px;
+	position:relative;
+	top:10px;
+	left:4px;
 }
 .header-public-link.selected {
-	color:@red;
+	color:#990033;
 }
 
 .header-public-menu {
 	position:fixed;
 	z-index:999;
 	width:100%;
-	background-color:white;
+background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255, .8) 75%, rgba(255,255,255,.0) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,.0))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255, .8) 75%, rgba(255,255,255,.0) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255, .8) 75%, rgba(255,255,255,.0) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255, .8) 75%, rgba(255,255,255,.0) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255, .8) 75%, rgba(255,255,255,.0) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
 }
 .header-public-menu-link {
 	color:black;
+	font-size:24pt;
 }
 .header-public-menu-link.selected {
-	color:@red;
+	color:#990033;
 }
 
 .header-public-img-sigep, .header-public-img-letters, .header-public-links {
@@ -78,5 +109,8 @@
 	}
 	.header-public-links {
 		display:block;
+	}
+	.header-public-menu {
+		display:none;
 	}
 }

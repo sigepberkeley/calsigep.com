@@ -1,7 +1,7 @@
-<div ng-controller='GalleryCtrl'>
+<div ng-controller='GalleryCtrl' class="gallery">
 	<div class = 'gallery-list' ng-show = '!album_view'>
-		<div class = 'center'><h2><i>Photos</i></h2></div>
-		<div class = 'center font-small'>Click on an album and <b>see</b> what we're all about</div>
+		<h1 class="gallery-header">Photos</h1>
+		<div class = 'gallery-description'>Click on an album and <b>see</b> what we're all about.</div>
 		
 		<div class = 'margin-tb'>
 			<div class = 'gallery-albums-album btn-link' ng-repeat = 'album in albums' ng-click = 'viewAlbum($index)'>
@@ -15,7 +15,7 @@
 		<div class = 'album-desc'>{{cur_album.desc}}</div>
 		
 		<div jrg-carousel>
-			<div ng-repeat='slide in slides' class = 'inline center'>
+			<div ng-repeat='slide in slides' class = 'inline-block center'>
 				<!-- custom content here -->
 				<img ng-src='{{appPathImg + "/images/photos/" + slide.url}}' style='margin:auto; max-width:100%;'>
 				<!-- end: custom content here -->
