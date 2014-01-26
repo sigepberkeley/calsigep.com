@@ -16,6 +16,7 @@ RPC follow endpoints
 10. rpcDeleteAlbums
 11. rpcAddPhotoToAlbum
 12. rpcCropPhoto
+13. rpcUploadProfilePhoto
 */
 
 'use strict';
@@ -80,7 +81,8 @@ PhotoApi.prototype.getRpcMethods = function(){
 		searchAlbums: this.rpcSearchAlbums(),
 		deleteAlbums: this.rpcDeleteAlbums(),
 		addPhotoToAlbum: this.rpcAddPhotoToAlbum(),
-		cropPhoto: this.rpcCropPhoto()
+		cropPhoto: this.rpcCropPhoto(),
+		uploadProfilePhoto: this.rpcUploadProfilePhoto(),
 	};
 };
 
@@ -581,6 +583,46 @@ PhotoApi.prototype.rpcCropPhoto = function()
 		**/
 		action: function(params, out) {
 			var promise =PhotoMod.cropPhoto(db, params, {});
+			promise.then(function(ret1)
+			{
+				out.win(ret1);
+			}, function(err)
+			{
+				// self.handleError(out.fail);
+				self.handleError(out, err, {});
+			});
+		}
+	};
+};
+
+/**
+Returns RPC schema object for Photo.uploadProfilePhoto
+@toc 12.
+@method rpcUploadProfilePhoto
+**/
+PhotoApi.prototype.rpcUploadProfilePhoto = function()
+{
+	var self = this;
+
+	return {
+		info: 'Upload a profile photo to the temporary uploads folder',
+		params:
+		{
+			
+		},
+		returns:
+		{
+		},
+		/**
+		Crop a photo
+		@method action
+		@param {Object} params (detailed above)
+		@param {Object} out callback object which provides `win` and `fail` functions for handling `success` and `fail` callbacks
+			@param {Function} win Success callback
+			@param {Function} fail Fail callback
+		**/
+		action: function(params, out) {
+			var promise =PhotoMod.uploadProfilePhoto(db, params, {});
 			promise.then(function(ret1)
 			{
 				out.win(ret1);

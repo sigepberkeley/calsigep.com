@@ -18,6 +18,7 @@ public methods
 10. deleteAlbums
 11. addPhotoToAlbum
 12. cropPhoto
+13. uploadProfilePhoto
 
 private methods
 */
@@ -29,6 +30,7 @@ var moment = require('moment');
 var Q = require('q');
 var lodash = require('lodash');
 var async = require('async');
+var fs = require('fs');
 
 var dependency =require('../../../dependency.js');
 var pathParts =dependency.buildPaths(__dirname, {});
@@ -786,6 +788,51 @@ Photo.prototype.cropPhoto = function(db, data, params)
 		}
 	});
 	
+	return deferred.promise;
+};
+
+/**
+uploadProfilePhoto
+@toc 13.
+@method uploadProfilePhoto
+@param {Object} data
+@param {Object} params
+@return {Promise}
+**/
+Photo.prototype.uploadProfilePhoto = function(db, data, params)
+{
+	var deferred = Q.defer();
+	var ret ={code:0, msg:'Photo.uploadProfilePhoto '};
+	var ii;
+	
+	console.log(data);
+	/*
+	var ret ={
+			files: data.files,		//node.js puts files in the req.files object - this is an array of all files uploaded
+			reqBody: req.body		//rest of post data is here
+	};
+	
+	var dirPath =__dirname + "/"+ data.uploadDir;                //use post data 'uploadDir' parameter to set the directory to upload this image file to
+	//make uploads directory if it doesn't exist
+	var exists =fs.existsSync(dirPath);
+	if(!exists) {
+			fs.mkdirSync(dirPath);
+	}
+
+	var fileInputName ='myFile';                //hardcoded - must match what's set for serverParamNames.file in image-upload directive (defaults to 'file')
+	var imageFileName = data.files[fileInputName].name;                //just keep the file name the same as the name that was uploaded - NOTE: it's probably best to change to avoid bad characters, etc.
+	ret.fileNameSave =imageFileName;                //hardcoded 'fileNameSave' must match what's set in imageServerKeys.imgFileName value for image-upload directive. THIS MUST BE PASSED BACK SO WE CAN SET NG-MODEL ON THE FRONTEND AND DISPLAY THE IMAGE!
+
+	//copy (read and then write) the file to the uploads directory. Then return json.
+	fs.readFile(req.files[fileInputName].path, function (err, data) {
+			var newPath = dirPath +"/"+imageFileName;
+			fs.writeFile(newPath, data, function (err) {
+					// res.redirect("back");
+					res.json(ret);
+			});
+	});
+	*/
+	deferred.resolve(ret);
 	return deferred.promise;
 };
 

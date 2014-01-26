@@ -64,10 +64,11 @@ function($scope, UserModel, appHttp)
 	$scope.uploadOpts =
 	{
 			//'type':'byUrl',
-			'uploadPath':'/imageUpload',
+			'uploadPath':'/api/photo/uploadProfilePhoto',
 			'uploadDirectory':$scope.appPathImg + '/images/bioPics',
 			'serverParamNames': {
-					'file': 'myFile'
+					'file': 'myFile',
+					'myfilename': user_id
 			},
 			// 'uploadCropPath':'/api/image/crop',
 			// 'callbackInfo':{'evtName':evtImageUpload, 'args':[{'var1':'yes'}]},
