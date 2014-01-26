@@ -3,8 +3,8 @@
 
 'use strict';
 
-angular.module('myApp').controller('GalleryCtrl', ['$scope', 'appHttp',
-function($scope, appHttp)
+angular.module('myApp').controller('GalleryCtrl', ['$scope', 'appHttp', '$timeout', 
+function($scope, appHttp, $timeout)
 {
 	$scope.albums = [];
 	$scope.album_view = false;
@@ -38,6 +38,9 @@ function($scope, appHttp)
 					$scope.albums[index].loaded = true;		//So we know not to look it up again
 					$scope.cur_album = $scope.albums[index];
 					$scope.slides = $scope.cur_album.photos;
+					$timeout(function() {
+						$scope.$broadcast('jrgCarouselReInit', {});
+					}, 250);
 				},
 				function(ret1)
 				{

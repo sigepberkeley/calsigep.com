@@ -104,6 +104,17 @@
 							}
 						},
 						{
+							"name": "angular-area-select",
+							"files": {
+								"js": [
+									"area-select.min.js"
+								],
+								"less": [
+									"area-select.less"
+								]
+							}
+						},
+						{
 							"name": "angular-image-upload",
 							"files": {
 								"js": [
@@ -684,6 +695,9 @@
 										],
 										"html": [
 											"test.html"
+										],
+										"less": [
+											"test.less"
 										],
 										"testUnit": [
 											"TestCtrl.spec.js"

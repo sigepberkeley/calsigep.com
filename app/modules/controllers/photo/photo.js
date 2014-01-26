@@ -18,19 +18,20 @@ public methods
 10. deleteAlbums
 11. addPhotoToAlbum
 12. cropPhoto
-13. uploadProfilePhoto
+13. uploadPhoto
 
 private methods
 */
 
 'use strict';
 
+var fs =require('fs');
 var crypto =require('crypto');
 var moment = require('moment');
 var Q = require('q');
 var lodash = require('lodash');
 var async = require('async');
-var fs = require('fs');
+var im = require('imagemagick');
 
 var dependency =require('../../../dependency.js');
 var pathParts =dependency.buildPaths(__dirname, {});
@@ -748,6 +749,19 @@ Crop a photo
 @toc 12.
 @method cropPhoto
 @param {Object} data
+	@param {String} fileName The file name (from the original upload - should already be in the uploads directory)
+	@param {Object} cropCoords
+		@param {String} left
+		@param {String} top
+		@param {String} right
+		@param {String} bottom
+	@param {Object} fullCoords Convenience coordinates for the full size of the image
+		@param {String} left
+		@param {String} top
+		@param {String} right
+		@param {String} bottom
+	@param {Object} cropOptions
+		@param {String} cropDuplicateSuffix
 @param {Object} params
 @return {Promise}
 	@param {String} cropped_path Path to the newly created image
@@ -758,15 +772,24 @@ Photo.prototype.cropPhoto = function(db, data, params)
 	var ret ={code:0, msg:'Photo.cropPhoto ', 'cropped_path': ''};
 	var ii;
 	
-	var im = require('imagemagick');
+	// var dirPath =__dirname + "/"+data.fileData.uploadDir;		//use post data 'uploadDir' parameter to set the directory to upload this image file to
+	var dirPath =__dirname +"../../../..";		//filename already has uploadDir prepended to it
 	
+	//uploads directory should already exist from pre-crop upload so don't need to make it
+	
+	var fileName =data.fileName;
+	//form crop named version
+	var index1 =fileName.lastIndexOf('.');
+	var fileNameCrop =fileName.slice(0, index1)+data.cropOptions.cropDuplicateSuffix+fileName.slice(index1, fileName.length);
+	
+	//actually do the cropping here (i.e. using ImageMagick)
 	//File names relative to the root project directory
-	var input_file = 'image.jpg';
-	var output_file = 'crop_image.jpg';
-	var new_width = 100;
-	var new_height = 100;
-	var x_off = 30;
-	var y_off = 30;
+	var input_file = dirPath +"/"+fileName;
+	var output_file = dirPath +"/"+fileNameCrop;
+	var new_width = (data.cropCoords.right -data.cropCoords.left);
+	var new_height = (data.cropCoords.bottom -data.cropCoords.top);
+	var x_off = data.cropCoords.left;
+	var y_off = data.cropCoords.top;
 	
 	var geometry = new_width + 'x' + new_height + '+' + x_off + '+' + y_off;	//Format: 120x80+30+15
 	
@@ -783,7 +806,7 @@ Photo.prototype.cropPhoto = function(db, data, params)
 		else
 		{
 			ret.code = 0;
-			ret.cropped_path = output_file;
+			// ret.cropped_path = output_file;
 			deferred.resolve(ret);
 		}
 	});
@@ -792,49 +815,49 @@ Photo.prototype.cropPhoto = function(db, data, params)
 };
 
 /**
-uploadProfilePhoto
+Upload a photo
 @toc 13.
-@method uploadProfilePhoto
+@method uploadPhoto
 @param {Object} data
+	@param {Object} files
+	@param {Object} fileData
+		@param {String} uploadDir
 @param {Object} params
-@return {Promise}
+@return {Object} (via Promise)
 **/
-Photo.prototype.uploadProfilePhoto = function(db, data, params)
+Photo.prototype.uploadPhoto = function(db, data, params)
 {
 	var deferred = Q.defer();
-	var ret ={code:0, msg:'Photo.uploadProfilePhoto '};
-	var ii;
+	var ret ={code:0, msg:'Photo.uploadPhoto '};
 	
-	console.log(data);
 	/*
-	var ret ={
-			files: data.files,		//node.js puts files in the req.files object - this is an array of all files uploaded
-			reqBody: req.body		//rest of post data is here
-	};
+	console.log('data:');
+	console.log(data);
+	console.log('params:');
+	console.log(params);
+	deferred.resolve(ret);
+	*/
 	
-	var dirPath =__dirname + "/"+ data.uploadDir;                //use post data 'uploadDir' parameter to set the directory to upload this image file to
+	var dirPath =__dirname + "../../../../"+data.fileData.uploadDir;                //use post data 'uploadDir' parameter to set the directory to upload this image file to
 	//make uploads directory if it doesn't exist
 	var exists =fs.existsSync(dirPath);
 	if(!exists) {
-			fs.mkdirSync(dirPath);
+		fs.mkdirSync(dirPath);
 	}
-
+	
 	var fileInputName ='myFile';                //hardcoded - must match what's set for serverParamNames.file in image-upload directive (defaults to 'file')
-	var imageFileName = data.files[fileInputName].name;                //just keep the file name the same as the name that was uploaded - NOTE: it's probably best to change to avoid bad characters, etc.
+	var imageFileName =data.files[fileInputName].name;                //just keep the file name the same as the name that was uploaded - NOTE: it's probably best to change to avoid bad characters, etc.
 	ret.fileNameSave =imageFileName;                //hardcoded 'fileNameSave' must match what's set in imageServerKeys.imgFileName value for image-upload directive. THIS MUST BE PASSED BACK SO WE CAN SET NG-MODEL ON THE FRONTEND AND DISPLAY THE IMAGE!
-
+	
 	//copy (read and then write) the file to the uploads directory. Then return json.
-	fs.readFile(req.files[fileInputName].path, function (err, data) {
-			var newPath = dirPath +"/"+imageFileName;
-			fs.writeFile(newPath, data, function (err) {
-					// res.redirect("back");
-					res.json(ret);
-			});
+	fs.readFile(data.files[fileInputName].path, function (err, data1) {
+		var newPath = dirPath +"/"+imageFileName;
+		fs.writeFile(newPath, data1, function (err) {
+			deferred.resolve(ret);
+		});
 	});
-	*/
-	deferred.resolve(ret);
+	
 	return deferred.promise;
 };
-
 
 module.exports = new Photo({});
