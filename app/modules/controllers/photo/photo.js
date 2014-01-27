@@ -847,7 +847,12 @@ Photo.prototype.uploadPhoto = function(db, data, params)
 	deferred.resolve(ret);
 	*/
 	
-	var dirPath =__dirname + "../../../../"+data.fileData.uploadDir;                //use post data 'uploadDir' parameter to set the directory to upload this image file to
+	var dirPath =__dirname + "/../../..";
+	if(data.fileData.uploadDir[0] !=='/') {
+		dirPath +='/';
+	}
+	dirPath +=data.fileData.uploadDir;                //use post data 'uploadDir' parameter to set the directory to upload this image file to
+	console.log('dirPath: '+dirPath+' dirname: '+__dirname+' data.fileData.uploadDir: '+data.fileData.uploadDir);
 	//make uploads directory if it doesn't exist
 	var exists =fs.existsSync(dirPath);
 	if(!exists) {
