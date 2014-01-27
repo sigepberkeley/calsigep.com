@@ -50,6 +50,7 @@ To specify that a route requires no authentication, assign the empty object {} t
 	super_admin		(authorized for everything)
 	self			(User is performing an operation on themself)
 	session			(All calls that require any authorization require a valid session. Use this for calls that require ONLY a valid session, to distinguish them from calls that require nothing.)
+	admin			(User must be an admin)
 	
 @example
 var securityList =
@@ -71,7 +72,21 @@ var securityList =
 	// 'User.search': {},
 	// 'User.read': {},
 	'User.update': 'self',
-	'User.delete1': 'self'
+	'User.delete1': 'self',
+	'User.makeAdmin': 'admin',
+	'Photo.createPhoto': 'admin',
+	'Photo.updatePhoto': 'admin',
+	// 'Photo.readPhotos': {},
+	// 'Photo.searchPhotos': {},
+	'Photo.createAlbum': 'admin',
+	'Photo.updateAlbum': 'admin',
+	// 'Photo.readAlbum': {},
+	// 'Photo.searchAlbums': {},
+	'Photo.deleteAlbums': 'admin',
+	'Photo.addPhotoToAlbum': 'admin',
+	// 'Photo.cropPhoto': {},
+	// 'Photo.uploadPhoto': {},
+	
 };
 
 /**
@@ -243,6 +258,18 @@ function checkAuthString(params, callback)
 	if(params.auth_string == 'self')
 	{
 		if(params.other.user._id == params.data.user_id)
+		{
+			ret.authorized = true;
+		}
+		else
+		{
+			ret.authorized = false;
+		}
+		callback(ret);
+	}
+	else if(params.auth_string == 'admin')
+	{
+		if(params.other.user.admin === 1)
 		{
 			ret.authorized = true;
 		}

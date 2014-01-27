@@ -1,5 +1,5 @@
 <div class = 'admin-portal' ng-controller='AdminAlbumsCtrl'>
-	<div class = 'center' ng-if = 'super_admin'>
+	<div class = 'center' ng-if = 'super_admin || admin'>
 		<a class = 'a-div btn btn-primary' ng-href = '{{appPathLink + "admin-album-edit"}}'> New Album </a>
 		<br/>
 		<div class = 'admin-album flexbox row margin-tb' ng-repeat = 'album in albums'>
@@ -12,7 +12,7 @@
 			</div>
 		</div>
 	</div>
-	<div ng-if = '!super_admin'>
+	<div ng-if = '!(super_admin || admin)'>
 		You do not have permission to access this page.
 	</div>
 </div>

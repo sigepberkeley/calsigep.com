@@ -355,7 +355,7 @@ PhotoApi.prototype.rpcUpdateAlbum = function()
 		info: 'Update an album.  Extra keys on any photos will be removed.',
 		params:
 		{
-			user_id: { required: true, type: 'string', info: "_id of user creating the album" },
+			user_id: { required: true, type: 'string', info: "_id of user updating the album" },
 			album_id: { required: true, type: 'string', info: "_id of album to update" },
 			album: { required: true, type: 'object', info: "(Partial) Album object with new information" },
 		},

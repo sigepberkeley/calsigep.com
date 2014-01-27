@@ -8,6 +8,7 @@ RPC user endpoints
 2. rpcRead
 3. rpcUpdate
 4. rpcDelete
+5. rpcMakeAdmin
 */
 
 'use strict';
@@ -62,7 +63,8 @@ UserApi.prototype.getRpcMethods = function(){
 		search: this.rpcSearch(),
 		read: this.rpcRead(),
 		update: this.rpcUpdate(),
-		delete1: this.rpcDelete()
+		delete1: this.rpcDelete(),
+		makeAdmin: this.rpcMakeAdmin()
 	};
 };
 
@@ -224,3 +226,40 @@ UserApi.prototype.rpcDelete = function(){
 		}
 	};
 };
+
+/**
+@toc 5.
+@method rpcMakeAdmin
+**/
+UserApi.prototype.rpcMakeAdmin = function()
+{
+	var self = this;
+
+	return {
+		info: 'Make a user an admin',
+		params: {
+			user_id: { required: true, type: 'string', info: "Id of the user making the call" },
+			new_admin_id: {  required: true, type: 'string', info: "Id of the user who should be made an admin" }
+		},
+		returns:
+		{
+		},
+		/**
+		@method action
+		@param {Object} params
+			@param {Object} data new user params (detailed above)
+		@param {Object} out callback object which provides `win` and `fail` functions for handling `success` and `fail` callbacks
+			@param {Function} win Success callback
+			@param {Function} fail Fail callback
+		**/
+		action: function(params, out) {
+			var promise =UserMod.makeAdmin(db, params, {});
+			promise.then(function(ret1) {
+				out.win(ret1);
+			}, function(err) {
+				self.handleError(out, err, {});
+			});
+		}
+	};
+};
+

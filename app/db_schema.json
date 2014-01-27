@@ -59,6 +59,7 @@
 		"image": "{String} file_name.jpg",
 		"bio": "{String} Self-description blurb",
 		"super_admin": "{Number} 1",
+		"admin": "{Number} 1",
 		"social":{
 			"google":{
 				"token":"{String}"
