@@ -839,25 +839,47 @@ Photo.prototype.uploadPhoto = function(db, data, params)
 	var deferred = Q.defer();
 	var ret ={code:0, msg:'Photo.uploadPhoto '};
 	
-	/*
-	console.log('data:');
-	console.log(data);
-	console.log('params:');
-	console.log(params);
-	deferred.resolve(ret);
-	*/
-	
 	var dirPath =__dirname + "/../../..";
 	if(data.fileData.uploadDir[0] !=='/') {
 		dirPath +='/';
 	}
+	var dirPathRoot =dirPath;		//save
 	dirPath +=data.fileData.uploadDir;                //use post data 'uploadDir' parameter to set the directory to upload this image file to
-	console.log('dirPath: '+dirPath+' dirname: '+__dirname+' data.fileData.uploadDir: '+data.fileData.uploadDir);
+	console.log('dirPath: '+dirPath+' dirname: '+__dirname+' data.fileData.uploadDir: '+data.fileData.uploadDir);		//TESTING
 	//make uploads directory if it doesn't exist
+	//need to create ALL paths up until the final path (in case parent directories don't exist either)
+	var curPath =data.fileData.uploadDir;
+	if(curPath[0] =='/') {		//ensure doesn't start with a slash
+		curPath =curPath.slice(1, curPath.length);
+	}
+	var curDir =dirPathRoot;
+	var indexSlash =false;
+	var ii =0;
+	while(curPath.indexOf('/') >-1) {
+		var exists =fs.existsSync(curDir);
+		if(!exists) {
+			fs.mkdirSync(curDir);
+		}
+		//cut curPath and add to curDir for next time
+		indexSlash =curPath.indexOf('/');
+		curDir =curDir+'/'+curPath.slice(0, indexSlash);
+		curPath =curPath.slice((indexSlash+1), curPath.length);
+		ii++;
+		//on last one, create the last dir too
+		if(curPath.indexOf('/') <0) {
+			var exists =fs.existsSync(curDir);
+			if(!exists) {
+				fs.mkdirSync(curDir);
+			}
+		}
+	}
+	
+	//check final path too
 	var exists =fs.existsSync(dirPath);
 	if(!exists) {
 		fs.mkdirSync(dirPath);
 	}
+	
 	
 	var fileInputName ='myFile';                //hardcoded - must match what's set for serverParamNames.file in image-upload directive (defaults to 'file')
 	var imageFileName =data.files[fileInputName].name;                //just keep the file name the same as the name that was uploaded - NOTE: it's probably best to change to avoid bad characters, etc.
