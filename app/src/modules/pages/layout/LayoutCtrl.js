@@ -82,6 +82,7 @@ angular.module('myApp').controller('LayoutCtrl', ['$scope', 'appConfig', '$locat
 	@type Boolean
 	*/
 	$scope.super_admin = false;
+	$scope.admin = false;
 
 	$scope.ids ={'header':'header', 'content':'content', 'footer':'footer'};
 	/**
@@ -130,10 +131,16 @@ angular.module('myApp').controller('LayoutCtrl', ['$scope', 'appConfig', '$locat
 			}
 			
 			$scope.super_admin = false;
+			
 			var user = UserModel.load();
 			if(user.super_admin === 1)
 			{
 				$scope.super_admin = true;
+			}
+			$scope.admin = false;
+			if(user.admin === 1)
+			{
+				$scope.admin = true;
 			}
 			
 			if(params.noRedirect ===undefined || !params.noRedirect || (params.loggedIn && (locPathMatch ==appPath1Match+'login' || locPathMatch ==appPath1Match+'password-reset' || locPathMatch ==appPath1Match+'signup') ) ) {

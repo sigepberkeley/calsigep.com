@@ -853,7 +853,6 @@
 							]
 						},
 						{
-
 							"name": "challenge-tracker",
 							"files": {
 								"html": [
@@ -1030,9 +1029,25 @@
 											"admin-album-edit.less"
 										]
 									}
+								},
+								{
+									"name": "admin-creation",
+									"files": {
+										"html": [
+											"admin-creation.html"
+										],
+										"js": [
+											"AdminCreationCtrl.js"
+										],
+										"testUnit": [
+											"AdminCreationCtrl.spec.js"
+										],
+										"less": [
+											"admin-creation.less"
+										]
+									}
 								}
 							]
-
 						}
 					]
 				}

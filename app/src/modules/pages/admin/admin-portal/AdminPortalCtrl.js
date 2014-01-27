@@ -11,6 +11,10 @@ function($scope)
 		{
 			'href': 'admin-albums',
 			'text': 'Manage Albums'
+		},
+		{
+			'href': 'admin-creation',
+			'text': 'Create New Admin'
 		}
 	];
 }]);

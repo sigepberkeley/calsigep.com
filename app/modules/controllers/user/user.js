@@ -16,6 +16,7 @@ User module representing the end-users of the system
 6. searchByEmail
 7. searchByPhone
 9. fixPhoneFormat
+10. makeAdmin
 */
 
 'use strict';
@@ -56,7 +57,7 @@ var readFilter = {
 		'include':['_id', 'email', 'first_name', 'last_name', 'phone']
 	},
 	'login': {
-		'include':['_id', 'email', 'first_name', 'last_name', 'sess_id', 'phone', 'super_admin']
+		'include':['_id', 'email', 'first_name', 'last_name', 'sess_id', 'phone', 'super_admin', 'admin']
 	},
 	'full': {
 		'omit':['password', 'password_reset_key', 'password_salt']
@@ -613,6 +614,48 @@ User.prototype.fixPhoneFormat = function(db, data, params) {
 	}
 	
 	return data;
+};
+
+/**
+Make a user an admin
+@toc 10.
+@method makeAdmin
+@param {Object} data
+	@param {String} user_id Id of the user making the call.
+	@param {String} new_admin_id Id of the user to make an admin
+@param {Object} params
+@return {Promise}
+	@param {Object} user
+**/
+User.prototype.makeAdmin = function(db, data, params)
+{
+	var deferred = Q.defer();
+	var ret ={code:0, msg:'User.makeAdmin '};
+
+	var admin_id = data.new_admin_id;
+	
+	db.user.update({_id:MongoDBMod.makeIds({'id':admin_id}) }, {$set: {'admin': 1}}, function(err, valid)
+	{
+		if(err)
+		{
+			ret.code = 1;
+			ret.msg +='Error: '+err;
+			deferred.reject(ret);
+		}
+		else if (!valid)
+		{
+			ret.code = 1;
+			ret.msg +='Not valid ';
+			deferred.reject(ret);
+		}
+		else
+		{
+			ret.code = 0;
+			deferred.resolve(ret);
+		}
+	});
+	
+	return deferred.promise;
 };
 
 
