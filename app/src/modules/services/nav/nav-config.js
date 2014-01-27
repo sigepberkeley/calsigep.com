@@ -227,10 +227,12 @@ var inst ={
 	*/
 	initPages: function(params) {
 		
-		this.pages.defaultPage =jrgArray.copy(this.components.defaultNav);			//in case missed a page, show default nav
+		// this.pages.defaultPage =jrgArray.copy(this.components.defaultNav);			//in case missed a page, show default nav
+		this.pages.defaultPage =jrgArray.copy(this.components.publicNav);
 		
 		//site-specific
 		//CUSTOM nav definitions
+		/*
 		//login
 		this.pages.login ={
 			header: {
@@ -290,6 +292,7 @@ var inst ={
 				]
 			}
 		};
+		*/
 		
 		
 		//test
