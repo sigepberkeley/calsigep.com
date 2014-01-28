@@ -782,7 +782,8 @@ Photo.prototype.cropPhoto = function(db, data, params)
 	var ii;
 	
 	// var dirPath =__dirname + "/"+data.fileData.uploadDir;		//use post data 'uploadDir' parameter to set the directory to upload this image file to
-	var dirPath =__dirname +"../../../..";		//filename already has uploadDir prepended to it
+	// var dirPath =__dirname +"../../../..";		//filename already has uploadDir prepended to it
+	var dirPath =__dirname + "/../../..";		//filename already has uploadDir prepended to it
 	
 	//uploads directory should already exist from pre-crop upload so don't need to make it
 	
