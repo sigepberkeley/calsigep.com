@@ -847,6 +847,7 @@ Photo.prototype.uploadPhoto = function(db, data, params)
 	dirPath +=data.fileData.uploadDir;                //use post data 'uploadDir' parameter to set the directory to upload this image file to
 	console.log('dirPath: '+dirPath+' dirname: '+__dirname+' data.fileData.uploadDir: '+data.fileData.uploadDir);		//TESTING
 	//make uploads directory if it doesn't exist
+	var exists;
 	//need to create ALL paths up until the final path (in case parent directories don't exist either)
 	var curPath =data.fileData.uploadDir;
 	if(curPath[0] =='/') {		//ensure doesn't start with a slash
@@ -856,7 +857,7 @@ Photo.prototype.uploadPhoto = function(db, data, params)
 	var indexSlash =false;
 	var ii =0;
 	while(curPath.indexOf('/') >-1) {
-		var exists =fs.existsSync(curDir);
+		exists =fs.existsSync(curDir);
 		if(!exists) {
 			fs.mkdirSync(curDir);
 		}
@@ -867,7 +868,7 @@ Photo.prototype.uploadPhoto = function(db, data, params)
 		ii++;
 		//on last one, create the last dir too
 		if(curPath.indexOf('/') <0) {
-			var exists =fs.existsSync(curDir);
+			exists =fs.existsSync(curDir);
 			if(!exists) {
 				fs.mkdirSync(curDir);
 			}
@@ -875,7 +876,7 @@ Photo.prototype.uploadPhoto = function(db, data, params)
 	}
 	
 	//check final path too
-	var exists =fs.existsSync(dirPath);
+	exists =fs.existsSync(dirPath);
 	if(!exists) {
 		fs.mkdirSync(dirPath);
 	}
