@@ -930,7 +930,7 @@ Photo.prototype.uploadPhoto = function(db, data, params)
 					function(ret2)
 					{
 						ret.code = 1;
-						deferred.reject(ret);
+						deferred.reject(ret2);
 					}
 				);
 			});
