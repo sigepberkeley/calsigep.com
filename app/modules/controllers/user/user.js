@@ -33,6 +33,8 @@ var MongoDBMod =require(pathParts.services+'mongodb/mongodb.js');
 var CrudMod =require(pathParts.services+'crud/crud.js');
 var LookupMod =require(pathParts.services+'lookup/lookup.js');
 
+var PhotoMod =require(pathParts.controllers+'photo/photo.js');
+
 // var TextMod =require(pathParts.services+'texter/index.js');		//TESTING SMS
 
 var self;
@@ -337,14 +339,23 @@ User.prototype.update = function(db, data, params)
 		var index1 = data.image.lastIndexOf('.');
 		var crop_file_name = data.image.slice(0, index1) + '_crop' + data.image.slice(index1, data.image.length);
 		
-		var oldPath =__dirname + "../../../../src/common/img/images/uploads/" + crop_file_name;
+		// var oldPath =__dirname + "../../../../src/common/img/images/uploads/" + crop_file_name;
+		var pathPart ='src/common/img/images/uploads/'+crop_file_name;
+		var retDir =PhotoMod.createDirs(pathPart, {});
+		var oldPath =retDir.dirPath;
+		
 		//copy (read and then write) the file to bioPics directory
 		fs.readFile(oldPath, function (err1, data1) 
 		{
 			console.log(err1);
 			//Rename file as user's id. Keep original file extension.
 			var new_file_name = _id + data.image.slice(index1, data.image.length);
-			var newPath = __dirname + "../../../../src/common/img/images/bioPics/"+ new_file_name;
+			
+			// var newPath = __dirname + "../../../../src/common/img/images/bioPics/"+ new_file_name;
+			pathPart ='src/common/img/images/bioPics/'+new_file_name;
+			var retDir =PhotoMod.createDirs(pathPart, {});
+			var newPath =retDir.dirPath;
+			
 			fs.writeFile(newPath, data1, function (err2)
 			{
 				console.log(err2);

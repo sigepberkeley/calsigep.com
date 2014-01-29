@@ -19,9 +19,9 @@ public methods
 11. addPhotoToAlbum
 12. cropPhoto
 13. uploadPhoto
+14. createDirs
 
 private methods
-14. createDirs
 */
 
 'use strict';
@@ -88,7 +88,7 @@ Photo.prototype.createPhoto = function(db, data, params)
 	//Move the file from uploads directory to photos directory
 	
 	var pathPart =data.current_location;
-	var retDir =createDirs(pathPart, {});
+	var retDir =self.createDirs(pathPart, {});
 	var oldPath =retDir.dirPath;
 	
 	//copy (read and then write) the file to photos directory
@@ -97,7 +97,7 @@ Photo.prototype.createPhoto = function(db, data, params)
 		
 		// var newPath = __dirname + "../../../../src/common/img/images/photos/"+data.photo.url;
 		pathPart ='src/common/img/images/photos/'+data.photo.url;
-		var retDir =createDirs(pathPart, {});
+		var retDir =self.createDirs(pathPart, {});
 		var newPath =retDir.dirPath;
 		fs.writeFile(newPath, data1, function (err2)
 		{
@@ -796,11 +796,11 @@ Photo.prototype.cropPhoto = function(db, data, params)
 	var fileNameCrop =fileName.slice(0, index1)+data.cropOptions.cropDuplicateSuffix+fileName.slice(index1, fileName.length);
 	
 	var pathPart =fileName;
-	var retDir =createDirs(pathPart, {});
+	var retDir =self.createDirs(pathPart, {});
 	var input_file =retDir.dirPath;
 	
 	pathPart =fileNameCrop;
-	retDir =createDirs(pathPart, {});
+	retDir =self.createDirs(pathPart, {});
 	var output_file =retDir.dirPath;
 	
 	//actually do the cropping here (i.e. using ImageMagick)
@@ -852,7 +852,7 @@ Photo.prototype.uploadPhoto = function(db, data, params)
 	var ret ={code:0, msg:'Photo.uploadPhoto '};
 	
 	var pathPart =data.fileData.uploadDir;                //use post data 'uploadDir' parameter to set the directory to upload this image file to
-	var retDir =createDirs(pathPart, {});
+	var retDir =self.createDirs(pathPart, {});
 	var dirPath =retDir.dirPath;
 	
 	var fileInputName ='myFile';                //hardcoded - must match what's set for serverParamNames.file in image-upload directive (defaults to 'file')
@@ -913,9 +913,6 @@ Photo.prototype.uploadPhoto = function(db, data, params)
 	return deferred.promise;
 };
 
-
-//private methods
-
 /**
 Takes a full path and checks if ALL directories exist up until that path and creates them if they do not
 @toc 14.
@@ -925,7 +922,7 @@ Takes a full path and checks if ALL directories exist up until that path and cre
 @return {Object}
 	@param {String} dirPath The final directory path to use, with all directories created if they didn't already exist so this folder / path will still exist
 */
-function createDirs(pathPart, params) {
+Photo.prototype.createDirs = function(pathPart, params) {
 	var ret ={code:0, msg:'', dirPath:''};
 	
 	var dirPath =__dirname + "/../../..";		//hardcoded relative path from this directory to app
@@ -975,6 +972,9 @@ function createDirs(pathPart, params) {
 	
 	ret.dirPath =dirPath;
 	return ret;
-}
+};
+
+
+//private methods
 
 module.exports = new Photo({});
