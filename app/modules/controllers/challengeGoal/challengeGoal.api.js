@@ -5,6 +5,7 @@
 
 Development Challenge Goals tracker
 - heat map organized by 3 things: person, challenge goal, date (milestone) (choose one then can view the other 2 as x and y axes on a grid for the chosen one)
+	- but of the 3, viewing by one challenge goal isn't as valuable? so we'll push that to later / lower priority
 - allow users to put in updates/progress by day/week and then have that auto-calculate based on deadline if they're ahead or behind schedule (green =on pace, yellow =starting to lag, red=behind. Blue = complete & approved (by challenge coordinator))
 - 3 key use cases:
 	- admin
