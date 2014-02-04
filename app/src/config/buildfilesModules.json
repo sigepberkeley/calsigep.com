@@ -1048,6 +1048,23 @@
 									}
 								}
 							]
+						},
+						{
+							"name": "calendar",
+							"files": {
+								"html": [
+									"calendar.html"
+								],
+								"js": [
+									"CalendarCtrl.js"
+								],
+								"testUnit": [
+									"CalendarCtrl.spec.js"
+								],
+								"less": [
+									"calendar.less"
+								]
+							}
 						}
 					]
 				}

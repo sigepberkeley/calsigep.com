@@ -69,13 +69,13 @@ angular.module('app').directive('appNavHeaderPublic', ['appConfig', function (ap
 						"</div>"+
 					"</div>"+
 					
-					"<a ng-href='{{appPathLink}}profile' class='a-block'><img class='header-public-img-letters' ng-src='{{appPathImg}}/logos/greek-letters.png' /></a>"+
+					"<a ng-href='{{appPathLink}}dev-goals' class='a-block'><img class='header-public-img-letters' ng-src='{{appPathImg}}/logos/greek-letters.png' /></a>"+
 				"</div>"+
 				
 				//menu
 				"<div class='header-public-menu padding-lr' ng-show='visible.menu'>"+
 					"<a ng-repeat='link in nav.links' class='a-div header-public-menu-link padding-tb {{link.classes.cont}}' ng-href='{{link.href}}'>{{link.html}}</a>"+
-					"<a ng-href='{{appPathLink}}profile' class='a-block'><img class='header-public-img-letters-menu' ng-src='{{appPathImg}}/logos/greek-letters.png' /></a>"+
+					"<a ng-href='{{appPathLink}}dev-goals' class='a-block'><img class='header-public-img-letters-menu' ng-src='{{appPathImg}}/logos/greek-letters.png' /></a>"+
 				"</div>"+
 			"</div>";
 			return html;

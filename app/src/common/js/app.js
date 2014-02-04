@@ -291,6 +291,13 @@ $routeProvider.when(appPathRoute+'admin-creation', {templateUrl: pagesPath+'admi
 			}
 		}
 	});
+$routeProvider.when(appPathRoute+'calendar', {templateUrl: pagesPath+'/calendar/calendar.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
 //end: yeoman generated routes here - DO NOT DELETE THIS COMMENT AS IT IS USED BY YEOMAN TO GENERATE A NEW ROUTE!
 	
 
