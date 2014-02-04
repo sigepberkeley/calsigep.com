@@ -153,6 +153,10 @@ UserChallengeGoal.prototype.saveChallenge = function(db, data, params) {
 			self.readChallengeGoal(db, {user_id:data.user_id}, {})
 			.then(function(retGoal) {
 			
+				//prevent errors
+				if(retGoal.challenge_goal ===undefined) {
+					retGoal.challenge_goal =[];
+				}
 				//B3. now that have both all the challenge goals (in this challenge) and all the user's challenge goals, compare them and UPDATE on matches or ADD if not existing yet
 				var promises =[], deferreds =[];
 				var userGoals =retGoal.challenge_goal;
