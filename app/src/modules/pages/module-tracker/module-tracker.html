@@ -1,0 +1,39 @@
+<div ng-controller='ModuleTrackerCtrl'>
+	<!-- <div ng-if = 'super_admin || admin'>
+		hi
+	</div>
+	<div class = 'center' ng-if = '!(super_admin || admin)'>
+		You do not have permission to access this page.
+	</div> -->
+
+	<div class = "form">
+		Determine which group you want to track
+		<div jrg-forminput type='select' label= "Module" ng-model='formVals.development_module' select-opts='devModules' opts='' ></div>
+
+		<div jrg-forminput type='select' label= "Week" ng-model='formVals.status_week' select-opts='weeks' opts='' ></div>
+
+		<div class = 'btn btn-primary' ng-click = 'formValsSelected()'> Track! </div>
+		<!-- {{trackerData}} -->
+	</div>
+
+	<div>
+		<div class = 'flexbox'>
+			<div class = 'flex1'>
+			</div>
+			<div ng-repeat = 'col in trackerData.user_specific' class = 'flex1'>
+				{{col.user_name}}
+			</div>
+		</div>
+		<div class = 'flexbox' ng-repeat = 'newRow in trackerData.target_values track by $id($index)'>
+			<div class = 'flex1'>
+				{{newRow.challenge_name}}
+			</div>
+			<div class = 'flex1' ng-repeat = 'cell in trackerData.user_specific track by $id($index)'>
+				{{percent(cell.challenge_goal_status[$parent.$index].this_weeks_value, newRow.target_value)}}
+				<div style = 'background-color:rgb({{rgbVal1(percentage)}},{{rgbVal2(percentage)}},{{rgbVal3(percentage)}});'>
+				{{cell.challenge_goal_status[$parent.$index].this_weeks_value}}/{{newRow.target_value}} ({{(percentage*100)}}% on track)
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

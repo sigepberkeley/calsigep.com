@@ -383,7 +383,7 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 		$scope.tempVal = parseFloat(percent).toFixed(3);
 	};
 	$scope.rgbVal1 = function(percent, params){
-		if (percent === 0){
+		if (percent < 0.000001){
 			return 0;
 		}
 		else if (percent < 0.5)
@@ -392,7 +392,7 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 			return(Math.round((1-percent)*510));
 	};
 	$scope.rgbVal2 = function(percent, params){
-		if (percent === 0){
+		if (percent < 0.000001){
 			return 200;
 		}
 		else if (percent < 0.5)
@@ -401,7 +401,7 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 			return(255);
 	};
 	$scope.rgbVal3 = function(percent){
-		if (percent === 0){
+		if (percent < 0.000001){
 			return 255;
 		}
 		return 0;
