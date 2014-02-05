@@ -27,7 +27,7 @@
 			</div>
 			<div class = 'flex1' ng-repeat = 'cell in trackerData.milestoneGrid[$index].milestonesByWeek track by $id($index)'>
 				{{percent(cell, newRow.target_value, $index, weeksToDeadline)}}
-				<div style = 'background-color:rgb({{rgbVal1(tempVal)}},{{rgbVal2(tempVal)}},0);'>
+				<div style = 'background-color:rgb({{rgbVal1(tempVal)}},{{rgbVal2(tempVal)}},{{rgbVal3(tempVal)}});'>
 				{{cell}}/{{newRow.target_value}} ({{(tempVal*100)}}% on track)
 				</div>
 			</div>

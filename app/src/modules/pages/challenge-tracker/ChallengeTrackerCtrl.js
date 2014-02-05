@@ -383,30 +383,42 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 		$scope.tempVal = parseFloat(percent).toFixed(3);
 	};
 	$scope.rgbVal1 = function(percent, params){
-		if ($scope.tempVal < 0.5)
+		if (percent === 0){
+			return 0;
+		}
+		else if (percent < 0.5)
 			return(Math.round(255));
 		else
-			return(Math.round((1-$scope.tempVal)*510));
+			return(Math.round((1-percent)*510));
 	};
 	$scope.rgbVal2 = function(percent, params){
-		if ($scope.tempVal < 0.5)
-			return(Math.round($scope.tempVal*510));
+		if (percent === 0){
+			return 200;
+		}
+		else if (percent < 0.5)
+			return(Math.round(percent*510));
 		else
 			return(255);
 	};
+	$scope.rgbVal3 = function(percent){
+		if (percent === 0){
+			return 255;
+		}
+		return 0;
+	};
 	
-		//	var data2 = {
-		//		"user_id" : $scope.userID,
-		//		"challenge":{	
-		//			"name": "phi",
-		//			"date_started":"2014-02-06 15:30:00-07:00",
-		//			"date_deadline":"2014-05-01 15:30:00-07:00"
-		//		}
-		//	};
-		//	appHttp.go({}, {url:'userChallengeGoal/saveChallenge', data:data2}, {})
-		//		.then(function(response) {
-		//			$scope.tempChallengeGoals = response;
-		//		});
+	//	var data2 = {
+	//		"user_id" : $scope.userID,
+	//		"challenge":{	
+	//			"name": "phi",
+	//			"date_started":"2014-02-06 15:30:00-07:00",
+	//			"date_deadline":"2014-05-01 15:30:00-07:00"
+	//		}
+	//	};
+	//	appHttp.go({}, {url:'userChallengeGoal/saveChallenge', data:data2}, {})
+	//		.then(function(response) {
+	//			$scope.tempChallengeGoals = response;
+	//		});
 
 	
 //	*/
