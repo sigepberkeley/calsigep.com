@@ -209,6 +209,42 @@ var inst ={
 			}
 		};
 		
+		
+		//members header
+		this.components.headerMembers ={
+			template: this.paths.templates.headerPublic,
+			links: [
+				{
+					html: "Public",
+					href: this.paths.appPathLink
+				},
+				{
+					html: "Calendar",
+					href: this.paths.appPathLink+'calendar'
+				},
+				{
+					html: "Dev Goals",
+					href: this.paths.appPathLink+'dev-goals'
+				},
+				{
+					html: "Profile",
+					href: this.paths.appPathLink+'profile'
+				},
+				{
+					html: "Admin",
+					href: this.paths.appPathLink+'admin-portal'
+				}
+			]
+		};
+		//hardcoded array indices for use to change these buttons later
+		this.components.headerMembersIndices ={
+			public1:0,
+			calendar:1,
+			devgoals:2,
+			profile:3,
+			adminportal:4
+		};
+		
 		this.components.defaultNav ={
 			header: this.components.headerCentered,
 			footer: this.components.footerMain
@@ -216,6 +252,11 @@ var inst ={
 		
 		this.components.publicNav ={
 			header: this.components.headerPublic,
+			footer: this.components.footerPublic
+		};
+		
+		this.components.membersNav ={
+			header: this.components.headerMembers,
 			footer: this.components.footerPublic
 		};
 	},
@@ -332,6 +373,31 @@ var inst ={
 		//contact
 		this.pages.contact =jrgArray.copy(this.components.publicNav);
 		this.pages.contact.header.links[this.components.headerPublicIndices.contact].classes ={
+			cont: 'selected'
+		};
+		
+		//MEMBERS
+		//calendar
+		this.pages.calendar =jrgArray.copy(this.components.membersNav);
+		this.pages.calendar.header.links[this.components.headerMembersIndices.calendar].classes ={
+			cont: 'selected'
+		};
+		
+		//dev-goals
+		this.pages.devgoals =jrgArray.copy(this.components.membersNav);
+		this.pages.devgoals.header.links[this.components.headerMembersIndices.devgoals].classes ={
+			cont: 'selected'
+		};
+		
+		//profile
+		this.pages.profile =jrgArray.copy(this.components.membersNav);
+		this.pages.profile.header.links[this.components.headerMembersIndices.profile].classes ={
+			cont: 'selected'
+		};
+		
+		//admin
+		this.pages.adminportal =jrgArray.copy(this.components.membersNav);
+		this.pages.adminportal.header.links[this.components.headerMembersIndices.adminportal].classes ={
 			cont: 'selected'
 		};
 		

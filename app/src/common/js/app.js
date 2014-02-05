@@ -167,42 +167,66 @@ config(['$routeProvider', '$locationProvider', 'appConfigProvider', '$compilePro
 $routeProvider.when(appPathRoute+'dev-goals-edit', {templateUrl: pagesPath+'dev-goals/dev-goals-edit/dev-goals-edit.html',
 		resolve: {
 			auth: function(appAuth) {
-				return appAuth.checkSess({});
+				return appAuth.checkSess({
+					auth: {
+						loggedIn: {}
+					}
+				});
 			}
 		}
 	});
 $routeProvider.when(appPathRoute+'dev-goals-list', {templateUrl: pagesPath+'dev-goals/dev-goals-list/dev-goals-list.html',
 		resolve: {
 			auth: function(appAuth) {
-				return appAuth.checkSess({});
+				return appAuth.checkSess({
+					auth: {
+						loggedIn: {}
+					}
+				});
 			}
 		}
 	});
 $routeProvider.when(appPathRoute+'dev-challenge-list', {templateUrl: pagesPath+'dev-challenge/dev-challenge-list/dev-challenge-list.html',
 		resolve: {
 			auth: function(appAuth) {
-				return appAuth.checkSess({});
+				return appAuth.checkSess({
+					auth: {
+						loggedIn: {}
+					}
+				});
 			}
 		}
 	});
 $routeProvider.when(appPathRoute+'dev-challenge-edit', {templateUrl: pagesPath+'dev-challenge/dev-challenge-edit/dev-challenge-edit.html',
 		resolve: {
 			auth: function(appAuth) {
-				return appAuth.checkSess({});
+				return appAuth.checkSess({
+					auth: {
+						loggedIn: {}
+					}
+				});
 			}
 		}
 	});
 $routeProvider.when(appPathRoute+'dev-goals-challenge', {templateUrl: pagesPath+'dev-goals/dev-goals-challenge/dev-goals-challenge.html',
 		resolve: {
 			auth: function(appAuth) {
-				return appAuth.checkSess({});
+				return appAuth.checkSess({
+					auth: {
+						loggedIn: {}
+					}
+				});
 			}
 		}
 	});
 $routeProvider.when(appPathRoute+'dev-goals', {templateUrl: pagesPath+'dev-goals/dev-goals/dev-goals.html',
 		resolve: {
 			auth: function(appAuth) {
-				return appAuth.checkSess({});
+				return appAuth.checkSess({
+					auth: {
+						loggedIn: {}
+					}
+				});
 			}
 		}
 	});
@@ -210,10 +234,10 @@ $routeProvider.when(appPathRoute+'challenge-tracker', {templateUrl: pagesPath+'/
 		resolve: {
 			auth: function(appAuth) {
 				return appAuth.checkSess({
-							auth: {
-								loggedIn: {}
-								}
-						});
+					auth: {
+						loggedIn: {}
+					}
+				});
 			}
 		}
 	});
@@ -238,21 +262,33 @@ $routeProvider.when(appPathRoute+'profile', {templateUrl: pagesPath+'/profile/pr
 $routeProvider.when(appPathRoute+'admin-portal', {templateUrl: pagesPath+'admin/admin-portal/admin-portal.html',
 		resolve: {
 			auth: function(appAuth) {
-				return appAuth.checkSess({});
+				return appAuth.checkSess({
+					auth: {
+						loggedIn: {}
+					}
+				});
 			}
 		}
 	});
 $routeProvider.when(appPathRoute+'admin-albums', {templateUrl: pagesPath+'admin/admin-albums/admin-albums.html',
 		resolve: {
 			auth: function(appAuth) {
-				return appAuth.checkSess({});
+				return appAuth.checkSess({
+					auth: {
+						loggedIn: {}
+					}
+				});
 			}
 		}
 	});
 $routeProvider.when(appPathRoute+'admin-album-edit', {templateUrl: pagesPath+'admin/admin-album-edit/admin-album-edit.html',
 		resolve: {
 			auth: function(appAuth) {
-				return appAuth.checkSess({});
+				return appAuth.checkSess({
+					auth: {
+						loggedIn: {}
+					}
+				});
 			}
 		}
 	});
@@ -287,7 +323,18 @@ $routeProvider.when(appPathRoute+'gallery', {templateUrl: pagesPath+'public/gall
 $routeProvider.when(appPathRoute+'admin-creation', {templateUrl: pagesPath+'admin/admin-creation/admin-creation.html',
 		resolve: {
 			auth: function(appAuth) {
-				return appAuth.checkSess({noLoginRequired:true});
+				return appAuth.checkSess({
+					auth: {
+						loggedIn: {}
+					}
+				});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'calendar', {templateUrl: pagesPath+'/calendar/calendar.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
 			}
 		}
 	});
