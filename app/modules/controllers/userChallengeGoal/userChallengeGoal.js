@@ -148,13 +148,17 @@ UserChallengeGoal.prototype.saveChallenge = function(db, data, params) {
 		//B1. read challenge goals
 		ChallengeGoalMod.read(db, {fullQuery:{'challenge.name':data.challenge.name, 'date_last_active':{$exists:false} } }, {})
 		.then(function(retRead) {
-		
+			console.log('Returned challenge goal' + JSON.stringify(retRead));
 			//B2. read THIS USER's challenge goals
 			self.readChallengeGoal(db, {user_id:data.user_id}, {})
 			.then(function(retGoal) {
-			
+				console.log(retGoal);
+				console.log(retRead.results.length);
 				//B3. now that have both all the challenge goals (in this challenge) and all the user's challenge goals, compare them and UPDATE on matches or ADD if not existing yet
 				var promises =[], deferreds =[];
+				if (retGoal.challenge_goal === undefined){
+					retGoal.challenge_goal = [];
+				}
 				var userGoals =retGoal.challenge_goal;
 				var ii, index1, newGoal, dataUpdate, needToUpdate;
 				for(ii =0; ii<retRead.results.length; ii++) {
@@ -185,7 +189,8 @@ UserChallengeGoal.prototype.saveChallenge = function(db, data, params) {
 							};
 							needToUpdate =true;
 						}
-						
+						console.log('need to update?:  ' + needToUpdate);
+						console.log('The new goal to add: ' + newGoal);
 						if(needToUpdate) {
 							dataUpdate ={
 								main:{
@@ -194,8 +199,11 @@ UserChallengeGoal.prototype.saveChallenge = function(db, data, params) {
 								subObj:newGoal
 							};
 							CrudMod.saveSubArray(db, dataUpdate, {'collection':'user', 'subKey':'challenge_goal', subKeysNoObjectId:true}, function(retSaveGoal) {
+								console.log('retSaveGoal:   '+retSaveGoal);
 								deferreds[ii].resolve({});		//for now, not returning this/anything here
+
 							}, function(err) {
+								console.log('ERROR:  '+err);
 								deferreds[ii].reject(err);
 							});
 						}

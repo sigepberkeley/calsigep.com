@@ -5,7 +5,9 @@
 	<!-- {{trackerData}} -->
 	<br>
 	<div>
-		This is {{user.first_name}} {{user.last_name}}'s development challenge status represented by (current value/target value)
+		This is {{user.first_name}} {{user.last_name}}'s development challenge status as a {{usersDevChallenge}} 
+
+		<!-- {{userChallengeGoals}} -->
 		<br>
 		Percentage is based on how close you are to completing the goal vs proximity to the deadline.
 		<br>
@@ -31,4 +33,16 @@
 			</div>
 		</div>
 	</div>
+	<br>
+	<div class = "form">
+		Enter a new Milestone here!
+		<div jrg-forminput type='select' label= "Goal" ng-model='formVals.goalToAddMilestoneFor' select-opts='challengeGoalNameList' opts='opts' ></div>
+
+		<div jrg-forminput type='number' label= "New Value" placeholder = "What is your current value? for example: enter 15 for 15 pushups" ng-model='formVals.newMilestoneValue' opts='' ></div>
+
+		<div jrg-forminput type='textarea' label= "Description" placeholder = 'Describe your progress for this goal. For example: I did pushups every day to practice' ng-model='formVals.newMilestoneDescription' opts='' ></div>
+
+		<div class = 'btn btn-primary' ng-click = 'addMilestone()'> ADD! </div>
+	</div>
+
 </div>

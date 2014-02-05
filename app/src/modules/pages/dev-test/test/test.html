@@ -1,10 +1,105 @@
-<div class='test' ng-controller='TestCtrl'>
-	Test
-	<br /><br />
+<div ng-controller = "TestCtrl">
+
+		<br>
+
+		<div class = "form">
+			<div class="input" jrg-forminput type='text' label = "First Name" ng-model='formVals.first_name' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "Last Name" ng-model='formVals.last_name' opts='opts'></div>
+
+			<div class="email" jrg-forminput type='text' label = "Email" ng-model='formVals.email' opts='opts'></div>
+
+			<div class="tel" jrg-forminput type='text' label = "Phone Number" ng-model='formVals.phone_number' opts='opts'></div>
+			
+			<div jrg-forminput type='select' label= "Carrier" ng-model='formVals.carrier' select-opts='carrierOptsTags' opts='opts' ></div>
+
+			<div id= "phones"></div>
+
+			<div jrg-forminput type='select' label= "Alumni Status" ng-model='formVals.alum_status' select-opts='alumOptsTags' opts=''></div>
+
+			<div jrg-forminput type='select' label= "Position" ng-model='formVals.position' select-opts='positionOptsTags' opts=''></div>
+
+			<div jrg-forminput type='select' label= "Dev Challenge" ng-model='formVals.challenge' select-opts='challengeOptsTags' opts=''></div>
+
+			<div class="input" jrg-forminput type='number' label = "Grad Year" ng-model='formVals.grad_year' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "Major 1" ng-model='formVals.first_major' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "Major 2" ng-model='formVals.second_major' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "Minor" ng-model='formVals.minor' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "Current Hometown" ng-model='formVals.hometown' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "Big Bro" ng-model='formVals.big_bro' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "Little Bro" ng-model='formVals.little_bro' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "Sigma Mentor" ng-model='formVals.mentor' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "Sigma Mentee" ng-model='formVals.mentee' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "Animal Name" ng-model='formVals.animal_name' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "Unergrad School" ng-model='formVals.undergrad' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "Grad School" ng-model='formVals.grad_school' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "Address" ng-model='formVals.address' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "City" ng-model='formVals.city' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "State" ng-model='formVals.state' opts=''></div>
+
+			<div class="input" jrg-forminput type='number' label = "Zip Code" ng-model='formVals.zip_code' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "Dinner Team" ng-model='formVals.dinner_team' opts=''></div>
+
+			<div class="input" jrg-forminput type='text' label = "Olympics Team" ng-model='formVals.olympics_team' opts=''></div>
+
+			<div class="email" jrg-forminput type='text' label = "Parent Email" ng-model='formVals.parent_email' opts=''></div>
+
+			<div jrg-forminput type='select' label= "Live-In?" ng-model='formVals.live_in_status' select-opts='yNOptsTags' opts=''></div>
+			 <!-- this is taking advantage of javascript directives-->
+
+
+		</div>
+
+</div>
+
+
+		<!-- <div class = "brothers" ng-controller = 'TestCtrl'> -->
+
+	<!-- <form>
+		<label> Name </label>
+		<input type = 'text' ng-model = 'first_name'/>
+		<textarea placeholder = "Enter your Name">
+		</textarea>
+	</form> -->
 	
-	<!--<div hm-tap='tapIt($event, {})' hm-swipeleft='swipeIt($event, "left", {})' hm-swiperight='swipeIt($event, "right", {})' hm-options='{swipe_velocity: 0.1}' style='min-height:100px;'>-->
-	<div ng-click='tapIt($event, {})' ng-swipe-left='swipeIt($event, "left", {})' ng-swipe-right='swipeIt($event, "right", {})' style='min-height:100px;'>
-		{{user}}
+
+
+	<!-- <div class = "brothers-header">
+			Our Brothers are a diverse group... different races, religions, areas of interest, hometowns... but we come together and are better for each others' friendship 
 	</div>
-	
+
+	<div class = "other">
+		<div class = "brothers-officers">
+
+		</div>
+
+		<div class='test-brother-container' >
+
+			<div class = "image-block" ng-repeat = 'brother in brothers'>
+				<img ng-src='{{appPathImg}}{{brother.picture}}' height = "200" width = "200"/>
+				
+				<div class = "image-txt">
+					Hello {{brother.name}}
+				</div>
+			</div>
+
+		</div>
+
+	</div> -->
+
 </div>
