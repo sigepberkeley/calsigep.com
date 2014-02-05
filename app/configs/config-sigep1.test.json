@@ -13,7 +13,7 @@
 	},
 	"platform":"",
 	"server": {
-		"domain": "198.199.108.200",
+		"domain": "calsigep.com",
 		"port": 3005,
 		"httpsPort": 443,
 		"socketPort": 3006,

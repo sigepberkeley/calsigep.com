@@ -1048,6 +1048,40 @@
 									}
 								}
 							]
+						},
+						{
+							"name": "module-tracker",
+							"files": {
+								"html": [
+									"module-tracker.html"
+								],
+								"js": [
+									"ModuleTrackerCtrl.js"
+								],
+								"testUnit": [
+									"ModuleTrackerCtrl.spec.js"
+								],
+								"less": [
+									"module-tracker.less"
+								]
+							}
+						},
+						{
+							"name": "calendar",
+							"files": {
+								"html": [
+									"calendar.html"
+								],
+								"js": [
+									"CalendarCtrl.js"
+								],
+								"testUnit": [
+									"CalendarCtrl.spec.js"
+								],
+								"less": [
+									"calendar.less"
+								]
+							}
 						}
 					]
 				}

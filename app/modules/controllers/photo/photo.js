@@ -19,6 +19,7 @@ public methods
 11. addPhotoToAlbum
 12. cropPhoto
 13. uploadPhoto
+14. createDirs
 
 private methods
 */
@@ -85,11 +86,19 @@ Photo.prototype.createPhoto = function(db, data, params)
 	var ii;
 	
 	//Move the file from uploads directory to photos directory
-	var oldPath =__dirname + "../../../../" + data.current_location;
+	
+	var pathPart =data.current_location;
+	var retDir =self.createDirs(pathPart, {});
+	var oldPath =retDir.dirPath;
+	
 	//copy (read and then write) the file to photos directory
 	fs.readFile(oldPath, function (err1, data1) 
 	{
-		var newPath = __dirname + "../../../../src/common/img/images/photos/"+data.photo.url;
+		
+		// var newPath = __dirname + "../../../../src/common/img/images/photos/"+data.photo.url;
+		pathPart ='src/common/img/images/photos/'+data.photo.url;
+		var retDir =self.createDirs(pathPart, {});
+		var newPath =retDir.dirPath;
 		fs.writeFile(newPath, data1, function (err2)
 		{
 			db.photo.insert(data.photo, {'safe': true}, function(err3, photo)
@@ -781,20 +790,23 @@ Photo.prototype.cropPhoto = function(db, data, params)
 	var ret ={code:0, msg:'Photo.cropPhoto ', 'cropped_path': ''};
 	var ii;
 	
-	// var dirPath =__dirname + "/"+data.fileData.uploadDir;		//use post data 'uploadDir' parameter to set the directory to upload this image file to
-	var dirPath =__dirname +"../../../..";		//filename already has uploadDir prepended to it
-	
-	//uploads directory should already exist from pre-crop upload so don't need to make it
-	
 	var fileName =data.fileName;
 	//form crop named version
 	var index1 =fileName.lastIndexOf('.');
 	var fileNameCrop =fileName.slice(0, index1)+data.cropOptions.cropDuplicateSuffix+fileName.slice(index1, fileName.length);
 	
+	var pathPart =fileName;
+	var retDir =self.createDirs(pathPart, {});
+	var input_file =retDir.dirPath;
+	
+	pathPart =fileNameCrop;
+	retDir =self.createDirs(pathPart, {});
+	var output_file =retDir.dirPath;
+	
 	//actually do the cropping here (i.e. using ImageMagick)
 	//File names relative to the root project directory
-	var input_file = dirPath +"/"+fileName;
-	var output_file = dirPath +"/"+fileNameCrop;
+	// var input_file = dirPath +"/"+fileName;
+	// var output_file = dirPath +"/"+fileNameCrop;
 	var new_width = (data.cropCoords.right -data.cropCoords.left);
 	var new_height = (data.cropCoords.bottom -data.cropCoords.top);
 	var x_off = data.cropCoords.left;
@@ -839,20 +851,9 @@ Photo.prototype.uploadPhoto = function(db, data, params)
 	var deferred = Q.defer();
 	var ret ={code:0, msg:'Photo.uploadPhoto '};
 	
-	/*
-	console.log('data:');
-	console.log(data);
-	console.log('params:');
-	console.log(params);
-	deferred.resolve(ret);
-	*/
-	
-	var dirPath =__dirname + "../../../../"+data.fileData.uploadDir;                //use post data 'uploadDir' parameter to set the directory to upload this image file to
-	//make uploads directory if it doesn't exist
-	var exists =fs.existsSync(dirPath);
-	if(!exists) {
-		fs.mkdirSync(dirPath);
-	}
+	var pathPart =data.fileData.uploadDir;                //use post data 'uploadDir' parameter to set the directory to upload this image file to
+	var retDir =self.createDirs(pathPart, {});
+	var dirPath =retDir.dirPath;
 	
 	var fileInputName ='myFile';                //hardcoded - must match what's set for serverParamNames.file in image-upload directive (defaults to 'file')
 	var imageFileName =data.files[fileInputName].name;                //just keep the file name the same as the name that was uploaded - NOTE: it's probably best to change to avoid bad characters, etc.
@@ -902,7 +903,7 @@ Photo.prototype.uploadPhoto = function(db, data, params)
 					function(ret2)
 					{
 						ret.code = 1;
-						deferred.reject(ret);
+						deferred.reject(ret2);
 					}
 				);
 			});
@@ -911,5 +912,69 @@ Photo.prototype.uploadPhoto = function(db, data, params)
 	
 	return deferred.promise;
 };
+
+/**
+Takes a full path and checks if ALL directories exist up until that path and creates them if they do not
+@toc 14.
+@method createDirs
+@param {String} pathPart The path (from the 'app' directory) to use / create
+@param {Object} params
+@return {Object}
+	@param {String} dirPath The final directory path to use, with all directories created if they didn't already exist so this folder / path will still exist
+*/
+Photo.prototype.createDirs = function(pathPart, params) {
+	var ret ={code:0, msg:'', dirPath:''};
+	
+	var dirPath =__dirname + "/../../..";		//hardcoded relative path from this directory to app
+	if(pathPart[0] !=='/') {
+		dirPath +='/';
+	}
+	var dirPathRoot =dirPath;		//save
+	dirPath +=pathPart;
+	console.log('dirPath: '+dirPath+' dirname: '+__dirname+' pathPart: '+pathPart);		//TESTING
+	//make uploads directory if it doesn't exist
+	var exists;
+	//need to create ALL paths up until the final path (in case parent directories don't exist either)
+	var curPath =pathPart;
+	if(curPath[0] =='/') {		//ensure doesn't start with a slash
+		curPath =curPath.slice(1, curPath.length);
+	}
+	var curDir =dirPathRoot;
+	var indexSlash =false;
+	var ii =0;
+	while(curPath.indexOf('/') >-1) {
+		exists =fs.existsSync(curDir);
+		if(!exists) {
+			fs.mkdirSync(curDir);
+		}
+		//cut curPath and add to curDir for next time
+		indexSlash =curPath.indexOf('/');
+		curDir =curDir+'/'+curPath.slice(0, indexSlash);
+		curPath =curPath.slice((indexSlash+1), curPath.length);
+		ii++;
+		//on last one, create the last dir too
+		if(curPath.indexOf('/') <0) {
+			exists =fs.existsSync(curDir);
+			if(!exists) {
+				fs.mkdirSync(curDir);
+			}
+		}
+	}
+	
+	//check final path too IF not a file (do NOT create a directory that's the same name as the filename!)
+	var indexExt =dirPath.lastIndexOf('.');
+	if(indexExt <=(dirPath.length -5)) {		//if no dot OR if it's before the last 5 characters, then it's likely not a file (no extension)
+		exists =fs.existsSync(dirPath);
+		if(!exists) {
+			fs.mkdirSync(dirPath);
+		}
+	}
+	
+	ret.dirPath =dirPath;
+	return ret;
+};
+
+
+//private methods
 
 module.exports = new Photo({});
