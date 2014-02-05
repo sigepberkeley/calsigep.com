@@ -1082,6 +1082,23 @@
 									"calendar.less"
 								]
 							}
+						},
+						{
+							"name": "module-tracker",
+							"files": {
+								"html": [
+									"module-tracker.html"
+								],
+								"js": [
+									"ModuleTrackerCtrl.js"
+								],
+								"testUnit": [
+									"ModuleTrackerCtrl.spec.js"
+								],
+								"less": [
+									"module-tracker.less"
+								]
+							}
 						}
 					]
 				}
