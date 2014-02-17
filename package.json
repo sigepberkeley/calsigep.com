@@ -35,7 +35,7 @@
 		"grunt-contrib-uglify": "~0.2.7",
 		"grunt-contrib-copy": "~0.4.1",
 		"grunt-contrib-yuidoc": "~0.4.0",
-		"grunt-karma": "~0.6.2",
+		"grunt-karma": "~0.5",
 		"grunt-jasmine-node-coverage-validation": "~0.0.4",
 		"grunt-istanbul-coverage":"~0.0.2",
 		"grunt-buildfiles": "~0.3.6",
