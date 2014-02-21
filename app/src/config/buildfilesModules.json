@@ -1099,6 +1099,23 @@
 									"module-tracker.less"
 								]
 							}
+						},
+						{
+							"name": "documents",
+							"files": {
+								"html": [
+									"documents.html"
+								],
+								"js": [
+									"DocumentsCtrl.js"
+								],
+								"testUnit": [
+									"DocumentsCtrl.spec.js"
+								],
+								"less": [
+									"documents.less"
+								]
+							}
 						}
 					]
 				}
