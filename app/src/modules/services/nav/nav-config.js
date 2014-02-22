@@ -223,6 +223,10 @@ var inst ={
 					href: this.paths.appPathLink+'calendar'
 				},
 				{
+					html: "Docs",
+					href: this.paths.appPathLink+'documents'
+				},
+				{
 					html: "Dev Goals",
 					href: this.paths.appPathLink+'dev-goals'
 				},
@@ -240,9 +244,10 @@ var inst ={
 		this.components.headerMembersIndices ={
 			public1:0,
 			calendar:1,
-			devgoals:2,
-			profile:3,
-			adminportal:4
+			documents:2,
+			devgoals:3,
+			profile:4,
+			adminportal:5
 		};
 		
 		this.components.defaultNav ={
@@ -380,6 +385,12 @@ var inst ={
 		//calendar
 		this.pages.calendar =jrgArray.copy(this.components.membersNav);
 		this.pages.calendar.header.links[this.components.headerMembersIndices.calendar].classes ={
+			cont: 'selected'
+		};
+
+		//documents
+		this.pages.documents =jrgArray.copy(this.components.membersNav);
+		this.pages.documents.header.links[this.components.headerMembersIndices.documents].classes ={
 			cont: 'selected'
 		};
 		
