@@ -15,9 +15,9 @@
 		<div class = 'album-desc'>{{cur_album.desc}}</div>
 		
 		<div jrg-carousel>
-			<div ng-init = 'viewAlbum(1)' ng-repeat='slide in slides' class = 'gallery-slide inline-block center'>
+			<div ng-init = 'viewAlbum()' ng-repeat='slide in slides' class = 'gallery-slide inline-block center'>
 				<!-- custom content here -->
-				<img ng-src='{{appPathImg + "/images/photos/" + slide.url}}' style='margin:auto; max-width:500px;'>
+				<img ng-src='{{appPathImg + "/images/photos/" + slide.url}}' style='margin-left:auto;margin-right:auto; max-width:500px;'>
 				<!-- end: custom content here -->
 			</div>
 		</div>
