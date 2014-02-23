@@ -161,7 +161,7 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 	};
 	$scope.challenge_goals =  [
 			{
-				"_id": "52deab2fd9af64fa572b0795",
+				"_id": "52deab2fd9af64fa572b0195",
 				"challenge": [
 					{
 						
