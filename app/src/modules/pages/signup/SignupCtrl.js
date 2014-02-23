@@ -21,8 +21,4 @@ angular.module('myApp').controller('SignupCtrl', ['$scope', 'appHttp', 'UserMode
 		});
 	};
 
-	$scope.clear = function(){
-	$cookieStore.remove("userInfo");
-	};
-
 }]);
