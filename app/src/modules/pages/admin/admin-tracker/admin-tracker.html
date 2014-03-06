@@ -1,0 +1,24 @@
+<div ng-controller='AdminTrackerCtrl'>
+	<div class = 'center' ng-if = 'super_admin || admin'>
+
+		<div jrg-forminput type='select' label= "Brother" ng-model='formVals.brother' select-opts='brothers' opts='' ></div>
+
+		<div jrg-forminput type='select' label= "Module" ng-model='formVals.development_module' select-opts='devModules' opts='' ></div>
+
+		<div jrg-forminput type='text' label= "Start date" ng-model='formVals.date_started' placeholder = 'YYYY-MM-DD HH:mm:ssZ' opts='' ></div>
+
+		<div jrg-forminput type='text' label= "Deadline date" ng-model='formVals.date_deadline' placeholder = 'YYYY-MM-DD HH:mm:ssZ' opts='' ></div>
+		
+		<div class = 'btn btn-primary' ng-click = 'formValsSelected()'> ADD! </div>
+	</div>
+	<div ng-if = '!(super_admin || admin)'>
+		You do not have permission to access this page.
+
+		<div jrg-forminput type='select' label= "Brother" ng-model='formVals.brother' select-opts='brothers' opts='' ></div>
+
+		<div jrg-forminput type='select' label= "Module" ng-model='formVals.development_module' select-opts='devModules' opts='' ></div>
+
+		<div class = 'btn btn-primary' ng-click = 'formValsSelected()'> ADD! </div>
+
+	</div>
+</div>

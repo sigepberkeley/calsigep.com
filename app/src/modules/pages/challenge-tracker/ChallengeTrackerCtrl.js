@@ -140,7 +140,7 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 				}
 			]
 		},
-		
+
 		"challenge": {
 			"_id": "{String} sdfeaf234d",
 			"name": "{String} SHOULD BE UNIQUE! No two of the same name!. One of: 'sigma', 'phi', 'epsilon', 'brother_mentor', 'fellow', etc.",
@@ -164,7 +164,7 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 				"_id": "52deab2fd9af64fa572b0795",
 				"challenge": [
 					{
-						
+
 						"date_last_active": "{String} YYYY-MM-DD HH:mm:ssZ OR undefined",
 						"name": "phi",
 						"required": 0,
@@ -203,7 +203,7 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 				"_id": "52deac67d9af64fa572b07a1",
 				"challenge": [
 					{
-						
+
 						"date_last_active": "{String} YYYY-MM-DD HH:mm:ssZ OR undefined",
 						"name": "phi",
 						"required": 0,
@@ -225,11 +225,11 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 	$scope.tempVal = 0;
 	$scope.challengeGoalNameList = [];
 	$scope.opts = {};
-	
+
 	$scope.userChallengeGoals = [];
 	getTrackerData();
 	//	$scope.tempChallengeGoals = getChallengeGoals();
-	
+
 	function getDevChallenge(){
 		var data2 = {
 			"_id" : $scope.userID
@@ -250,7 +250,7 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 	//			.then(function(response) {
 	//				$scope.userChallengeGoals = response.result.challenge_goal;
 	//			});
-		
+
 
 	//		return goals;
 	//	}
@@ -291,11 +291,23 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 		appHttp.go({}, {url:'challengeGoal/read', data:data2}, {})
 			.then(function(response) {
 				$scope.trackerData.myChallengeGoals[goal].target_value = response.result.result.challenge[0].target_value;
-				$scope.trackerData.myChallengeGoals[goal].name = response.result.result.title;
-				$scope.challengeGoalNameList[goal] = {
-					'val': response.result.result._id,
-					'name': response.result.result.title
-				};
+				if (response.result.result.challenge[0].required == 1){
+					$scope.trackerData.myChallengeGoals[goal].name = response.result.result.title + '*';
+				}else{
+					$scope.trackerData.myChallengeGoals[goal].name = response.result.result.title;
+				}
+				
+				if (response.result.result.challenge[0].required == 1){
+					$scope.challengeGoalNameList[goal] = {
+						'val': response.result.result._id,
+						'name': JSON.stringify(response.result.result.title)+'*'
+					};
+				}else{
+					$scope.challengeGoalNameList[goal] = {
+						'val': response.result.result._id,
+						'name': response.result.result.title
+					};
+				}
 				//console.log($scope.challengeGoalNameList[goal]);
 			});
 	}
@@ -373,7 +385,7 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 				console.log("Add milestone response: "+response);
 				history.go(0);
 			});
-		
+
 	};
 
 	$scope.percent = function(current, target, thisWeek, deadlineWeek){
@@ -406,7 +418,7 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 		}
 		return 0;
 	};
-	
+
 	//	var data2 = {
 	//		"user_id" : $scope.userID,
 	//		"challenge":{	
@@ -420,7 +432,7 @@ angular.module('myApp').controller('ChallengeTrackerCtrl', ['$scope', '$timeout'
 	//			$scope.tempChallengeGoals = response;
 	//		});
 
-	
+
 //	*/
-		
+
 }]);

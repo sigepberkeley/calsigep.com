@@ -359,6 +359,13 @@ $routeProvider.when(appPathRoute+'documents', {templateUrl: pagesPath+'/document
 			}
 		}
 	});
+$routeProvider.when(appPathRoute+'admin-tracker', {templateUrl: pagesPath+'admin/admin-tracker/admin-tracker.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
 //end: yeoman generated routes here - DO NOT DELETE THIS COMMENT AS IT IS USED BY YEOMAN TO GENERATE A NEW ROUTE!
 	
 

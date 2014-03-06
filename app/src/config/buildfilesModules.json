@@ -1046,6 +1046,23 @@
 											"admin-creation.less"
 										]
 									}
+								},
+								{
+									"name": "admin-tracker",
+									"files": {
+										"html": [
+											"admin-tracker.html"
+										],
+										"js": [
+											"AdminTrackerCtrl.js"
+										],
+										"testUnit": [
+											"AdminTrackerCtrl.spec.js"
+										],
+										"less": [
+											"admin-tracker.less"
+										]
+									}
 								}
 							]
 						},
