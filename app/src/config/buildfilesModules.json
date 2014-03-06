@@ -1133,6 +1133,23 @@
 									"documents.less"
 								]
 							}
+						},
+						{
+							"name": "bestof",
+							"files": {
+								"html": [
+									"bestof.html"
+								],
+								"js": [
+									"BestofCtrl.js"
+								],
+								"testUnit": [
+									"BestofCtrl.spec.js"
+								],
+								"less": [
+									"bestof.less"
+								]
+							}
 						}
 					]
 				}

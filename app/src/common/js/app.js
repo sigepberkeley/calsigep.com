@@ -345,13 +345,6 @@ $routeProvider.when(appPathRoute+'module-tracker', {templateUrl: pagesPath+'/mod
 			}
 		}
 	});
-$routeProvider.when(appPathRoute+'module-tracker', {templateUrl: pagesPath+'/module-tracker/module-tracker.html',
-		resolve: {
-			auth: function(appAuth) {
-				return appAuth.checkSess({});
-			}
-		}
-	});
 $routeProvider.when(appPathRoute+'documents', {templateUrl: pagesPath+'/documents/documents.html',
 		resolve: {
 			auth: function(appAuth) {
@@ -360,6 +353,13 @@ $routeProvider.when(appPathRoute+'documents', {templateUrl: pagesPath+'/document
 		}
 	});
 $routeProvider.when(appPathRoute+'admin-tracker', {templateUrl: pagesPath+'admin/admin-tracker/admin-tracker.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
+$routeProvider.when(appPathRoute+'bestof', {templateUrl: pagesPath+'/bestof/bestof.html',
 		resolve: {
 			auth: function(appAuth) {
 				return appAuth.checkSess({});

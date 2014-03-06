@@ -71,13 +71,14 @@ angular.module('myApp').controller('ModuleTrackerCtrl', ['$scope', '$timeout', '
 	};
 
 	$scope.formValsSelected = function(){
-		$scope.formVals.dateToReadUpTo = moment($scope.optsData.startDate);
-		console.log($scope.formVals.dateToReadUpTo);
-		$scope.formVals.dateToReadUpTo.add('weeks', $scope.formVals.status_week);
-		$scope.formVals.dateToReadUpTo.add('days', 1);
-		console.log($scope.formVals.dateToReadUpTo);
+		var dateToReadUpTo = $scope.optsData.startDate;
+		console.log(dateToReadUpTo.format('YYYY-MM-DD'));
+		dateToReadUpTo = dateToReadUpTo.add('weeks', $scope.formVals.status_week);
+		console.log(dateToReadUpTo.format('YYYY-MM-DD'));
+		dateToReadUpTo.add('days', 1);
+		console.log(dateToReadUpTo.format('YYYY-MM-DD'));
 		var data = {
-			date_max:$scope.formVals.dateToReadUpTo,
+			date_max:dateToReadUpTo.format('YYYY-MM-DD'),
 			challenge_name: $scope.formVals.development_module
 		};
 
