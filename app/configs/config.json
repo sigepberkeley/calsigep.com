@@ -14,7 +14,7 @@
 	"platform":"",
 	"server": {
 		"domain": "localhost",
-		"port": 3000,
+		"port": 9001,
 		"httpsPort": 443,
 		"socketPort": 3001,
 		"serverPath": "/",

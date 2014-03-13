@@ -1150,6 +1150,23 @@
 									"bestof.less"
 								]
 							}
+						},
+						{
+							"name": "roster",
+							"files": {
+								"html": [
+									"roster.html"
+								],
+								"js": [
+									"RosterCtrl.js"
+								],
+								"testUnit": [
+									"RosterCtrl.spec.js"
+								],
+								"less": [
+									"roster.less"
+								]
+							}
 						}
 					]
 				}
