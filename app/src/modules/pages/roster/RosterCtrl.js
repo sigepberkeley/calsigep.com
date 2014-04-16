@@ -11,10 +11,27 @@ function($scope, appHttp) {
  *  the ng-repeat directive to build the actual roster. 
  */
 
- /**
-  *  Backend calls
-  *  users stores array of user objects from the database
-  */
+/**
+ *  userIterator returns an array of a specific piece of information on each user.
+ *  @param users is an array of individuals with profiles on the website.
+ *  @param param is the field for each user of which an array will be made.
+ */
+
+
+function formatUsers(users) {
+	var user;
+	for (var i = 0; i < users.length; i++) {
+		user = users[i];
+		if (user.position == "Position" || user.position === undefined) {
+			user.position_hide = true;
+		}
+	}
+	return users;
+}
+/**
+ *  Backend calls
+ *  users stores array of user objects from the database
+ */
 	var params = {'fields': {}};
 
 	params.searchString = 'undergrad';
@@ -23,10 +40,10 @@ function($scope, appHttp) {
 
 	var promise1 = appHttp.go({}, {url:'user/search', data:params}, {});
 		promise1.then(function(response) {
-			$scope.users = response.result.results;		
+			$scope.users = formatUsers(response.result.results);		
 	});
 
-	
+
 
 
 }]);
