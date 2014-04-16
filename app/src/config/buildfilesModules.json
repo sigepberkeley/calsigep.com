@@ -1167,6 +1167,23 @@
 									"roster.less"
 								]
 							}
+						},
+						{
+							"name": "bms",
+							"files": {
+								"html": [
+									"bms.html"
+								],
+								"js": [
+									"BmsCtrl.js"
+								],
+								"testUnit": [
+									"BmsCtrl.spec.js"
+								],
+								"less": [
+									"bms.less"
+								]
+							}
 						}
 					]
 				}
