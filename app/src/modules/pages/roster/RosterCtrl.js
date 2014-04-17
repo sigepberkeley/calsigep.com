@@ -25,7 +25,9 @@ function formatUsers(users) {
 		if (user.position == "Position" || user.position === undefined) {
 			user.position_hide = true;
 		}
-		user.dev_challenge = user.dev_challenge.charAt(0).toUpperCase() + user.dev_challenge.slice(1);
+		if (user.dev_challenge) {
+			user.dev_challenge = user.dev_challenge.charAt(0).toUpperCase() + user.dev_challenge.slice(1);
+		}
 	}
 	return users;
 }
