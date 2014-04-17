@@ -6,10 +6,10 @@
 
 		<a class='roster-row inline-block margin-small-lr margin-tb' ng-repeat='user in users' ng-href='{{appPathLink + "brother-info?id=" + user._id}}'>
 
-			<div>{{user.first_name}} {{user.last_name}}, {{user.year}}</div>
-			<div>{{user.dev_challenge &nbsp;}}</div>
-			<div>{{user.email &nbsp;}}</div>
-			<div>{{user.phone.number &nbsp;}}</div>
+			<div class='roster-text'>{{user.first_name}} {{user.last_name}}, {{user.year}}</div>
+			<div class='roster-text'>{{user.dev_challenge &nbsp;}}</div>
+			<div class='roster-text'>{{user.email &nbsp;}}</div>
+			<div class='roster-text'>{{user.phone.number &nbsp;}}</div>
 
 		</a>
 
