@@ -4,14 +4,14 @@
 
 	<div class='roster'>
 
-		<div class='roster-row inline-block' ng-repeat='user in users'>
+		<a class='roster-row inline-block' ng-repeat='user in users' ng-href='{{appPathLink + "brother-info?id=" + user._id}}'>
 
 			<div>{{user.first_name}} {{user.last_name}}, {{user.year}}</div>
 			<div>{{user.dev_challenge}}</div>
 			<div>{{user.email}}</div>
 			<div>{{user.phone.number}}</div>
 
-		</div>
+		</a>
 
 	</div>
 
