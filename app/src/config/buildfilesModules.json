@@ -1184,6 +1184,23 @@
 									"bms.less"
 								]
 							}
+						},
+						{
+							"name": "brother-info",
+							"files": {
+								"html": [
+									"brother-info.html"
+								],
+								"js": [
+									"BrotherInfoCtrl.js"
+								],
+								"testUnit": [
+									"BrotherInfoCtrl.spec.js"
+								],
+								"less": [
+									"brother-info.less"
+								]
+							}
 						}
 					]
 				}
