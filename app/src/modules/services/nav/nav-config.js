@@ -235,9 +235,14 @@ var inst ={
 					href: this.paths.appPathLink+'profile'
 				},
 				{
+					html: "Roster",
+					href: this.paths.appPathLink+'roster'
+				},
+				{
 					html: "Admin",
 					href: this.paths.appPathLink+'admin-portal'
 				}
+
 			]
 		};
 		//hardcoded array indices for use to change these buttons later
@@ -247,7 +252,8 @@ var inst ={
 			documents:2,
 			devgoals:3,
 			profile:4,
-			adminportal:5
+			roster:5,
+			adminportal:6
 		};
 		
 		this.components.defaultNav ={
@@ -406,6 +412,16 @@ var inst ={
 			cont: 'selected'
 		};
 		
+
+		//roster
+		this.pages.roster =jrgArray.copy(this.components.membersNav);
+		this.pages.roster.header.links[this.components.headerMembersIndices.roster].classes ={
+			cont: 'selected'
+		};
+
+		//brother-info
+		this.pages.brotherinfo =jrgArray.copy(this.components.membersNav);
+
 		//admin
 		this.pages.adminportal =jrgArray.copy(this.components.membersNav);
 		this.pages.adminportal.header.links[this.components.headerMembersIndices.adminportal].classes ={

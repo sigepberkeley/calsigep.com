@@ -20,6 +20,7 @@ function($scope, appHttp) {
 
 function formatUsers(users) {
 	var user;
+	//users.push({first_name: "Testman III"}); // For testing purposes ONLY
 	for (var i = 0; i < users.length; i++) {
 		user = users[i];
 		if (user.position == "Position" || user.position === undefined) {
