@@ -28,7 +28,7 @@ function formatUsers(users) {
 		if (user.dev_challenge) {
 			user.dev_challenge = user.dev_challenge.charAt(0).toUpperCase() + user.dev_challenge.slice(1);
 		}
-		if (user.phone.number && user.phone.number.length === 10) {
+		if (user.phone && user.phone.number && user.phone.number.length === 10) {
 			user.phone.number = "(" + user.phone.number.slice(0,3) + ") " + user.phone.number.slice(3,6) + "-" + user.phone.number.slice(6,10);
 		}
 	}
