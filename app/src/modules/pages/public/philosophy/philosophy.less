@@ -1,11 +1,32 @@
 /* philosophy */
 
+/*body {
+  background: url("https://uncrated.files.wordpress.com/2013/04/british_museum_an00396999.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-height:100%;
+  background-color:black;
+}*/
 
+body {
+background: rgb(246,243,247); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(246,243,247,1) 0%, rgba(230,216,216,1) 98%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(246,243,247,1)), color-stop(98%,rgba(230,216,216,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(246,243,247,1) 0%,rgba(230,216,216,1) 98%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(246,243,247,1) 0%,rgba(230,216,216,1) 98%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(246,243,247,1) 0%,rgba(230,216,216,1) 98%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(246,243,247,1) 0%,rgba(230,216,216,1) 98%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f3f7', endColorstr='#e6d8d8',GradientType=0 ); /* IE6-9 */
 
+background-attachment: fixed;
+}
 
 .philosophy {
-	max-width:650px;
+	max-width:800px;
 	margin:0 auto;
+
 }
 
 .philosophy-image-left
@@ -34,9 +55,10 @@
 
 .philosophy-text
 {
-	font: 22px/1.25 "Calisto MT", "Bookman Old Style";
-	padding-bottom: 5px;
-	padding-top: 5px;
+	font: 16pt "Calisto MT", "Bookman Old Style";
+	padding-bottom: 10px;
+	padding-top: 10px;
+	line-height:125%;
 }
 
 .philosophy-header
@@ -44,6 +66,8 @@
 	text-align: center;
 	padding-top:15px;
 	padding-bottom:5px;
+	font-size:50px;
+	line-height:125%;
 }
 
 @media (max-width: 800px)
