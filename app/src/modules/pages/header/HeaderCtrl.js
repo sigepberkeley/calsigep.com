@@ -75,6 +75,7 @@ angular.module('myApp').controller('HeaderCtrl', ['$scope', 'appNav', 'appConfig
 		@param {Boolean} loggedIn true if logged in
 	*/
 	function navLoginUpdate(nav, params) {
+		/*
 		if(params.loggedIn) {		//show logout button
 			nav.header.buttons.right[0] ={
 				icon: 'fa fa-sign-out',
@@ -89,6 +90,7 @@ angular.module('myApp').controller('HeaderCtrl', ['$scope', 'appNav', 'appConfig
 				href: $scope.appPathLink+'login'
 			};
 		}
+		*/
 		return nav;
 	}
 	
