@@ -1,6 +1,7 @@
 # sigep
 
 ## Demo
+NOTE: replace all 'http' with 'https' if using 'https' (set in `config.json`)
 - [Website](http://198.199.118.44:3000/)
 - [Continuous Integration](http://198.199.118.44:3010/)
 	- This automatically deploys and tests the yeoman generated mean-seed website on each Github push (from local development)
@@ -22,11 +23,11 @@
 	1. `npm install && bower install` (if not already run successfully by Yeoman or any time `package.json` or `bower.json` change)
 		1. If any bower issues (sometimes 1 or more packages will timeout), just re-run `bower update && bower install`
 		2. If any npm issues, run `npm cache clean` (and optionally delete the troublesome package folders from the `node_modules` folder) then re-run `npm install`
-	2. `./node_modules/protractor/bin/install_selenium_standalone` (if not already run successfully by Yeoman)
+	2. `./node_modules/protractor/bin/webdriver-manager update` (if not already run successfully by Yeoman)
 	3. `grunt q` to build assets (if not already run successfully by Yeoman and any time a `*.less` (or `*.scss`) or `*.html` file changes)
 3. start server and view app
 	1. `node run.js` to start node server (make sure MongoDB is already running first)
-	2. open a browser to `http://localhost:3000/` to view the site/app
+	2. open a browser to `http://localhost:3000/` (or `https://localhost:3000/` if using https) to view the site/app
 4. run tests
 	1. `grunt`
 5. (optional) Git remote (should have already been init'ed and commit'ed automatically)
