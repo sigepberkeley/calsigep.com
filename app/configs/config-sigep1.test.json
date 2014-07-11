@@ -24,7 +24,7 @@
 		"socketIOEnabled": true,
 		"_socketPort": 3006,
 		"_socketPortComment": "Must be same port with express?",
-		"socketPort": 3005,
+		"socketPort": 3006,
 		"serverPath": "/",
 		"appPath": "/",
 		"staticFilePath": "/src/",
