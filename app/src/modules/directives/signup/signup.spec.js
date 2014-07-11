@@ -15,9 +15,10 @@ describe('appSignup', function () {
 	}));
 	
 	afterEach(function() {
-		$httpBackend.flush();		//twitter requestToken
-		$httpBackend.verifyNoOutstandingExpectation();
-		$httpBackend.verifyNoOutstandingRequest();
+		// removed social login
+		// $httpBackend.flush();		//twitter requestToken
+		// $httpBackend.verifyNoOutstandingExpectation();
+		// $httpBackend.verifyNoOutstandingRequest();
 	});
 	
 	/**
