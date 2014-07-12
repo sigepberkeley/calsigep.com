@@ -2,18 +2,16 @@
 @class socialAuth
 
 @toc
-1. data
-2. checkAuthGoogle
+//1. data
+//2. checkAuthGoogle
 //3. checkAuthFacebook
 */
 
 'use strict';
 
 angular.module('app').
-// factory('appSocialAuth', ['appHttp', 'appConfig', '$rootScope', '$q', 'jrgGoogleAuth', 'jrgFacebookAuth', 'UserModel', '$timeout', 
-// function(appHttp, appConfig, $rootScope, $q, jrgGoogleAuth, jrgFacebookAuth, UserModel, $timeout) {
-factory('appSocialAuth', ['appHttp', 'appConfig', '$rootScope', '$q', 'jrgGoogleAuth', 'UserModel', '$timeout', 
-function(appHttp, appConfig, $rootScope, $q, jrgGoogleAuth, UserModel, $timeout) {
+factory('appSocialAuth', ['appHttp', 'appConfig', '$rootScope', '$q', 'jrgGoogleAuth', 'jrgFacebookAuth', 'UserModel', '$timeout',
+function(appHttp, appConfig, $rootScope, $q, jrgGoogleAuth, jrgFacebookAuth, UserModel, $timeout) {
 var inst ={
 
 	/**
@@ -23,12 +21,11 @@ var inst ={
 		google: {
 			access_token: false,
 			google_id: false
+		},
+		facebook: {
+			access_token: false,
+			facebook_id: false
 		}
-		// },
-		// facebook: {
-			// access_token: false,
-			// facebook_id: false
-		// }
 	},
 	
 	/**
@@ -87,7 +84,7 @@ var inst ={
 		}
 		
 		return deferred.promise;
-	}
+	},
 	
 	/**
 	Wraps jrgFacebookAuth service to check if user is already authenticated by facebook and if not, authenticate them. Either way, return a promise with the facebook authentication information upon completion
@@ -106,7 +103,6 @@ var inst ={
 			//handle error here
 		});
 	*/
-	/*
 	checkAuthFacebook: function(opts) {
 		var thisObj =this;
 		var deferred =$q.defer();
@@ -122,11 +118,13 @@ var inst ={
 				var evtFBLogin ="evtFBLogin";
 				jrgFacebookAuth.login({'callback':{'evtName':evtFBLogin, 'args':[]} });
 				
-				// @toc
-				// @method $rootScope.$on(evtFBLogin,..
-				// @param {Object} fbCookie
-					// @param {String} accessToken
-					// @param {String} userID
+				/**
+				@toc
+				@method $rootScope.$on(evtFBLogin,..
+				@param {Object} fbCookie
+					@param {String} accessToken
+					@param {String} userID
+				*/
 				$rootScope.$on(evtFBLogin, function(evt, fbCookie) {
 					//get facebook email
 					FB.api('/me', function(response) {
@@ -145,7 +143,6 @@ var inst ={
 		
 		return deferred.promise;
 	}
-	*/
 
 };
 return inst;

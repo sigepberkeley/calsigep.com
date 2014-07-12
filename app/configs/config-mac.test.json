@@ -14,17 +14,9 @@
 	"platform":"",
 	"server": {
 		"domain": "localhost",
-		"scheme": "http",
 		"port": 3005,
-		"_vanityPortStringComment": "E.g. ':3000' or blank '' for no port - set an optional 'vanityPortString' key for port 80 redirects for production sites to hide port for social logins, user communication, etc.",
-		"_httpsPort": 443,
-		"httpPort": 3007,
-		"httpRedirectPort": 3005,
-		"_httpRedirectPortComment": "set to 'false' to have no port - i.e. for production use with iptables routing",
-		"socketIOEnabled": true,
-		"_socketPort": 3006,
-		"_socketPortComment": "Must be same port with express?",
-		"socketPort": 3005,
+		"httpsPort": 443,
+		"socketPort": 3006,
 		"serverPath": "/",
 		"appPath": "/",
 		"staticFilePath": "/src/",
@@ -48,9 +40,8 @@
 	},
 	"ssl": {
 		"enabled": false,
-		"key": "/ssl/ssl.key",
-		"cert": "/ssl/ssl.crt",
-		"ca": []
+		"key": "/etc/apache2/conf.d/ssl.key",
+		"cert": "/etc/apache2/conf.d/ssl.crt"
 	},
 	"rpc": {
 		"autoDoc": true,
@@ -59,10 +50,10 @@
 	"test_coverage":{
 		"jasmine_node":{
 			"failTask": true,
-			"branches": 35,
-			"functions": 55,
-			"statements": 55,
-			"lines": 55
+			"branches": 40,
+			"functions": 60,
+			"statements": 60,
+			"lines": 60
 		},
 		"angular_karma":{
 			"branches": 85,
@@ -95,16 +86,11 @@
 	"sms":{
 	},
 	"facebook":{
-		"scope": "email,user_birthday,publish_actions",
+		"scope": "email,user_birthday",
 		"appId": "195380783916970",
-		"appSecret": "4690b0f547b8cbe114dc84abab150c10",
-		"_comment":"Make sure to CHANGE / set appId and appSecret!"
+		"appIdComment":"Make sure to CHANGE this!"
 	},
 	"twitter": {
-		"consumerKey": "4wTFTzPvchVYAECdulQBCVcpk",
-		"consumerSecret": "Sq1UeJbL4PSf5WyP6TUkAt8uFIxTFvzf2D8IBkvkZriu0WV0vr",
-		"consumerComment":"Make sure to CHANGE the key and secret!",
-		"callback_url": "http://127.0.0.1:3000/callback-twitter-auth",
 		"handle": ""
 	},
 	"google":{

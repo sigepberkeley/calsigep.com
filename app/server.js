@@ -37,10 +37,7 @@ var dependency =require('./dependency.js');
 var pathParts =dependency.buildPaths(__dirname, {});
 
 //site-specific
-var io;
 var RealtimeMod =require(pathParts.services+'realtime/realtime.js');
-
-var self;
 
 // CORS support middleware factory
 var allowCors = function(domains){
@@ -100,7 +97,6 @@ Express Server class
 @param cfg {Object} JSON configuration file
 **/
 function Server(cfg){
-	self =this;
 	var deferred = Q.defer();
 	var thisObj =this;
     this.env = cfg.env;
@@ -117,20 +113,10 @@ function Server(cfg){
 		thisObj.app = expressApp.app;
 		thisObj.server = expressApp.server;
 		thisObj.db = expressApp.db;
-		if(expressApp.httpApp !==undefined && expressApp.httpServer !==undefined) {
-			thisObj.httpApp = expressApp.httpPpp;
-			thisObj.httpServer = expressApp.httpServer;
-		}
 		
 		//site-specific
 		//set up realtime
-		var paramsRealtime ={
-			db: db
-		};
-		if(cfg.server.socketIOEnabled) {
-			paramsRealtime.io =io;
-		}
-		RealtimeMod =RealtimeMod.init(paramsRealtime);
+		RealtimeMod =RealtimeMod.init({db:db});
 		
 		deferred.resolve(thisObj);
 	}, function(err) {
@@ -153,32 +139,15 @@ Server.prototype.configure = function(cfg, db){
     // create main app/server
     var app = express();
     var server;
-	var httpApp =false, httpServer =false;
 
     if( cfg.ssl.enabled ){
-		//create http version too for redirect to https
-		httpApp =express();
-		httpServer = http.createServer(httpApp);
-		
-        var opts ={
-            key:    fs.readFileSync(__dirname+cfg.ssl.key),
-            cert:   fs.readFileSync(__dirname+cfg.ssl.cert)
-        };
-        if(cfg.ssl.ca !==undefined && cfg.ssl.ca.length >0) {
-            opts.ca =[];
-            var ss;
-            for(ss =0; ss<cfg.ssl.ca.length; ss++) {
-                opts.ca.push(fs.readFileSync(__dirname+cfg.ssl.ca[ss]));
-            }
-        }
-        server = https.createServer(opts, app);
+        server = https.createServer({
+            key:    fs.readFileSync(cfg.ssl.key),
+            cert:   fs.readFileSync(cfg.ssl.cert)
+        });
     } else {
         server = http.createServer(app);
     }
-	if(cfg.server.socketIOEnabled) {
-		io =require('socket.io');
-		io =io.listen(server);		//it's important to update / re-set io to io.listen!! otherwise all future function calls on io will be referencing the wrong object and will not work!
-	}
 
     var staticFilePath = __dirname + cfg.server.staticFilePath;
     // remove trailing slash if present
@@ -236,33 +205,11 @@ Server.prototype.configure = function(cfg, db){
 	// load routes (must be loaded after API since routes may contain catch-all route)
 	app.use( require('./routes')(cfg) );
 
-    var ret ={
+    return {
         app: app,
         server: server,
         db: db
-	};
-	if(httpApp && httpServer) {
-		//redirect all http requests to https
-		httpApp.get('*',function(req,res){
-			console.log('httpApp redirect (to https)');
-			var url1 =self.cfg.server.scheme+'://'+self.cfg.server.domain;
-			if(self.cfg.server.httpRedirectPort !==undefined) {
-				if(self.cfg.server.httpRedirectPort) {		//only add port if set; if false want NO port
-					url1 +=':'+self.cfg.server.httpRedirectPort.toString();
-				}
-			}
-			else {		//just use normal port
-				url1 +=':'+self.cfg.server.port.toString();
-			}
-			url1 +=req.url;
-			// self.cfg.server.scheme+'://'+self.cfg.server.domain+':'+self.cfg.server.port.toString()+req.url
-			res.redirect(url1);
-		});
-
-		ret.httpApp =httpApp;
-		ret.httpServer =httpServer;
-	}
-    return ret;
+    };
 };
 
 /**
@@ -272,8 +219,7 @@ Default listen callback function after server starts listening. Used when nothin
 @parm env {String} runtime environment (e.g. 'development', 'production')
 **/
 Server.prototype.defaultListenCallback = function(port, env){
-	var loc1 =self.cfg.server.scheme+'://'+self.cfg.server.domain+':'+port.toString()+'/';
-    console.log('Express server listening at '+loc1+' in '+env+' mode');
+    console.log('Express server listening on port %d in %s mode', port, env);
 };
 
 /**
@@ -291,9 +237,5 @@ Server.prototype.listen = function(callback){
     this.server.listen(port, function(){
         callback(port, env);
     });
-	
-	if(this.httpServer !==undefined && this.cfg.server.httpPort !==undefined && this.cfg.server.httpPort) {
-		this.httpServer.listen(this.cfg.server.httpPort);
-	}
 };
 

@@ -24,17 +24,20 @@ var cfgJson = grunt.config('cfgJson');
 	'staticPath': '<% print(cfgJson.server.staticPath); %>',
 	'pagesPath': 'modules/pages/',			//need to prepend staticPath for use
 	'rootPath': '/',
-	'serverUrl': "<% print(cfgJson.server.scheme); %>://<% print(cfgJson.server.domain); %>/",
-	'serverPath': "<% print(cfgJson.server.scheme); %>://<% print(cfgJson.server.domain); %>:<% print(cfgJson.server.socketPort); %>/",
-	'publicPath': "<% print(cfgJson.server.scheme); %>://<% print(cfgJson.server.domain); %>:<% print(cfgJson.server.port); %>/",		//this will be OVERWRITTEN later by the vanity port, IF set
+	//'serverUrl': "http://"+window.location.host+"/",
+	'serverUrl': "http://<% print(cfgJson.server.domain); %>/",
+	//'serverPath': "http://"+window.location.host+":<% print(cfgJson.portSocketIO); %>/",
+	'serverPath': "http://<% print(cfgJson.server.domain); %>:<% print(cfgJson.server.socketPort); %>/",
+	'publicPath': "http://<% print(cfgJson.server.domain); %>:<% print(cfgJson.server.port); %>/",
 	'homeDirectory': false,
 	'images':"common/img/",		//will have staticPath prepended to it
 	'uploads':"uploads/",		//will have appPath prepended to it
 	'ajaxUrlParts':{
-		'main':"<% print(cfgJson.server.scheme); %>://<% print(cfgJson.server.domain); %>:<% print(cfgJson.server.port); %>/"
+		//'main':"http://"+window.location.host+":<% print(cfgJson.server.port); %>/"
+		'main':"http://<% print(cfgJson.server.domain); %>:<% print(cfgJson.server.port); %>/"
 	},
 	'ajaxUrl':{
-		'api':"<% print(cfgJson.server.scheme); %>://<% print(cfgJson.server.domain); %>:<% print(cfgJson.server.port); %>/api/"
+		'api':"http://<% print(cfgJson.server.domain); %>:<% print(cfgJson.server.port); %>/api/"
 	},
 	'useCorsUrls':{
 		'all': <% print(cfgJson.cors.frontendUseCors); %>
@@ -304,11 +307,6 @@ var cfgJson = grunt.config('cfgJson');
 		
 		
 		
-		//must do AFTER cfgJson is set!
-		//use vanity port for public path IF set
-		if(this.cfgJson.server.vanityPortString !==undefined) {
-			this.dirPaths.publicPath =this.cfgJson.server.scheme+'://'+this.cfgJson.server.domain+this.cfgJson.server.vanityPortString+'/';
-		}
 		
 	};
 

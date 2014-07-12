@@ -62,7 +62,7 @@ angular.module('app').directive('appLogin', ['appConfig', function (appConfig) {
 						"<div class='jrg-forminput-submit btn btn-primary login-form-button-right' ng-click='forgotPassDtv({})' >Remind Me!</div>"+
 					"</div>"+
 					
-					//"<div app-social-auth-btn button-text='Login'></div>"+
+					"<div app-social-auth-btn button-text='Login'></div>"+
 					
 				"</form>"+
 

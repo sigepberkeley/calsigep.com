@@ -3,31 +3,22 @@ This file pairs with the nav.js file/service. This is the custom stuff - the lis
 
 Sets up the header and footer navigation buttons / displays.
 Each button generally has the following properties (but check the corresponding HTML template for a full reference)
-	- either `html` or 'icon' and 'iconHtml' of the content to display, i.e. "Title Here" or "<span class='fa fa-bell'></span>" or "&nbsp;"
+	- `html` of the content to display, i.e. "Title Here" or "<span class='fa fa-bell'></span>" or "&nbsp;"
 	- either an `href` or `click`. For the `click`, it's generally a $rootScope.$broadcast that can be listened for in the appropriate controller for that page.
 	- `classes` which is an object that has style classes to apply for different parts of the nav item (i.e. `cont` is usually the class for the outer-most container)
 		- use classes.cont ='hidden' as a special class to HIDE (display:none) the entire header and/or footer
 	
 @example
 buttons: [
-	//icon and text/html
 	{
-		icon: 'fa fa-bolt',
-		iconHtml: 'Test',
-		href: this.paths.appPathLink+'dev-test/test'
-	},
-	//html/text only
-	{
-		html: "Notifications",
+		html: "<span class='fa fa-bell'></span>",
 		href: this.paths.appPathLink+'notifications',
 		id: 'notifications'
 	},
-	//icon only
 	{
-		icon: 'fa fa-arrow-left',
+		html: "<span class='icon-calendar-17-dark'></span>",
 		click: function() { $rootScope.$broadcast('NavEventChangePage', {page:'event1'}); },
 	},
-	//NOTE: this works, but should just use icon instead of stuffing in html
 	{
 		html: "<span class='icon-tribe'></span>",
 		href: this.paths.appPathLink+'tribes'
@@ -120,8 +111,7 @@ var inst ={
 		
 		//NOTE: this references a function in THIS file/service, which is NOT what we want, we want to reference appNav SO we need to overwrite/set the historyBack function here from appNav later so this will work!
 		this.components.backButton ={
-			icon: 'fa fa-arrow-left',
-			// html: "<span class='fa fa-arrow-left'></span>",
+			html: "<span class='fa fa-arrow-left'></span>",
 			click: function() {self.historyBack({}); }
 		};
 		
@@ -140,16 +130,13 @@ var inst ={
 				],
 				right: [
 					{
-						icon: 'fa fa-sign-in',
-						iconHtml: 'Login',
+						html: "<span class='fa fa-sign-in'></span>",
 						href: this.paths.appPathLink+'login'
+					},
+					{
+						html: "<span class='fa fa-sign-out'></span>",
+						href: this.paths.appPathLink+'logout'
 					}
-					//now toggling this in HeaderCtrl based on logged in status
-					// {
-						// icon: 'fa fa-sign-out',
-						// iconHtml: 'Logout',
-						// href: this.paths.appPathLink+'logout'
-					// }
 				]
 			}
 		};
@@ -167,19 +154,12 @@ var inst ={
 					href: this.paths.appPathLink+'dev-test/socketio'
 				},
 				{
-					// html: "Design",
-					icon: 'fa fa-picture-o',
+					html: "Design",
 					href: this.paths.appPathLink+'dev-test/design'
 				},
 				{
-					// html: "Test",
-					icon: 'fa fa-bolt',
-					iconHtml: 'Test',
+					html: "Test",
 					href: this.paths.appPathLink+'dev-test/test'
-				},
-				{
-					html: "Social",
-					href: this.paths.appPathLink+'dev-test/social'
 				}
 			]
 		};
@@ -195,8 +175,8 @@ var inst ={
 					href: this.paths.appPathLink+'philosophy'
 				},
 				{
-					html: "Scholarship",
-					href: this.paths.appPathLink+'bms'
+					html: "Gallery",
+					href: this.paths.appPathLink+'gallery'
 				},
 				{
 					html: "Brothers",
@@ -215,7 +195,7 @@ var inst ={
 		//hardcoded array indices for use to change these buttons later
 		this.components.headerPublicIndices ={
 			philosophy:0,
-			bms:1,
+			gallery:1,
 			brothers:2,
 			rush:3,
 			contact:4
@@ -382,9 +362,9 @@ var inst ={
 			cont: 'selected'
 		};
 
-		//bms
-		this.pages.bms =jrgArray.copy(this.components.publicNav);
-		this.pages.bms.header.links[this.components.headerPublicIndices.bms].classes ={
+		//gallery
+		this.pages.gallery =jrgArray.copy(this.components.publicNav);
+		this.pages.gallery.header.links[this.components.headerPublicIndices.gallery].classes ={
 			cont: 'selected'
 		};
 

@@ -1,25 +1,18 @@
 'use strict';
 
 describe('appSignup', function () {
-	var elm, elmScope, $scope, $compile, $timeout, $httpBackend;
+	var elm, elmScope, $scope, $compile, $timeout;
 	
 	beforeEach(module('myApp'));
 	
-	beforeEach(inject(function(_$rootScope_, _$compile_, _$timeout_, _$httpBackend_) {
+	beforeEach(inject(function(_$rootScope_, _$compile_, _$timeout_) {
 		$compile = _$compile_;
 		$timeout = _$timeout_;
-		$httpBackend = _$httpBackend_;
 		$scope = _$rootScope_.$new();
-		
-		$httpBackend.expectPOST('/api/twitter/requestToken').respond({result: {} });
 	}));
 	
-	afterEach(function() {
-		// removed social login
-		// $httpBackend.flush();		//twitter requestToken
-		// $httpBackend.verifyNoOutstandingExpectation();
-		// $httpBackend.verifyNoOutstandingRequest();
-	});
+	// afterEach(function() {
+	// });
 	
 	/**
 	@param params
