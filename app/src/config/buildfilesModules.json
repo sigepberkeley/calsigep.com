@@ -27,10 +27,8 @@
 							"angular-animate/angular-animate.min.js",
 							"angular-cookies/angular-cookies.min.js",
 							"momentjs/min/moment.min.js",
-							"hammerjs/dist/hammer.min.js",
 							"angular-array/array.min.js",
 							"angular-string/string.min.js",
-							"angular-facebook-auth/facebook-auth.min.js",
 							"angular-google-auth/google-auth.min.js"
 						]
 					},
@@ -144,7 +142,6 @@
 					"comment": "directory paths are part of file lists/names",
 					"files": {
 						"js": [
-							"angular-hammer/angular-hammer.js",
 							"angular-socket-io/socket.js"
 						],
 						"testUnit": [
@@ -181,7 +178,6 @@
 					"files": {
 						"js": [
 							"angular-ui-bootstrap/ui-bootstrap-custom-tpls-0.4.0.min.js",
-							"facebook/facebook.all.min.js",
 							"google/gapi-plusone.min.js"
 						]
 					}
@@ -685,6 +681,45 @@
 							}
 						},
 						{
+							"name": "callback",
+							"dirs": [
+								{
+									"name": "callback-twitter-auth",
+									"files": {
+										"js": [
+											"CallbackTwitterAuthCtrl.js"
+										],
+										"html": [
+											"callback-twitter-auth.html"
+										],
+										"less": [
+											"callback-twitter-auth.less"
+										],
+										"testUnit": [
+											"CallbackTwitterAuthCtrl.spec.js"
+										]
+									}
+								},
+								{
+									"name": "callback-facebook-auth",
+									"files": {
+										"html": [
+											"callback-facebook-auth.html"
+										],
+										"js": [
+											"CallbackFacebookAuthCtrl.js"
+										],
+										"testUnit": [
+											"CallbackFacebookAuthCtrl.spec.js"
+										],
+										"less": [
+											"callback-facebook-auth.less"
+										]
+									}
+								}
+							]
+						},
+						{
 							"name": "dev-test",
 							"dirs": [
 								{
@@ -735,6 +770,23 @@
 										],
 										"less": [
 											"socketio.less"
+										]
+									}
+								},
+								{
+									"name": "social",
+									"files": {
+										"html": [
+											"social.html"
+										],
+										"js": [
+											"SocialCtrl.js"
+										],
+										"testUnit": [
+											"SocialCtrl.spec.js"
+										],
+										"less": [
+											"social.less"
 										]
 									}
 								}

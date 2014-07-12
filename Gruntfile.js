@@ -127,6 +127,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-focus');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-exit');
+	grunt.loadNpmTasks('grunt-dev-update');
 	
 
 	/**
@@ -172,7 +173,7 @@ module.exports = function(grunt) {
 		var seleniumStartupCmd =seleniumStartupParts[0];
 		var seleniumStartupArgs =seleniumStartupParts.slice(1, seleniumStartupParts.length);
 		
-		var seleniumShutdown ='http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer';
+		var seleniumShutdown ='http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer';		//do NOT need to use config server.scheme here?
 		
 		var publicPathRelativeRootNoSlash ="app/src";
 		var publicPathRelativeRoot =publicPathRelativeRootNoSlash+"/";
@@ -665,7 +666,7 @@ module.exports = function(grunt) {
 				//sometimes get EADDRINUSE error.. going to the page seems to fix it..
 				nodeShutdown: {
 					options: {
-						url: 'http://'+cfgTestJson.server.domain+':'+cfgTestJson.server.port,
+						url: cfgTestJson.server.scheme+'://'+cfgTestJson.server.domain+':'+cfgTestJson.server.port,
 						ignoreErrors: true
 					}
 				}
@@ -896,6 +897,25 @@ module.exports = function(grunt) {
 			},
 			exit: {
 				normal: {
+				}
+			},
+			devUpdate: {
+				//apparently can only check production dependencies OR dev dependencies but not both at once; so need to 2 tasks
+				prod: {
+					options: {
+						packages: {
+							devDependencies: false,
+							dependencies: true
+						}
+					}
+				},
+				dev: {
+					options: {
+						packages: {
+							devDependencies: true,
+							dependencies: false
+						}
+					}
 				}
 			}
 		});

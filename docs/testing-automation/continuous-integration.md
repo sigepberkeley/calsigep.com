@@ -1,5 +1,14 @@
 # Continuous Integration (CI)
 
+## Multiple Servers
+To deploy to multiple servers just use GIT branches (e.g. the 'master' branch for the development/staging server and 'prod' for the production server). Then set the branch appropriately in the CI and then it will only pull in updates to that branch. Code in development (master) first and then merge in to production as needed. Push to production to deploy updates to production, i.e.:
+`git checkout prod` then `git merge master` then `git push origin prod`
+NOTE: when working with a team, if you don't have the `prod` branch yet, you'll need to fetch it in locally. This isn't as simple as it probably should be but use: `git fetch -all` and then `git checkout -b prod origin/prod`. Now typing `git branch` should show you the `prod` branch.
+	- actually, SHOULD be able to just use `git checkout prod`?
+		- http://stackoverflow.com/questions/1783405/checkout-remote-git-branch
+This leaves the standard (development) workflow unchanged and allows setting up as many additional servers as needed (one per GIT branch) and only deploying to a particular server as needed (i.e. not on EVERY code change/push) BUT you still get "one command" automated deploys (everything just uses a `git push`), one per each server/environment/deploy. This keeps things simple and almost entirely in GIT.
+
+
 ## Terminology: CI vs CD
 We're really talking about and implementing Continuous Delivery (and almost Continuous Deployment as well), specific definitions below.
 
@@ -93,7 +102,6 @@ Summary: need 2 things:
 	- Concrete
 		- much simpler, smaller, and installs fine on Windows
 		- the regular one is good but doesn't seem to have auto Git web hooks built in so I used this fork instead:
-			- https://github.com/edy/concrete
-				- NOTE: the readme is now outdated as the username is 'edy' NOT 'edy-b' so for the first clone step, use: `git clone https://github.com/edy/concrete.git /path/to/concrete`
+			- https://github.com/jackrabbitsgroup/concrete
 		- NOTE: you MUST be the appropriate Linux/Ubuntu user with the GitHub credentials set up (via git config I believe?) otherwise it won't work and won't fail gracefully - it will just have a blank commit (since it couldn't pull anything due to lack of authorization) and give a breaking syntax error in git.js on commit[2].split line that cannot call method 'split' of undefined..
 		

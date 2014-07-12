@@ -195,7 +195,11 @@ var inst ={
 					href: this.paths.appPathLink+'philosophy'
 				},
 				{
+<<<<<<< HEAD
 					html: "Scholarship",
+=======
+					html: "BMS",
+>>>>>>> 0fd735ea596d1d7f896838b8a4206382fca0903c
 					href: this.paths.appPathLink+'bms'
 				},
 				{

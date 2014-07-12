@@ -46,7 +46,7 @@ angular.module('app').directive('appSignup', ['appConfig', function (appConfig) 
 					"<button class='btn btn-primary jrg-forminput-submit' type='submit' >Sign Up</button>"+
 				"</form>"+
 
-				"<div app-social-auth-btn button-text='Sign Up'></div>"+
+				//"<div app-social-auth-btn button-text='Sign Up'></div>"+
 				
 			"</div>"+
 			
