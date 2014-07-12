@@ -15,7 +15,7 @@
 			1. NOTE: karma doesn't seem to always work if install globally?? so it's in package.json now so will be installed locally (as well)
 		2. NOTE: IF new global npm packages are installed, you'll need to run this again.
 	3. Install Selenium server (for local Protractor tests, if using SauceLabs or another remote server, this can be skipped. Also NOTE this must be done AFTER `npm install` below since it requires Protractor first)
-		1. `./node_modules/protractor/bin/install_selenium_standalone`
+		1. `./node_modules/protractor/bin/webdriver-manager update`
 
 2. Create a new directory where you want your app to be and then navigate to it (with `cd`) and run yeoman generator with `yo mean-seed`
 	1. NOTE: if you're cloning / copying an EXISTING code repository, see [cloning.md](cloning.md) instead!
@@ -54,6 +54,9 @@ cp app/config-[your environment].json app/config-[your environment].test.json
 
 5. [OPTIONAL] Git add remote (should have already been git init'ed and commit'ed automatically)
 	1. (optional) add a remote: `git remote add origin [url to repository]`
+	
+	
+6. optional additional steps: see [extra-setup.md](extra-setup.md)
 
 	
 

@@ -22,7 +22,7 @@ angular.module('jrg', [
 		//services
 		'jackrabbitsgroup.angular-string',
 		'jackrabbitsgroup.angular-array',
-		'jackrabbitsgroup.angular-facebook-auth',
+		// 'jackrabbitsgroup.angular-facebook-auth',
 		'jackrabbitsgroup.angular-google-auth',
 		//directives
 		'jackrabbitsgroup.angular-forminput',
@@ -44,7 +44,6 @@ angular.module('app', [
 
 angular.module('myApp', [
 'ngRoute', 'ngSanitize', 'ngTouch', 'ngAnimate', 'ngCookies',		//additional angular modules
-'hmTouchEvents',		//hammer swipe / touch
 'ui.bootstrap',
 'btford.socket-io',
 'jrg',
@@ -132,6 +131,22 @@ config(['$routeProvider', '$locationProvider', 'appConfigProvider', '$compilePro
 		}
 	});
 	
+	//3rd party redirect/callback routes
+	$routeProvider.when(appPathRoute+'callback-twitter-auth', {templateUrl: pagesPath+'callback/callback-twitter-auth/callback-twitter-auth.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
+	$routeProvider.when(appPathRoute+'callback-facebook-auth', {templateUrl: pagesPath+'callback/callback-facebook-auth/callback-facebook-auth.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
+	
 	//dev-test
 	// $routeProvider.when(appPathRoute+'test', {templateUrl: pagesPath+'test/test.html'});
 	$routeProvider.when(appPathRoute+'dev-test/test', {templateUrl: pagesPath+'dev-test/test/test.html',
@@ -150,6 +165,13 @@ config(['$routeProvider', '$locationProvider', 'appConfigProvider', '$compilePro
 		}
 	});
 	$routeProvider.when(appPathRoute+'dev-test/socketio', {templateUrl: pagesPath+'dev-test/socketio/socketio.html',
+		resolve: {
+			auth: function(appAuth) {
+				return appAuth.checkSess({});
+			}
+		}
+	});
+	$routeProvider.when(appPathRoute+'dev-test/social', {templateUrl: pagesPath+'dev-test/social/social.html',
 		resolve: {
 			auth: function(appAuth) {
 				return appAuth.checkSess({});
