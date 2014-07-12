@@ -195,13 +195,8 @@ var inst ={
 					href: this.paths.appPathLink+'philosophy'
 				},
 				{
-<<<<<<< HEAD
 					html: "Scholarship",
-					href: this.paths.appPathLink+'BMS'
-=======
-					html: "BMS",
 					href: this.paths.appPathLink+'bms'
->>>>>>> a3e36dd0e2bcf24955795c7f446df305caa84c97
 				},
 				{
 					html: "Brothers",
@@ -220,11 +215,7 @@ var inst ={
 		//hardcoded array indices for use to change these buttons later
 		this.components.headerPublicIndices ={
 			philosophy:0,
-<<<<<<< HEAD
-			BMS:1,
-=======
 			bms:1,
->>>>>>> a3e36dd0e2bcf24955795c7f446df305caa84c97
 			brothers:2,
 			rush:3,
 			contact:4
@@ -391,15 +382,9 @@ var inst ={
 			cont: 'selected'
 		};
 
-<<<<<<< HEAD
-		//BMS
-		this.pages.BMS =jrgArray.copy(this.components.publicNav);
-		this.pages.BMS.header.links[this.components.headerPublicIndices.BMS].classes ={
-=======
 		//bms
 		this.pages.bms =jrgArray.copy(this.components.publicNav);
 		this.pages.bms.header.links[this.components.headerPublicIndices.bms].classes ={
->>>>>>> a3e36dd0e2bcf24955795c7f446df305caa84c97
 			cont: 'selected'
 		};
 
