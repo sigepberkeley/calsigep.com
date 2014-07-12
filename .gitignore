@@ -51,3 +51,9 @@ app/src/deploys
 
 # ignore uploads (i.e. images)
 app/src/common/img/images
+
+# ignore SSL / HTTPS certs
+app/ssl
+
+# ignore uploaded images
+app/src/common/img/user

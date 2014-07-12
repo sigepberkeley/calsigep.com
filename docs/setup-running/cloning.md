@@ -40,13 +40,14 @@ APP_PORT 3000
 		1. NOTE: you'll have to re-run this any time `package.json` or `bower.json` changes
 	2. `grunt q` to build assets
 		1. NOTE: you'll have to re-run this any time a `*.less` (or `_*.scss`) or `*.html` file changes
-	3. `./node_modules/protractor/bin/install_selenium_standalone` - for Protractor (local) tests
+	3. `./node_modules/protractor/bin/webdriver-manager update` - for Protractor (local) tests
 5. start server and view app
 	1. `node run.js` to start node server (make sure MongoDB is already running first)
 		1. Type `Ctrl + C` to quit/stop
 	2. open a browser to `http://APP_DOMAIN:APP_PORT/` to view the site/app
 6. run tests (and confirm they all pass!)
 	1. `grunt`
+7. optional additional steps: see [extra-setup.md](extra-setup.md)
 
 
 
