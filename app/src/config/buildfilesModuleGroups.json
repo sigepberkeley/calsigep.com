@@ -26,8 +26,7 @@
 	"testsKarmaCov": {
 		"modules":["_all"],
 		"skipModules":["build", "buildTemp", "buildTempCss", "bower.minified", "lib.minified", "bower.nonMinified", "lib.nonMinified", "test",
-			"common.js",
-			"modules.pages.dev-test.test"
+			"common.js"
 		]
 	},
 	"testsProtractor": {

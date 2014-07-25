@@ -12,10 +12,9 @@ Sets up the header and footer navigation buttons / displays.
 3. initComponents
 4. initPages
 5. updateNav
-5.1. afterNavUpdated
-5.2. broadcastNavUpdates
-5.3. updateRouteChangeCounter
-5.4. extendNav
+5.1. broadcastNavUpdates
+5.2. updateRouteChangeCounter
+5.3. extendNav
 6. getNav
 6.5. setNav
 7. getPageFromRoute
@@ -131,7 +130,8 @@ var inst ={
 		this.curPageKey =curPage;		//save
 		this.curNav =this.pages[curPage];		//save
 		
-		this.afterNavUpdated({});
+		this.broadcastNavUpdates({});
+		this.updateRouteChangeCounter({});
 		
 		//return a unique identifier for this page/view/nav (that takes into account the URL/query params)
 		var pageToReturn;
@@ -145,58 +145,7 @@ var inst ={
 	},
 	
 	/**
-	Called every time nav is updated (this.curPage is set)
 	@toc 5.1.
-	@method afterNavUpdated
-	*/
-	afterNavUpdated: function(params) {
-		if(this.curNav !==undefined) {
-			//update nav button classes pending if there's an icon, html, or both
-			var ii;
-			//header
-			if(this.curNav.header !==undefined && this.curNav.header.buttons !==undefined) {
-				//left buttons
-				if(this.curNav.header.buttons.left !==undefined) {
-					for(ii =0; ii<this.curNav.header.buttons.left.length; ii++) {
-						if(this.curNav.header.buttons.left[ii].classes ===undefined) {
-							this.curNav.header.buttons.left[ii].classes ={};
-						}
-						if(this.curNav.header.buttons.left[ii].icon !==undefined && this.curNav.header.buttons.left[ii].iconHtml ===undefined) {		//icon only
-							this.curNav.header.buttons.left[ii].classes.button ='icon-only';
-						}
-					}
-				}
-				//right buttons
-				if(this.curNav.header.buttons.right !==undefined) {
-					for(ii =0; ii<this.curNav.header.buttons.right.length; ii++) {
-						if(this.curNav.header.buttons.right[ii].classes ===undefined) {
-							this.curNav.header.buttons.right[ii].classes ={};
-						}
-						if(this.curNav.header.buttons.right[ii].icon !==undefined && this.curNav.header.buttons.right[ii].iconHtml ===undefined) {		//icon only
-							this.curNav.header.buttons.right[ii].classes.button ='icon-only';
-						}
-					}
-				}
-			}
-			//footer
-			if(this.curNav.footer !==undefined && this.curNav.footer.buttons !==undefined) {
-				for(ii =0; ii<this.curNav.footer.buttons.length; ii++) {
-					if(this.curNav.footer.buttons[ii].classes ===undefined) {
-						this.curNav.footer.buttons[ii].classes ={};
-					}
-					if(this.curNav.footer.buttons[ii].icon !==undefined && this.curNav.footer.buttons[ii].iconHtml ===undefined) {		//icon only
-						this.curNav.footer.buttons[ii].classes.button ='icon-only';
-					}
-				}
-			}
-		}
-		
-		this.broadcastNavUpdates({});
-		this.updateRouteChangeCounter({});
-	},
-	
-	/**
-	@toc 5.2.
 	@method broadcastNavUpdates
 	*/
 	broadcastNavUpdates: function(params) {
@@ -207,7 +156,7 @@ var inst ={
 	},
 	
 	/**
-	@toc 5.3.
+	@toc 5.2.
 	@method updateRouteChangeCounter
 	*/
 	updateRouteChangeCounter: function(params) {
@@ -220,13 +169,14 @@ var inst ={
 	},
 	
 	/**
-	@toc 5.4.
+	@toc 5.3.
 	@method extendNav
 	*/
 	/*
 	extendNav: function(newNavParts, params) {
 		this.curNav =angular.extend(this.curNav, newNavParts);
-		this.afterNavUpdated({});
+		this.broadcastNavUpdates({});
+		this.updateRouteChangeCounter({});
 	},
 	*/
 	
@@ -244,7 +194,8 @@ var inst ={
 	*/
 	setNav: function(newNav, params) {
 		this.curNav =newNav;
-		this.afterNavUpdated({});
+		this.broadcastNavUpdates({});
+		this.updateRouteChangeCounter({});
 	},
 	
 	/**

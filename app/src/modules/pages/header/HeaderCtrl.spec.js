@@ -14,7 +14,6 @@ describe('HeaderCtrl', function(){
 		};
 	}));
 	
-	/*
 	it('should be called and set nav', function() {
 		appNav.updateNav({urlInfo: {page:'home'} });
 		createController();
@@ -41,5 +40,4 @@ describe('HeaderCtrl', function(){
 		$scope.$emit('appNavHeaderUpdate', {nav: nav});
 		expect($scope.classes.cont).toBe(nav.header.classes.cont);
 	});
-	*/
 });

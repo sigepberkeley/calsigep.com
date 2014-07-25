@@ -5,7 +5,7 @@ NOTE: this currently relies on global.cfgJson to exist and be set correctly
 NOTE: make sure to include the socket.io client side script on the frontend (i.e. in index.html), i.e. (for grunt templated version)
 <%
 var cfgJson = grunt.config('cfgJson');
-    print('\t<script type="text/javascript" src="'+cfgJson.server.scheme+'://'+cfgJson.server.domain+':'+cfgJson.server.socketPort+'/socket.io/socket.io.js"></script>\n');
+    print('\t<script type="text/javascript" src="http://'+cfgJson.server.domain+':'+cfgJson.server.socketPort+'/socket.io/socket.io.js"></script>\n');
 %>
 
 NOTE: use `socket.broadcast.emit` to send to everyone BUT the self (the incoming socket) and `socket.emit` to send to just self (the incoming socket). Use both together to send to EVERYONE (self and all others). `io.sockets.emit` will also send to EVERYONE (in just one call instead of two) BUT may not stay within namespace / `io.of` for a particular channel?
@@ -55,8 +55,7 @@ public methods
 
 var cfg =global.cfgJson;
 
-// var io =require('socket.io').listen(cfg.server.socketPort);		// for npm, otherwise use require('./path/to/socket.io')
-var io;
+var io =require('socket.io').listen(cfg.server.socketPort);		// for npm, otherwise use require('./path/to/socket.io')
 var Q = require('q');
 
 var dependency =require('../../../dependency.js');
@@ -77,33 +76,28 @@ function Realtime(opts) {
 @toc 1.
 @param {Object} opts
 	@param {Object} db
-	@param {Object} io Socket.io io.listen object
 */
 Realtime.prototype.init =function(opts) {
 	db =opts.db;
 
-	if(opts.io !==undefined) {
-		io =opts.io;
+	/**
+	@toc 1.1.
+	*/
+	io.of('/test').on('connection', function(socket) {
+		console.log("socket connected on '/test' channel");
+		socket.emit('connect', { });
 		
-		/**
-		@toc 1.1.
-		*/
-		io.of('/test').on('connection', function(socket) {
-			console.log("socket connected on '/test' channel");
-			socket.emit('connect', { });
+		socket.on('doStuff', function (data) {
+			console.log('doStuff..');
+			var ret ={'msg':'', 'valid':1, data: data, dataStringify: 'You sent: '+JSON.stringify(data)};
+			socket.broadcast.emit('doStuff', ret);		//emit to everyone else
+			socket.emit('doStuff', ret);		//emit to self
 			
-			socket.on('doStuff', function (data) {
-				console.log('doStuff..');
-				var ret ={'msg':'', 'valid':1, data: data, dataStringify: 'You sent: '+JSON.stringify(data)};
-				socket.broadcast.emit('doStuff', ret);		//emit to everyone else
-				socket.emit('doStuff', ret);		//emit to self
-				
-				self.testTriggerEvent(db, {socket: socket}, {});
-			});
+			self.testTriggerEvent(db, {socket: socket}, {});
 		});
+	});
 
-		console.log('Realtime inited');
-	}
+	console.log('Realtime inited');
 };
 
 /*
