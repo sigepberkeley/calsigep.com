@@ -96,9 +96,21 @@ angular.module('app').directive('appNavHeaderPublic', ['appConfig', function (ap
 				$scope.visible.menu =!$scope.visible.menu;
 			};
 			$scope.turnOffMenu =function(params) {
-				setTimeout(2000);
+				delay(200);
 				$scope.visible.menu =false;
 			};
+
+			function delay(ms) {
+        var cur_d = new Date();
+        var cur_ticks = cur_d.getTime();
+        var ms_passed = 0;
+        while(ms_passed < ms) {
+            var d = new Date();  // Possible memory leak?
+            var ticks = d.getTime();
+            ms_passed = ticks - cur_ticks;
+            // d = null;  // Prevent memory leak?
+        }
+    }
 
 
 			
