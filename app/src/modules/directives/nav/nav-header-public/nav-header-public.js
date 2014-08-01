@@ -96,6 +96,7 @@ angular.module('app').directive('appNavHeaderPublic', ['appConfig', function (ap
 				$scope.visible.menu =!$scope.visible.menu;
 			};
 			$scope.turnOffMenu =function(params) {
+				setTimeout(2000);
 				$scope.visible.menu =false;
 			};
 
