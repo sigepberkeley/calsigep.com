@@ -40,6 +40,7 @@ describe("E2E: Testing Routes", function() {
 		// ptor.waitForAngular();		//trying to get PhantomJS browser to work.. Angular is not defined/ready yet?..
 	});
 
+	/*
 	it('should jump to the default page path when / is accessed', function() {
 		ptor.get('/');
 		expect(ptor.getCurrentUrl()).toContain('/'+defaultPage);
@@ -68,24 +69,6 @@ describe("E2E: Testing Routes", function() {
 		ptor.get('/signup');
 		expect(ptor.getCurrentUrl()).toContain("/signup");
 		
-		/*
-		//outdated now that have both login and signup pages separately
-		
-		//click button to go to sign up
-		// var ele =ptor.findElement(protractor.By.css('.login-signup .btn-link:nth-child(1)'));		//doesn't work - eq() is different than css selectors and handles this?
-		// var ele =ptor.findElement(protractor.By.css('.login-signup .btn-link'));
-		// var ele =ptor.findElement(protractor.By.css('.login-signup div:nth-child(1) div:nth-child(2) .btn-link'));		//doesn't work - wtf??
-		// var ele =ptor.findElement(protractor.By.css('.login-signup > div:nth-child(1) > div:nth-last-child(1) .btn-link'));		//works... apparently only (1) works for nested nth-child or nth-last-child?? wtf?
-		// var ele =ptor.findElement(protractor.By.xpath("/div[@class='login-signup']/div[1]/div[2]/*[@class='btn-link']"));
-		// var ele =ptor.findElement(protractor.By.xpath("//div[@class='login-signup']/div[1]/div[2]"));
-		// var ele =ptor.findElement(protractor.By.xpath("/html/body/div/div/div/div/div[1]/div[2]/span[@class='btn-link']"));
-		// var ele =ptor.findElement(protractor.By.xpath("/html/body/div/div/div/div[contains(concat(' ', @class, ' '), ' login-signup ')]/div[1]/div[2]/*[@class='btn-link']"));
-		// var ele =ptor.findElement(protractor.By.xpath("//div[contains(concat(' ', @class, ' '), ' login-signup ')]/div[1]/div[2]/*[@class='btn-link']"));
-		var ele =ptor.findElement(protractor.By.xpath("//div["+hasClass('login-signup')+"]/div[1]/div[2]/*[@class='btn-link']"));
-		expect(ele.getText()).toContain('Sign Up');
-		ele.click();
-		*/
-		
 		//fill in signup form
 		var formSelector ='.signup-form form';
 		ptor.findElement(protractor.By.css(formSelector+' .jrg-forminput-cont:nth-child(1) input')).sendKeys(user1.name);
@@ -107,6 +90,7 @@ describe("E2E: Testing Routes", function() {
 		ptor.get('/user-delete');
 		expect(ptor.getCurrentUrl()).toContain("/"+defaultPage);		//should go to default page after logout is complete
 	});
+	*/
 	
 	/*
 	//now deleting user, which will call logout automatically
