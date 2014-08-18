@@ -191,9 +191,10 @@ var inst ={
 			template: this.paths.templates.headerPublic,
 			links: [
 				{
-					html: "Philosophy",
-					href: this.paths.appPathLink+'philosophy'
+					html: "Rush",
+					href: this.paths.appPathLink+'rush'
 				},
+
 				{
 					html: "Scholarship",
 					href: this.paths.appPathLink+'bms'
@@ -203,8 +204,8 @@ var inst ={
 					href: this.paths.appPathLink+'brothers'
 				},
 				{
-					html: "Rush",
-					href: this.paths.appPathLink+'rush'
+					html: "Philosophy",
+					href: this.paths.appPathLink+'philosophy'
 				},
 				{
 					html: "Contact",
@@ -214,10 +215,10 @@ var inst ={
 		};
 		//hardcoded array indices for use to change these buttons later
 		this.components.headerPublicIndices ={
-			philosophy:0,
+			rush:0,
 			bms:1,
 			brothers:2,
-			rush:3,
+			philosophy:3,
 			contact:4
 		};
 		
