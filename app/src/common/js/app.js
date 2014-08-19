@@ -416,6 +416,6 @@ $routeProvider.when(appPathRoute+'brother-info', {templateUrl: pagesPath+'/broth
 	catch-all 'otherwise' route
 	@toc 4.
 	*/
-	$routeProvider.otherwise({redirectTo: appPathRoute+'philosophy'});
+	$routeProvider.otherwise({redirectTo: appPathRoute+'rush'});
 	
 }]);
